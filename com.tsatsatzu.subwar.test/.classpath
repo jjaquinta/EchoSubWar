@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="com/tsatsatzu/subwar/test/game/|com/tsatsatzu/subwar/test/audio/" kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.tsatsatzu.subwar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
