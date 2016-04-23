@@ -1,0 +1,1 @@
+package com.tsatsatzu.subwar.game.data;public class SWContextBean{    private String  mLastOperationMessage;    public String getLastOperationMessage()    {        return mLastOperationMessage;    }    public void setLastOperationMessage(String lastOperationMessage)    {        mLastOperationMessage = lastOperationMessage;    }}
