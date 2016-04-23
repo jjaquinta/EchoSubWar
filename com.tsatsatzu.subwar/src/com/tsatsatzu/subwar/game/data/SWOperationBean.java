@@ -4,6 +4,7 @@ public class SWOperationBean
 {
 
     public static final String ENTER_GAME = "ENTER_GAME";
+    public static final String QUERY_USER = "QUERY_USER";
     
     private String  mOperation;
     private String  mUserID;
