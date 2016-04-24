@@ -2,6 +2,12 @@ package com.tsatsatzu.subwar.game.data;
 
 public class SWPingBean
 {
+    // North = -ve Lattitude
+    // South = +ve Lattitude
+    // East = +ve Longitude
+    // West = -ve Longitude
+    // Angle 0 = North, 90 = East, 180 = South, 270 = West
+    
     public static final int LEVEL          = 0;
     public static final int UP             = 1;
     public static final int DOWN           = -1;
