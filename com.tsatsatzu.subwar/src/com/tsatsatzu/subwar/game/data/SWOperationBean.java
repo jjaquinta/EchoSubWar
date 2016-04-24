@@ -9,6 +9,9 @@ public class SWOperationBean
     public static final String SET_USER_DETAILS = "SET_USER_DETAILS";
     public static final String MOVE = "MOVE";
     
+    public static final int TEST_CLEAR_USER = 0;
+    public static final int TEST_RESET_SEED = 1;
+    
     public static final int NORTH = SWPingBean.NORTH;
     public static final int SOUTH = SWPingBean.SOUTH;
     public static final int EAST = SWPingBean.EAST;

@@ -14,7 +14,13 @@ public class MoveTest extends BaseTest
     public void test()
     {
         SWOperationBean op = getOperation(SWOperationBean.TEST);
+        op.setInt1(SWOperationBean.TEST_CLEAR_USER);
         SWContextBean context = SubWarGameAPI.invoke(op);
+        assertNull(context.getLastOperationError());
+
+        op = getOperation(SWOperationBean.TEST);
+        op.setInt1(SWOperationBean.TEST_RESET_SEED);
+        context = SubWarGameAPI.invoke(op);
         assertNull(context.getLastOperationError());
 
         op = getOperation(SWOperationBean.QUERY_USER);
