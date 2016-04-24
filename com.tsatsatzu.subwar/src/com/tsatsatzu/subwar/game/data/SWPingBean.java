@@ -42,6 +42,7 @@ public class SWPingBean
             13*COMPASS_ANGLE,
             14*COMPASS_ANGLE,
             15*COMPASS_ANGLE,
+            16*COMPASS_ANGLE,
     };
     public static final String[] DIRECTIONS = {
             "",
@@ -71,17 +72,35 @@ public class SWPingBean
 
     public static double directionToAngle(int direction)
     {
-        throw new IllegalStateException("need to recover code");
+        return ANGLES[direction];
     }
 
-    public static double deltaToAngle(int i, int j)
+    public static double deltaToAngle(int deltaLongitude, int deltaLattitude)
     {
-        throw new IllegalStateException("need to recover code");
+        double a = Math.atan2(deltaLongitude, -deltaLattitude);
+        a = normalizeAngle(a);
+        return a;
     }
 
     public static int angleToDirection(double a)
     {
-        throw new IllegalStateException("need to recover code");
+        a = normalizeAngle(a);
+        for (int dir = 1; dir < NORTHNORTHWEST + 1; dir++)
+        {
+            double delta = Math.abs(ANGLES[dir] - a);
+            if (delta <= COMPASS_ANGLE/2)
+                return ((dir - 1)%16) + 1;
+        }
+        throw new IllegalStateException("Could not find closest angle to "+a);
+    }
+
+    private static double normalizeAngle(double a)
+    {
+        while (a > Math.PI*2)
+            a -= Math.PI*2;
+        while (a < 0)
+            a += Math.PI*2;
+        return a;
     }
 
     // getters and setters

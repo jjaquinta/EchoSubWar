@@ -26,12 +26,12 @@ public class AngleTest
         a2 = SWPingBean.directionToAngle(dir);
         assertNearlyEquals("Delta 1, 0", a, a2);
         
-        a = SWPingBean.deltaToAngle(1, 1);
-        assertNearlyEquals("Delta 1, 1", SWPingBean.ANGLES[SWPingBean.SOUTHEAST], a);
+        a = SWPingBean.deltaToAngle(-1, 0);
+        assertNearlyEquals("Delta -1, 0", SWPingBean.ANGLES[SWPingBean.WEST], a);
         dir = SWPingBean.angleToDirection(a);
-        assertEquals("Delta 1, 1", SWPingBean.SOUTHEAST, dir);
+        assertEquals("Delta -1, 0", SWPingBean.WEST, dir);
         a2 = SWPingBean.directionToAngle(dir);
-        assertNearlyEquals("Delta 1, 1", a, a2);
+        assertNearlyEquals("Delta -1, 0", a, a2);
         
         a = SWPingBean.deltaToAngle(0, 1);
         assertNearlyEquals("Delta 0, 1", SWPingBean.ANGLES[SWPingBean.SOUTH], a);
@@ -40,6 +40,13 @@ public class AngleTest
         a2 = SWPingBean.directionToAngle(dir);
         assertNearlyEquals("Delta 0, 1", a, a2);
         
+        a = SWPingBean.deltaToAngle(0, -1);
+        assertNearlyEquals("Delta 0, -1", SWPingBean.ANGLES[SWPingBean.NORTH], a);
+        dir = SWPingBean.angleToDirection(a);
+        assertEquals("Delta 0, -1", SWPingBean.NORTH, dir);
+        a2 = SWPingBean.directionToAngle(dir);
+        assertNearlyEquals("Delta 0, -1", a, a2);
+        
         a = SWPingBean.deltaToAngle(-1, 1);
         assertNearlyEquals("Delta -1, 1", SWPingBean.ANGLES[SWPingBean.SOUTHWEST], a);
         dir = SWPingBean.angleToDirection(a);
@@ -47,12 +54,12 @@ public class AngleTest
         a2 = SWPingBean.directionToAngle(dir);
         assertNearlyEquals("Delta -1, 1", a, a2);
         
-        a = SWPingBean.deltaToAngle(-1, 0);
-        assertNearlyEquals("Delta -1, 0", SWPingBean.ANGLES[SWPingBean.WEST], a);
+        a = SWPingBean.deltaToAngle(1, 1);
+        assertNearlyEquals("Delta 1, 1", SWPingBean.ANGLES[SWPingBean.SOUTHEAST], a);
         dir = SWPingBean.angleToDirection(a);
-        assertEquals("Delta -1, 0", SWPingBean.WEST, dir);
+        assertEquals("Delta 1, 1", SWPingBean.SOUTHEAST, dir);
         a2 = SWPingBean.directionToAngle(dir);
-        assertNearlyEquals("Delta -1, 0", a, a2);
+        assertNearlyEquals("Delta 1, 1", a, a2);
         
         a = SWPingBean.deltaToAngle(-1, -1);
         assertNearlyEquals("Delta -1, -1", SWPingBean.ANGLES[SWPingBean.NORTHWEST], a);
@@ -60,13 +67,6 @@ public class AngleTest
         assertEquals("Delta -1, -1", SWPingBean.NORTHWEST, dir);
         a2 = SWPingBean.directionToAngle(dir);
         assertNearlyEquals("Delta -1, -1", a, a2);
-        
-        a = SWPingBean.deltaToAngle(0, -1);
-        assertNearlyEquals("Delta 0, -1", SWPingBean.ANGLES[SWPingBean.NORTH], a);
-        dir = SWPingBean.angleToDirection(a);
-        assertEquals("Delta 0, -1", SWPingBean.NORTH, dir);
-        a2 = SWPingBean.directionToAngle(dir);
-        assertNearlyEquals("Delta 0, -1", a, a2);
         
         a = SWPingBean.deltaToAngle(1, -1);
         assertNearlyEquals("Delta 1, -1", SWPingBean.ANGLES[SWPingBean.NORTHEAST], a);
