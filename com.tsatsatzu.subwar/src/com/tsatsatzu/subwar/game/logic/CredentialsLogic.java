@@ -26,6 +26,11 @@ public class CredentialsLogic
     
     public static String getProperty(String key, String defaultValue)
     {
+        // System properties are bound later than compiled in settings.
+        // Therefore they can be used to override the compiled settings.
+        // So we check them first.
+        if (System.getProperties().containsKey(key))
+            return System.getProperties().getProperty(key);
         // This section is synchronized to ensure that we don't double-load the values
         // in case they are called from multiple threads.
         synchronized (CredentialsLogic.class)
@@ -51,8 +56,6 @@ public class CredentialsLogic
         }
         if (mCredentials.containsKey(key))
             return mCredentials.getProperty(key);
-        if (System.getProperties().containsKey(key))
-            return System.getProperties().getProperty(key);
         return defaultValue;
     }
 
