@@ -13,9 +13,15 @@ public class SWOperationBean
     public static final int TEST_RESET_SEED = 1;
     
     public static final int NORTH = SWPingBean.NORTH;
+    public static final int NORTHWEST = SWPingBean.NORTHWEST;
+    public static final int NORTHEAST = SWPingBean.NORTHEAST;
     public static final int SOUTH = SWPingBean.SOUTH;
+    public static final int SOUTHWEST = SWPingBean.SOUTHWEST;
+    public static final int SOUTHEAST = SWPingBean.SOUTHEAST;
     public static final int EAST = SWPingBean.EAST;
     public static final int WEST = SWPingBean.WEST;
+    public static final int RAISE = 101;
+    public static final int LOWER = 102;
     
     private String  mOperation;
     private String  mUserID;

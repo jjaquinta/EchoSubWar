@@ -50,6 +50,25 @@ public class SWPingBean
             15*COMPASS_ANGLE,
             16*COMPASS_ANGLE,
     };
+    public static final int[][] DELTAS = {
+            null,
+            {0, -1},
+            null,
+            {1, -1},
+            null,
+            {1, 0},
+            null,
+            {1, 1},
+            null,
+            {0, 1},
+            null,
+            {-1, 1},
+            null,
+            {-1, 0},
+            null,
+            {-1, -1},
+            null,
+    };
     public static final String[] DIRECTIONS = {
             "",
             "NORTH",
@@ -86,6 +105,11 @@ public class SWPingBean
         double a = Math.atan2(deltaLongitude, -deltaLattitude);
         a = normalizeAngle(a);
         return a;
+    }
+
+    public static int[] directionToDelta(int dir)
+    {
+        return DELTAS[dir];
     }
 
     public static int angleToDirection(double a)

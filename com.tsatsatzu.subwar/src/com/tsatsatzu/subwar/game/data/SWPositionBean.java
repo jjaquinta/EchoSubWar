@@ -10,6 +10,15 @@ public class SWPositionBean
     private int mDepth;
     private List<SWPingBean> mSoundings = new ArrayList<>();
 
+    // utils
+    @Override
+    public String toString()
+    {
+        return mLongitude+","+mLattitude+","+mDepth;
+    }
+    
+    // getters and setters
+    
     public List<SWPingBean> getSoundings()
     {
         return mSoundings;

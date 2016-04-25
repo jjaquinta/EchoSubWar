@@ -19,12 +19,16 @@ public class AngleTest
     {
         double a, a2;
         int dir;
+        int[] delta;
         a = SWPingBean.deltaToAngle(1, 0);
         assertNearlyEquals("Delta 1, 0", SWPingBean.ANGLES[SWPingBean.EAST], a);
         dir = SWPingBean.angleToDirection(a);
         assertEquals("Delta 1, 0", SWPingBean.EAST, dir);
         a2 = SWPingBean.directionToAngle(dir);
         assertNearlyEquals("Delta 1, 0", a, a2);
+        delta = SWPingBean.directionToDelta(dir);
+        assertEquals("Delta lat", 1, delta[0]);
+        assertEquals("Delta lon", 0, delta[1]);
         
         a = SWPingBean.deltaToAngle(-1, 0);
         assertNearlyEquals("Delta -1, 0", SWPingBean.ANGLES[SWPingBean.WEST], a);
@@ -32,6 +36,9 @@ public class AngleTest
         assertEquals("Delta -1, 0", SWPingBean.WEST, dir);
         a2 = SWPingBean.directionToAngle(dir);
         assertNearlyEquals("Delta -1, 0", a, a2);
+        delta = SWPingBean.directionToDelta(dir);
+        assertEquals("Delta lat", -1, delta[0]);
+        assertEquals("Delta lon", 0, delta[1]);
         
         a = SWPingBean.deltaToAngle(0, 1);
         assertNearlyEquals("Delta 0, 1", SWPingBean.ANGLES[SWPingBean.SOUTH], a);
@@ -39,13 +46,19 @@ public class AngleTest
         assertEquals("Delta 0, 1", SWPingBean.SOUTH, dir);
         a2 = SWPingBean.directionToAngle(dir);
         assertNearlyEquals("Delta 0, 1", a, a2);
-        
+        delta = SWPingBean.directionToDelta(dir);
+        assertEquals("Delta lat", 0, delta[0]);
+        assertEquals("Delta lon", 1, delta[1]);
+
         a = SWPingBean.deltaToAngle(0, -1);
         assertNearlyEquals("Delta 0, -1", SWPingBean.ANGLES[SWPingBean.NORTH], a);
         dir = SWPingBean.angleToDirection(a);
         assertEquals("Delta 0, -1", SWPingBean.NORTH, dir);
         a2 = SWPingBean.directionToAngle(dir);
         assertNearlyEquals("Delta 0, -1", a, a2);
+        delta = SWPingBean.directionToDelta(dir);
+        assertEquals("Delta lat", 0, delta[0]);
+        assertEquals("Delta lon", -1, delta[1]);
         
         a = SWPingBean.deltaToAngle(-1, 1);
         assertNearlyEquals("Delta -1, 1", SWPingBean.ANGLES[SWPingBean.SOUTHWEST], a);
@@ -53,13 +66,19 @@ public class AngleTest
         assertEquals("Delta -1, 1", SWPingBean.SOUTHWEST, dir);
         a2 = SWPingBean.directionToAngle(dir);
         assertNearlyEquals("Delta -1, 1", a, a2);
-        
+        delta = SWPingBean.directionToDelta(dir);
+        assertEquals("Delta lat", -1, delta[0]);
+        assertEquals("Delta lon", 1, delta[1]);
+
         a = SWPingBean.deltaToAngle(1, 1);
         assertNearlyEquals("Delta 1, 1", SWPingBean.ANGLES[SWPingBean.SOUTHEAST], a);
         dir = SWPingBean.angleToDirection(a);
         assertEquals("Delta 1, 1", SWPingBean.SOUTHEAST, dir);
         a2 = SWPingBean.directionToAngle(dir);
         assertNearlyEquals("Delta 1, 1", a, a2);
+        delta = SWPingBean.directionToDelta(dir);
+        assertEquals("Delta lat", 1, delta[0]);
+        assertEquals("Delta lon", 1, delta[1]);
         
         a = SWPingBean.deltaToAngle(-1, -1);
         assertNearlyEquals("Delta -1, -1", SWPingBean.ANGLES[SWPingBean.NORTHWEST], a);
@@ -67,13 +86,19 @@ public class AngleTest
         assertEquals("Delta -1, -1", SWPingBean.NORTHWEST, dir);
         a2 = SWPingBean.directionToAngle(dir);
         assertNearlyEquals("Delta -1, -1", a, a2);
-        
+        delta = SWPingBean.directionToDelta(dir);
+        assertEquals("Delta lat", -1, delta[0]);
+        assertEquals("Delta lon", -1, delta[1]);
+
         a = SWPingBean.deltaToAngle(1, -1);
         assertNearlyEquals("Delta 1, -1", SWPingBean.ANGLES[SWPingBean.NORTHEAST], a);
         dir = SWPingBean.angleToDirection(a);
         assertEquals("Delta 1, -1", SWPingBean.NORTHEAST, dir);
         a2 = SWPingBean.directionToAngle(dir);
         assertNearlyEquals("Delta 1, -1", a, a2);
+        delta = SWPingBean.directionToDelta(dir);
+        assertEquals("Delta lat", 1, delta[0]);
+        assertEquals("Delta lon", -1, delta[1]);
     }
     @Test
     public void testDirections()
