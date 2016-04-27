@@ -1,6 +1,7 @@
 package com.tsatsatzu.subwar.game.logic.ai;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -8,6 +9,7 @@ import java.util.Random;
 import com.tsatsatzu.subwar.game.data.SWGameBean;
 import com.tsatsatzu.subwar.game.data.SWPingBean;
 import com.tsatsatzu.subwar.game.data.SWPositionBean;
+import com.tsatsatzu.subwar.game.logic.GameConstLogic;
 import com.tsatsatzu.subwar.game.logic.GameLogic;
 
 public class SimplePlayer implements IComputerPlayer
@@ -26,7 +28,7 @@ public class SimplePlayer implements IComputerPlayer
     }
 
     @Override
-    public void move(SWGameBean game, String id)
+    public void move(SWGameBean game, String id, long tick)
     {
         SimpleData data = mData.get(id);
         if (data == null)
@@ -34,28 +36,49 @@ public class SimplePlayer implements IComputerPlayer
         SWPositionBean pos = game.getShips().get(id);
         if (pos == null)
         {
-            log(data, "No position for. We must have been killed.");
+            log(data, "No position for "+id+". We must have been killed.");
             return;
         }
         log(data, "at "+pos.getLongitude()+","+pos.getLattitude()+","+pos.getDepth());
+        if (pos.getTorpedoes() == 0)
+        {
+            GameLogic.doLeaveGame(game, id);
+            return;
+        }
+        filterSoundings(pos);
         if (data.getFireDLon() != null)
-            fireTorpedo(game, pos, data);
+            fireTorpedo(game, pos, data, tick);
         else if (pos.getSoundings().size() > 0)
-            reactToSoundings(game, pos, data);
+            reactToSoundings(game, pos, data, tick);
         else if (data.getTargetDep() < 0)
-            findTarget(game, pos, data);
+            findTarget(game, pos, data, tick);
         else
-            moveToTarget(game, pos, data);
+            moveToTarget(game, pos, data, tick);
+        pos.setLastMove(tick);
+    }
+    
+    private void filterSoundings(SWPositionBean pos)
+    {
+        long cutoff = System.currentTimeMillis() - GameConstLogic.AI_MOVE_TICK;
+        for (Iterator<SWPingBean> i = pos.getSoundings().iterator(); i.hasNext(); )
+        {
+            SWPingBean ping = i.next();
+            if (ping.getType() == SWPingBean.BOOM)
+                i.remove();
+            else if (ping.getTime() < cutoff)
+                i.remove();
+        }
     }
 
-    private void reactToSoundings(SWGameBean game, SWPositionBean pos, SimpleData data)
+    private void reactToSoundings(SWGameBean game, SWPositionBean pos, SimpleData data, long tick)
     {
-        SWPingBean target = pos.getSoundings().get(0);        
-        if (data.getTargetDep() < 0)
+        SWPingBean target = pos.getSoundings().get(pos.getSoundings().size() - 1);        
+        pos.getSoundings().clear();
+        if (data.getTargetDep() != pos.getDepth())
         {
             log(data, "heard something at "+target);
             setCourseToTarget(game, pos, data, target);
-            moveToTarget(game, pos, data);
+            moveToTarget(game, pos, data, tick);
         }
         else
         {
@@ -66,31 +89,31 @@ public class SimplePlayer implements IComputerPlayer
             {
                 log(data, "heard something at "+target);
                 setCourseToTarget(game, pos, data, target);
-                moveToTarget(game, pos, data);
+                moveToTarget(game, pos, data, tick);
             }
         }
     }
 
-    private void fireTorpedo(SWGameBean game, SWPositionBean pos, SimpleData data)
+    private void fireTorpedo(SWGameBean game, SWPositionBean pos, SimpleData data, long tick)
     {
         log(data, "Firing "+data.getFireDLon()+", "+data.getFireDLat());
-        GameLogic.doTorpedo(data.getID(), game, data.getFireDLon(), data.getFireDLat());
+        GameLogic.doTorpedo(data.getID(), game, data.getFireDLon(), data.getFireDLat(), tick);
         data.setFireDLon(null);
         data.setFireDLat(null);
     }
     
-    private void findTarget(SWGameBean game, SWPositionBean pos, SimpleData data)
+    private void findTarget(SWGameBean game, SWPositionBean pos, SimpleData data, long tick)
     {
         List<SWPingBean> sounding;
         if (mRND.nextInt(3) == 2)
         {
             log(data, "pinging");
-            sounding = GameLogic.doPing(data.getID(), game);
+            sounding = GameLogic.doPing(data.getID(), game, tick);
         }
         else
         {
             log(data, "listening");
-            sounding = GameLogic.doListen(data.getID(), game);
+            sounding = GameLogic.doListen(data.getID(), game, tick);
         }
         if (sounding.size() > 0)
         {
@@ -156,41 +179,37 @@ public class SimplePlayer implements IComputerPlayer
         }
         else if ((target.getDistance() < 2*Math.sqrt(2)) && (target.getAltitude() == SWPingBean.LEVEL))
         {
-            double a = SWPingBean.directionToAngle(target.getDirection());
-            double dx = -Math.cos(a)*target.getDistance();
-            double dy = -Math.sin(a)*target.getDistance();
-            data.setFireDLon((int)Math.round(dx));
-            data.setFireDLat((int)Math.round(dy));
+            double[] delta = SWPingBean.directionToDeltaF(target.getDirection(), target.getDistance());
+            data.setFireDLon((int)delta[0]);
+            data.setFireDLat((int)delta[1]);
             log(data, "Firing "+data.getFireDLon()+","+data.getFireDLat());
         }
         else
         {
-            double a = SWPingBean.directionToAngle(target.getDirection());
-            double dx = -Math.cos(a)*target.getDistance();
-            double dy = -Math.sin(a)*target.getDistance();
-            log(data, "Bearing a="+a/Math.PI*180+", dLon="+dx+", dLat="+dy);
+            double[] delta = SWPingBean.directionToDeltaF(target.getDirection(), target.getDistance());
+            log(data, "Bearing dir="+SWPingBean.DIRECTIONS[target.getDirection()]+", dLon="+delta[0]+", dLat="+delta[1]);
             if (target.getAltitude() == SWPingBean.UP)
                 data.setTargetDep(pos.getDepth() - 1);
             else if (target.getAltitude() == SWPingBean.DOWN)
                 data.setTargetDep(pos.getDepth() + 1);
             else
                 data.setTargetDep(pos.getDepth());
-            data.setTargetLon((int)(pos.getLongitude() + dx));
-            data.setTargetLat((int)(pos.getLattitude() + dy));
+            data.setTargetLon((int)(pos.getLongitude() + delta[0]));
+            data.setTargetLat((int)(pos.getLattitude() + delta[1]));
             log(data, "moving to "+data.getTargetLon()+","+data.getTargetLat()+","+data.getTargetDep()+".");
         }
     }
 
-    private void moveToTarget(SWGameBean game, SWPositionBean pos, SimpleData data)
+    private void moveToTarget(SWGameBean game, SWPositionBean pos, SimpleData data, long tick)
     {
         int dLon = (int)Math.signum(data.getTargetLon() - pos.getLongitude());
         int dLat = (int)Math.signum(data.getTargetLat() - pos.getLattitude());
-        int dDep = (int)Math.signum(data.getTargetDep() - pos.getDepth());
+        int dDep = -(int)Math.signum(data.getTargetDep() - pos.getDepth());
         if ((dLon == 0) && (dLat == 0) && (dDep == 0))
         {   // we're at target
             log(data, "arrived at "+pos.getLongitude()+", "+pos.getLattitude()+", "+pos.getDepth()+".");
             data.setTargetDep(-1);
-            findTarget(game, pos, data);
+            findTarget(game, pos, data, tick);
         }
         else
         {

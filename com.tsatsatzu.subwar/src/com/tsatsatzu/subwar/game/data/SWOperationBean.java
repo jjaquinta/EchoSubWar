@@ -11,6 +11,7 @@ public class SWOperationBean
     
     public static final int TEST_CLEAR_USER = 0;
     public static final int TEST_RESET_SEED = 1;
+    public static final int TEST_AI_MOVE = 2;
     
     public static final int NORTH = SWPingBean.NORTH;
     public static final int NORTHWEST = SWPingBean.NORTHWEST;
@@ -29,6 +30,7 @@ public class SWOperationBean
     private String  mString1;
     private String  mString2;
     private int     mInt1;
+    private int     mInt2;
     
     public String getOperation()
     {
@@ -77,5 +79,13 @@ public class SWOperationBean
     public void setInt1(int int1)
     {
         mInt1 = int1;
+    }
+    public int getInt2()
+    {
+        return mInt2;
+    }
+    public void setInt2(int int2)
+    {
+        mInt2 = int2;
     }
 }

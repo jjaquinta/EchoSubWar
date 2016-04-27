@@ -9,6 +9,8 @@ import com.tsatsatzu.subwar.game.data.SWGameDetailsBean;
 import com.tsatsatzu.subwar.game.data.SWPingBean;
 import com.tsatsatzu.subwar.game.data.SWPositionBean;
 import com.tsatsatzu.subwar.game.data.SWUserBean;
+import com.tsatsatzu.subwar.game.logic.ai.IComputerPlayer;
+import com.tsatsatzu.subwar.game.logic.ai.SimplePlayer;
 
 public class GameLogic
 {
@@ -43,7 +45,8 @@ public class GameLogic
                     break;
             if (game == mGames.size())
                 mGames.add(newGame());
-            doJoinGame(user.getUserID(), game);
+            updateGame(mGames.get(game));
+            doJoinGame(mGames.get(game), user.getUserID());
             user.setInGame(game);
         }
         return null;
@@ -66,36 +69,161 @@ public class GameLogic
         game.setEast(GameConstLogic.GAME_WIDTH/2);
         game.setWest(-GameConstLogic.GAME_WIDTH/2);
         game.setMaxDepth(GameConstLogic.GAME_DEPTH);
+        updateGame(game);
         return game;
     }
 
-    public static void doJoinGame(String id, int idx)
+    public static void doJoinGame(SWGameBean game, String id)
     {
-        SWGameBean game = mGames.get(idx);
         synchronized (game)
         {
             SWPositionBean pos = new SWPositionBean();
             pos.setDepth(0);
             pos.setLongitude(mRND.nextInt(GameConstLogic.GAME_WIDTH/2) - GameConstLogic.GAME_WIDTH/4);
             pos.setLattitude(mRND.nextInt(GameConstLogic.GAME_HEIGHT/2) - GameConstLogic.GAME_HEIGHT/4);
+            pos.setLastMove(System.currentTimeMillis());
+            pos.setTorpedoes(GameConstLogic.MAX_TORPEDOES);
             game.getShips().put(id, pos);
         }
     }
 
-    public static void doTorpedo(String id, SWGameBean game, Integer fireDLon,
-            Integer fireDLat)
+    public static void doLeaveGame(SWGameBean game, String id)
     {
-        throw new IllegalStateException("need to recover code");
+        synchronized (game)
+        {
+            if (game.getAI().containsKey(id))
+                game.getAI().get(id).term(game, id);
+            game.getShips().remove(id);
+            game.getAI().remove(id);
+        }
     }
 
-    public static List<SWPingBean> doPing(String id, SWGameBean game)
+    public static int doTorpedo(String id, SWGameBean game, Integer fireDLon,
+            Integer fireDLat, long now)
     {
-        throw new IllegalStateException("need to recover code");
+        SWPositionBean pos = game.getShips().get(id);
+        if (pos.getTorpedoes() <= 0)
+            return 0;
+        int tLon = pos.getLongitude();
+        int tLat = pos.getLattitude();
+        for (int i = 0; i < GameConstLogic.TORPEDO_RANGE; i++)
+        {
+            tLon += fireDLon;
+            tLat += fireDLat;
+            System.out.println("Torpedo at "+tLon+","+tLat+","+pos.getDepth());
+            List<String> hits = findShipsAt(game, tLon, tLat, pos.getDepth());
+            if (hits.size() > 0)
+            {
+                System.out.println("Torpedo hits "+hits);
+                for (String hit : hits)
+                    doDie(game, hit);
+                doBoom(game, tLon, tLat, pos.getDepth(), now);
+                return hits.size();
+            }
+        }
+        System.out.println("Torpedo misses");
+        return 0;
     }
 
-    public static List<SWPingBean> doListen(String id, SWGameBean game)
+    private static List<String> findShipsAt(SWGameBean game, int tLon, int tLat, int depth)
     {
-        throw new IllegalStateException("need to recover code");
+        List<String> hits = new ArrayList<>();
+        for (String id : game.getShips().keySet())
+        {
+            SWPositionBean pos = game.getShips().get(id);
+            if ((pos.getLongitude() == tLon) && (pos.getLattitude() == tLat) && (pos.getDepth() == depth))
+                hits.add(id);
+        }
+        return hits;
+    }
+
+    private static void doDie(SWGameBean game, String id)
+    {
+        doLeaveGame(game, id);
+    }
+
+    public static void doBoom(SWGameBean game, int lon, int lat, int dep, long now)
+    {
+        for (String shipID : game.getShips().keySet())
+        {
+            SWPositionBean shipPos = game.getShips().get(shipID);
+            SWPingBean boom = makePing(shipPos, lon, lat, dep, SWPingBean.BOOM, now);
+            if (boom.getDistance() <= GameConstLogic.TORPEDO_RANGE)
+                shipPos.getSoundings().add(boom);
+        }
+    }
+
+    public static List<SWPingBean> doPing(String id, SWGameBean game, long now)
+    {
+        List<SWPingBean> pings = new ArrayList<>();
+        SWPositionBean pos = game.getShips().get(id);
+        if (pos == null)
+            return pings;
+        for (String shipID : game.getShips().keySet())
+        {
+            if (shipID.equals(id))
+                continue;
+            SWPositionBean shipPos = game.getShips().get(shipID);
+            SWPingBean ping = makePing(pos, shipPos, SWPingBean.PING, now);
+            if (ping.getDistance() <= GameConstLogic.PING_RANGE)
+            {
+                pings.add(ping);
+                SWPingBean pong = makePing(shipPos, pos, SWPingBean.PONG, now);
+                shipPos.getSoundings().add(pong);
+            }
+        }
+        return pings;
+    }
+
+    public static List<SWPingBean> doListen(String id, SWGameBean game, long now)
+    {
+        List<SWPingBean> pings = new ArrayList<>();
+        SWPositionBean pos = game.getShips().get(id);
+        if (pos == null)
+            return pings;
+        for (String shipID : game.getShips().keySet())
+        {
+            if (shipID.equals(id))
+                continue;
+            SWPositionBean shipPos = game.getShips().get(shipID);
+            SWPingBean ping = makePing(pos, shipPos, SWPingBean.LISTEN, now);
+            if (ping.getDistance() <= GameConstLogic.LISTEN_RANGE)
+                pings.add(ping);
+        }
+        return pings;
+    }
+
+    private static SWPingBean makePing(SWPositionBean pinger,
+            SWPositionBean pingee, int type, long time)
+    {
+        return makePing(pinger, pingee.getLongitude(), pingee.getLattitude(), pingee.getDepth(), type, time);
+    }
+    
+    private static SWPingBean makePing(SWPositionBean pinger,
+            int pingeeLon, int pingeeLat, int pingeeDep, int type, long time)
+    {
+        int deltaLon = pingeeLon - pinger.getLongitude();
+        int deltaLat = pingeeLat - pinger.getLattitude();
+        double a = SWPingBean.deltaToAngle(deltaLon, deltaLat);
+        int dir = SWPingBean.angleToDirection(a);
+        double dist = Math.sqrt(deltaLon*deltaLon + deltaLat*deltaLat);
+        SWPingBean ping = new SWPingBean();
+        ping.setType(type);
+        ping.setTime(time);
+        ping.setDirection(dir);
+        ping.setDistance(dist);
+        if (pinger.getDepth() < pingeeDep)
+            ping.setAltitude(SWPingBean.DOWN);
+        else if (pinger.getDepth() > pingeeDep)
+            ping.setAltitude(SWPingBean.UP);
+        else
+            ping.setAltitude(SWPingBean.LEVEL);
+        System.out.println("Pinger="+pinger.getLongitude()+","+pinger.getLattitude()
+            +", pingee="+pingeeLon+","+pingeeLat
+            +", delta="+deltaLon+","+deltaLat
+            +", a="+(int)(a*128/Math.PI)+", dir="+dir+" "+SWPingBean.DIRECTIONS[dir]
+            +", dist="+dist);
+        return ping;
     }
 
     public static String doMoveShip(String id, int dLat, int dLon, int dDep,
@@ -119,8 +247,74 @@ public class GameLogic
         return null;
     }
     
+    // AI stuff
+    
+    private static int mAICount = 0;
+    private static final String PREFIX_AI = "ai://";
+    
+    private static void updateGame(SWGameBean game)
+    {
+        long now = System.currentTimeMillis();
+        // check if no players
+        if (game.getShips().size() == game.getAI().size())
+        {
+            // just mark moved and return
+            for (String id : game.getAI().keySet())
+            {
+                SWPositionBean pos = game.getShips().get(id);
+                pos.setLastMove(now);
+            }           
+            return;
+        }
+        // check # of AIs
+        while (game.getAI().size() < GameConstLogic.MAX_AIS_PER_GAME)
+        {
+            String id = PREFIX_AI+(++mAICount);
+            doJoinGame(game, id);
+            IComputerPlayer ai = new SimplePlayer();
+            game.getAI().put(id, ai);
+            ai.init(game, id);
+        }
+        // move ships
+        for (String id : game.getAI().keySet().toArray(new String[0]))
+        {
+            IComputerPlayer ai = game.getAI().get(id);
+            if (ai == null)
+                continue; // killed
+            SWPositionBean pos = game.getShips().get(id);
+            if (pos == null)
+                ai.term(game, id);
+            else
+            {
+                long tick = pos.getLastMove() + GameConstLogic.AI_MOVE_TICK;
+                while (tick < now)
+                {
+                    ai.move(game, id, tick);
+                    tick += GameConstLogic.AI_MOVE_TICK;
+                }
+            }
+        }
+    }
+    
+    // testing stuff
+
     public static void testResetToSeed(long seed)
     {
         mRND = new Random(seed);
+    }
+
+    public static void testAIMove()
+    {
+        long tick = System.currentTimeMillis() - GameConstLogic.AI_MOVE_TICK - 1;
+        for (SWGameBean game : mGames)
+        {
+            for (String id : game.getAI().keySet())
+            {
+                SWPositionBean pos = game.getShips().get(id);
+                if (pos != null)
+                    pos.setLastMove(tick);
+            }
+            updateGame(game);
+        }
     }
 }

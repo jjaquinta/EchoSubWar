@@ -69,6 +69,26 @@ public class SWPingBean
             {-1, -1},
             null,
     };
+    public static final double[][] fDELTAS = {
+            null,
+            {0.0,-1.0},
+            {0.3826834323650898,-0.9238795325112867},
+            {0.7071067811865475,-0.7071067811865476},
+            {0.9238795325112867,-0.38268343236508984},
+            {1.0,0},
+            {0.9238795325112867,0.3826834323650897},
+            {0.7071067811865476,0.7071067811865475},
+            {0.3826834323650899,0.9238795325112867},
+            {0,1.0},
+            {-0.38268343236508967,0.9238795325112868},
+            {-0.7071067811865475,0.7071067811865477},
+            {-0.9238795325112865,0.38268343236509034},
+            {-1.0,0},
+            {-0.9238795325112866,-0.38268343236509},
+            {-0.7071067811865477,-0.7071067811865474},
+            {-0.3826834323650904,-0.9238795325112865},
+            {0.0,-1.0},
+    };
     public static final String[] DIRECTIONS = {
             "",
             "NORTH",
@@ -88,7 +108,21 @@ public class SWPingBean
             "NORTHWEST",
             "NORTHNORTHWEST",
     };
+    public static final String[] TYPES = {
+            "",
+            "LISTEN",
+            "PING",
+            "PONG",
+            "BOOM",
+    };
+    
+    public static final int LISTEN = 1;
+    public static final int PING = 2;
+    public static final int PONG = 3;
+    public static final int BOOM = 4;
 
+    private int             mType;
+    private long            mTime;
     private double          mDistance;
     private int             mAltitude;
     private int             mDirection;
@@ -112,6 +146,14 @@ public class SWPingBean
         return DELTAS[dir];
     }
 
+    public static double[] directionToDeltaF(int dir, double dist)
+    {
+        double[] delta = new double[2];
+        delta[0] = fDELTAS[dir][0]*dist;
+        delta[1] = fDELTAS[dir][1]*dist;
+        return delta;
+    }
+
     public static int angleToDirection(double a)
     {
         a = normalizeAngle(a);
@@ -131,6 +173,12 @@ public class SWPingBean
         while (a < 0)
             a += Math.PI*2;
         return a;
+    }
+    
+    @Override
+    public String toString()
+    {
+        return "["+TYPES[mType]+", dist="+mDistance+", alt="+mAltitude+", dir="+DIRECTIONS[mDirection]+", time="+mTime+"]";
     }
 
     // getters and setters
@@ -163,6 +211,26 @@ public class SWPingBean
     public void setDirection(int direction)
     {
         mDirection = direction;
+    }
+
+    public int getType()
+    {
+        return mType;
+    }
+
+    public void setType(int type)
+    {
+        mType = type;
+    }
+
+    public long getTime()
+    {
+        return mTime;
+    }
+
+    public void setTime(long time)
+    {
+        mTime = time;
     }
 
 }

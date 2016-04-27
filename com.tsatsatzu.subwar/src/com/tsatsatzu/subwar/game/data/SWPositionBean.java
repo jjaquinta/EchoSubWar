@@ -9,6 +9,8 @@ public class SWPositionBean
     private int mLattitude;
     private int mDepth;
     private List<SWPingBean> mSoundings = new ArrayList<>();
+    private long    mLastMove;
+    private int mTorpedoes;
 
     // utils
     @Override
@@ -57,5 +59,25 @@ public class SWPositionBean
     public void setDepth(int depth)
     {
         mDepth = depth;
+    }
+
+    public long getLastMove()
+    {
+        return mLastMove;
+    }
+
+    public void setLastMove(long lastMove)
+    {
+        mLastMove = lastMove;
+    }
+
+    public int getTorpedoes()
+    {
+        return mTorpedoes;
+    }
+
+    public void setTorpedoes(int torpedoes)
+    {
+        mTorpedoes = torpedoes;
     }
 }

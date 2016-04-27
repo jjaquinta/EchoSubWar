@@ -3,6 +3,8 @@ package com.tsatsatzu.subwar.game.data;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.tsatsatzu.subwar.game.logic.ai.IComputerPlayer;
+
 public class SWGameBean
 {
     private int mEast;
@@ -11,6 +13,7 @@ public class SWGameBean
     private int mSouth;
     private int mMaxDepth;
     private Map<String,SWPositionBean> mShips = new HashMap<>();
+    private Map<String,IComputerPlayer> mAI = new HashMap<>();
     
     public int getEast()
     {
@@ -59,5 +62,13 @@ public class SWGameBean
     public void setShips(Map<String, SWPositionBean> ships)
     {
         mShips = ships;
+    }
+    public Map<String, IComputerPlayer> getAI()
+    {
+        return mAI;
+    }
+    public void setAI(Map<String, IComputerPlayer> aI)
+    {
+        mAI = aI;
     }
 }
