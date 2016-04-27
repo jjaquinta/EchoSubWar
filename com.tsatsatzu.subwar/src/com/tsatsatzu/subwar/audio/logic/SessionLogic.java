@@ -6,8 +6,6 @@ import java.util.Map;
 import com.tsatsatzu.subwar.audio.data.SWInvocationBean;
 import com.tsatsatzu.subwar.audio.data.SWSessionBean;
 import com.tsatsatzu.subwar.audio.data.SWStateBean;
-import com.tsatsatzu.subwar.game.api.SubWarGameAPI;
-import com.tsatsatzu.subwar.game.data.SWContextBean;
 import com.tsatsatzu.subwar.game.data.SWOperationBean;
 import com.tsatsatzu.subwar.game.data.SWUserBean;
 import com.tsatsatzu.subwar.game.logic.IOLogic;
@@ -22,18 +20,17 @@ public class SessionLogic
         SWInvocationBean invocation = new SWInvocationBean();
         invocation.setSession(ssn);
 
-        SWOperationBean op = new SWOperationBean();
-        op.setOperation(SWOperationBean.QUERY_USER);
-        op.setUserID(ssn.getUserID());
-        op.setCredentials(AudioConstLogic.API_KEY);
-        SWContextBean context = SubWarGameAPI.invoke(op);
-        if (context.getLastOperationError() != null)
-            throw new IllegalStateException(context.getLastOperationError());
-        invocation.setUser(context.getUser());
-        invocation.setGame(context.getGame());
-        if (!mStates.containsKey(ssn.getUserID()))
-            mStates.put(ssn.getUserID(), new SWStateBean());
-        invocation.setState(mStates.get(ssn.getUserID()));
+        try
+        {
+            InvocationLogic.game(invocation, SWOperationBean.QUERY_USER);
+            if (!mStates.containsKey(ssn.getUserID()))
+                mStates.put(ssn.getUserID(), new SWStateBean());
+            invocation.setState(mStates.get(ssn.getUserID()));
+        }
+        catch (SWAudioException e)
+        {
+            InvocationLogic.recordException(invocation, e);
+        }
         
         return invocation;
     }

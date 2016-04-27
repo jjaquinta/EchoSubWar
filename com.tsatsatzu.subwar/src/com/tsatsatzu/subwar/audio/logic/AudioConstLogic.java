@@ -18,4 +18,5 @@ public class AudioConstLogic
     public static final String STATE_INTRO1_3 = "intro.1.3";
     public static final String STATE_INTRO1_4 = "intro.1.4";
 
+    public static final String STATE_GAME_BASE = "game.base";
 }

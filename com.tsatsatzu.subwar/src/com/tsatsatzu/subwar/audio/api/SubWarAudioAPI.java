@@ -4,6 +4,7 @@ import com.tsatsatzu.subwar.audio.data.SWInvocationBean;
 import com.tsatsatzu.subwar.audio.data.SWSessionBean;
 import com.tsatsatzu.subwar.audio.logic.CombatLogic;
 import com.tsatsatzu.subwar.audio.logic.FrameworkLogic;
+import com.tsatsatzu.subwar.audio.logic.InvocationLogic;
 import com.tsatsatzu.subwar.audio.logic.MoveLogic;
 import com.tsatsatzu.subwar.audio.logic.SWAudioException;
 import com.tsatsatzu.subwar.audio.logic.ScanLogic;
@@ -35,6 +36,7 @@ public class SubWarAudioAPI
     public static final String CMD_FIRE = "FIRE";
     public static final String CMD_CALLME = "CALLME";
     public static final String CMD_CALL_SHIP = "CALLSHIP";
+    public static final String CMD_LAUNCH = "LAUNCH";
     
     public static SWInvocationBean invoke(SWSessionBean ssn, String verb, String... args)
     {
@@ -45,13 +47,7 @@ public class SubWarAudioAPI
         }
         catch (SWAudioException e)
         {
-            context.addText("An unexpected situation happened: "+e.getMessage());
-            context.addWrittenLine("");
-            for (StackTraceElement ele : e.getStackTrace())
-            {
-                context.addWrittenLine(ele.toString());
-            }
-            context.setEndSession(true);
+            InvocationLogic.recordException(context, e);
         }
         SessionLogic.saveSession(context);
         return context;
@@ -88,6 +84,9 @@ public class SubWarAudioAPI
                 break;
             case CMD_STOP:
                 FrameworkLogic.stop(context);
+                break;
+            case CMD_LAUNCH:
+                FrameworkLogic.startGame(context);
                 break;
             case CMD_NORTH:
                 MoveLogic.north(context);
@@ -133,7 +132,9 @@ public class SubWarAudioAPI
                 break;
             case CMD_CALL_SHIP:
                 SessionLogic.callShip(context, args[0]);                
-                break;            
+                break;     
+            default:
+                throw new SWAudioException("Unknown verb: "+verb);
         }
     }
 }

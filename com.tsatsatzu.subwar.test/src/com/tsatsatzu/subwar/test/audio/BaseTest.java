@@ -1,6 +1,7 @@
 package com.tsatsatzu.subwar.test.audio;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 
@@ -39,12 +40,14 @@ public class BaseTest
 
     protected SWInvocationBean dialog(String verb, String... args)
     {
+        System.out.println("Alexa, "+verb);
         SWInvocationBean resp = SubWarAudioAPI.invoke(mSsn, verb, args);
         assertNotNull(resp.getSpokenText());
         assertNotNull(resp.getWrittenText());
         assertNotNull(resp.getRepromptText());
         assertNotNull(resp.getUser());
         System.out.println(resp.getWrittenText());
+        assertEquals("unexpected situation", -1, resp.getWrittenText().indexOf("unexpected situation"));
         return resp;
     }
 }

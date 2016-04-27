@@ -1,6 +1,7 @@
 package com.tsatsatzu.subwar.audio.logic;
 
 import com.tsatsatzu.subwar.audio.data.SWInvocationBean;
+import com.tsatsatzu.subwar.game.data.SWOperationBean;
 
 public class FrameworkLogic
 {
@@ -9,6 +10,9 @@ public class FrameworkLogic
     {
         switch (ssn.getState().getState())
         {
+            case AudioConstLogic.STATE_INTRO1_1:
+                doStartGame(ssn);
+                break;
             case AudioConstLogic.STATE_INTRO1_2:
                 ssn.addText("Our duty is to patrol the Acton Straits and destroy any and all enemy submarines you encounter.");
                 ssn.addText("The straits are ten kilometers east to west and twenty kilometers north to south.");
@@ -19,6 +23,9 @@ public class FrameworkLogic
                 ssn.addPause();
                 ssn.addText("Are you ready to launch?");
                 ssn.getState().setState(AudioConstLogic.STATE_INTRO1_3);
+                break;
+            case AudioConstLogic.STATE_INTRO1_3:
+                doStartGame(ssn);
                 break;
             default:
                 throw new SWAudioException("YES:"+ssn.getState().getState()+" not implemented");
@@ -40,6 +47,7 @@ public class FrameworkLogic
                 ssn.addText("Would you like to know more about the combat situation we are entering?");
                 ssn.getState().setState(AudioConstLogic.STATE_INTRO1_2);
                 break;
+            case AudioConstLogic.STATE_INTRO1_2:
             case AudioConstLogic.STATE_INTRO1_3:
                 ssn.addText("Would you like me to tell you about the ship, about combat, consult the leaderboard, or are you ready to launch?");
                 ssn.getState().setState(AudioConstLogic.STATE_INTRO1_4);
@@ -78,9 +86,35 @@ public class FrameworkLogic
                 ssn.addText("Your ship will be waiting any time you want to come back.");
                 ssn.setEndSession(true);
                 break;
+            case AudioConstLogic.STATE_GAME_BASE:
+                InvocationLogic.game(ssn, SWOperationBean.EXIT_GAME);
+                ssn.addText("Abandoning mission, sir.");
+                ssn.addText("Better luck next time.");
+                ssn.setEndSession(true);
+                break;
             default:
                 throw new SWAudioException("STOP:"+ssn.getState().getState()+" not implemented");
         }
     }
-    
+
+    public static void startGame(SWInvocationBean ssn) throws SWAudioException
+    {
+        switch (ssn.getState().getState())
+        {
+            case AudioConstLogic.STATE_INTRO1_4:
+                doStartGame(ssn);
+                break;
+            default:
+                throw new SWAudioException("START_GAME:"+ssn.getState().getState()+" not implemented");
+        }
+    }
+
+    private static void doStartGame(SWInvocationBean ssn)
+            throws SWAudioException
+    {
+        InvocationLogic.game(ssn, SWOperationBean.ENTER_GAME);
+        ssn.addSound(AudioConstLogic.SOUND_SHIP_LAUNCH);
+        ssn.addText("We’ve launched!");
+        ssn.getState().setState(AudioConstLogic.STATE_GAME_BASE);
+    }
 }
