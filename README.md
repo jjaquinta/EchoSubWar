@@ -49,3 +49,10 @@ it can be written on top of this layer.
 ### Alexa Layer
 This layer interfaces to the Alexa specific requirements. It translates Alexa intents into calls to the audio API,
 and translates reponses from the audio API back to an Alexa response.
+
+## Development Environment
+
+This code was developed with Eclipse Mars and Java 1.8. The AWS plugin was used for Eclipse.
+The code project is to be built into a war file and deployed to a web server.
+In production this will be a Tomcat 8 server running on an Elastic Beanstalk instance.
+
