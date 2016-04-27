@@ -55,10 +55,38 @@ public class GameLogic
     public static String move(SWUserBean user, int dLat, int dLon, int dDep)
     {
         if (user.getInGame() < 0)
-            return "already in game";
+            return "not in game";
         SWGameBean game = mGames.get(user.getInGame());
         String err = doMoveShip(user.getUserID(), dLat, dLon, dDep, game);
         return err;
+    }
+
+    public static String listen(SWUserBean user)
+    {
+        if (user.getInGame() < 0)
+            return "not in game";
+        SWGameBean game = mGames.get(user.getInGame());
+        updateGame(game);
+        SWPositionBean pos = game.getShips().get(user.getUserID());
+        if (pos == null)
+            return "you have been destroyed";
+        List<SWPingBean> pings = doListen(user.getUserID(), game, System.currentTimeMillis());
+        pos.getSoundings().addAll(pings);
+        return null;
+    }
+
+    public static String ping(SWUserBean user)
+    {
+        if (user.getInGame() < 0)
+            return "not in game";
+        SWGameBean game = mGames.get(user.getInGame());
+        updateGame(game);
+        SWPositionBean pos = game.getShips().get(user.getUserID());
+        if (pos == null)
+            return "you have been destroyed";
+        List<SWPingBean> pings = doPing(user.getUserID(), game, System.currentTimeMillis());
+        pos.getSoundings().addAll(pings);
+        return null;
     }
     
     private static SWGameBean newGame()
