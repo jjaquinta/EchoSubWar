@@ -11,6 +11,7 @@ import com.tsatsatzu.subwar.game.data.SWPingBean;
 import com.tsatsatzu.subwar.game.data.SWPositionBean;
 import com.tsatsatzu.subwar.game.logic.GameConstLogic;
 import com.tsatsatzu.subwar.game.logic.GameLogic;
+import com.tsatsatzu.subwar.game.logic.SWGameException;
 
 public class SimplePlayer implements IComputerPlayer
 {
@@ -214,7 +215,16 @@ public class SimplePlayer implements IComputerPlayer
         else
         {
             log(data, "moves "+dLon+", "+dLat+", "+dDep+".");
-            GameLogic.doMoveShip(data.getID(), dLat, dLon, dDep, game);
+            try
+            {
+                GameLogic.doMoveShip(data.getID(), dLon, dLat, dDep, game);
+            }
+            catch (SWGameException e)
+            {   // shouldn't happen. Reset target.
+                data.setTargetLon(pos.getLongitude());
+                data.setTargetLat(pos.getLattitude());
+                data.setTargetDep(pos.getDepth());
+            }
         }
     }
 

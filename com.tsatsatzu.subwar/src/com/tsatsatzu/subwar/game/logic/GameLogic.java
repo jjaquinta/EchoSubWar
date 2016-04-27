@@ -14,6 +14,8 @@ import com.tsatsatzu.subwar.game.logic.ai.SimplePlayer;
 
 public class GameLogic
 {
+    public static final int SUCCESS = 0;
+    
     private static Random mRND = new Random();
     private static List<SWGameBean> mGames = new ArrayList<>();
 
@@ -32,10 +34,10 @@ public class GameLogic
         return details;
     }
 
-    public static String joinGame(SWUserBean user)
+    public static int joinGame(SWUserBean user) throws SWGameException
     {
         if (user.getInGame() >= 0)
-            return "already in game";
+            throw new SWGameException("already in game");
         // find a game with room
         synchronized (mGames)
         {
@@ -49,44 +51,73 @@ public class GameLogic
             doJoinGame(mGames.get(game), user.getUserID());
             user.setInGame(game);
         }
-        return null;
+        return SUCCESS;
     }
 
-    public static String move(SWUserBean user, int dLat, int dLon, int dDep)
+    public static int leaveGame(SWUserBean user) throws SWGameException
     {
         if (user.getInGame() < 0)
-            return "not in game";
-        SWGameBean game = mGames.get(user.getInGame());
-        String err = doMoveShip(user.getUserID(), dLat, dLon, dDep, game);
-        return err;
-    }
-
-    public static String listen(SWUserBean user)
-    {
-        if (user.getInGame() < 0)
-            return "not in game";
+            throw new SWGameException("already not in game");
         SWGameBean game = mGames.get(user.getInGame());
         updateGame(game);
         SWPositionBean pos = game.getShips().get(user.getUserID());
         if (pos == null)
-            return "you have been destroyed";
+            throw new SWGameException("you have been destroyed");
+        doLeaveGame(game, user.getUserID());
+        user.setInGame(-1);
+        return SUCCESS;
+    }
+
+    public static int move(SWUserBean user, int dLon, int dLat, int dDep) throws SWGameException
+    {
+        if (user.getInGame() < 0)
+            throw new SWGameException("not in game");
+        SWGameBean game = mGames.get(user.getInGame());
+        int ret = doMoveShip(user.getUserID(), dLon, dLat, dDep, game);
+        return ret;
+    }
+
+    public static int listen(SWUserBean user) throws SWGameException
+    {
+        if (user.getInGame() < 0)
+            throw new SWGameException("not in game");
+        SWGameBean game = mGames.get(user.getInGame());
+        updateGame(game);
+        SWPositionBean pos = game.getShips().get(user.getUserID());
+        if (pos == null)
+            throw new SWGameException("you have been destroyed");
         List<SWPingBean> pings = doListen(user.getUserID(), game, System.currentTimeMillis());
         pos.getSoundings().addAll(pings);
-        return null;
+        return SUCCESS;
     }
 
-    public static String ping(SWUserBean user)
+    public static int ping(SWUserBean user) throws SWGameException
     {
         if (user.getInGame() < 0)
-            return "not in game";
+            throw new SWGameException("not in game");
         SWGameBean game = mGames.get(user.getInGame());
         updateGame(game);
         SWPositionBean pos = game.getShips().get(user.getUserID());
         if (pos == null)
-            return "you have been destroyed";
+            throw new SWGameException("you have been destroyed");
         List<SWPingBean> pings = doPing(user.getUserID(), game, System.currentTimeMillis());
         pos.getSoundings().addAll(pings);
-        return null;
+        return SUCCESS;
+    }
+
+    public static int fire(SWUserBean user, int fireDLon, int fireDLat) throws SWGameException
+    {
+        if (user.getInGame() < 0)
+            throw new SWGameException("not in game");
+        SWGameBean game = mGames.get(user.getInGame());
+        updateGame(game);
+        SWPositionBean pos = game.getShips().get(user.getUserID());
+        if (pos == null)
+            throw new SWGameException("you have been destroyed");
+        if (pos.getTorpedoes() <= 0)
+            throw new SWGameException("you are out of torpedos");
+        int hits = doTorpedo(user.getUserID(), game, fireDLon, fireDLat, System.currentTimeMillis());
+        return SUCCESS|hits;
     }
     
     private static SWGameBean newGame()
@@ -132,6 +163,7 @@ public class GameLogic
         SWPositionBean pos = game.getShips().get(id);
         if (pos.getTorpedoes() <= 0)
             return 0;
+        pos.setTorpedoes(pos.getTorpedoes() - 1);
         int tLon = pos.getLongitude();
         int tLat = pos.getLattitude();
         for (int i = 0; i < GameConstLogic.TORPEDO_RANGE; i++)
@@ -254,25 +286,25 @@ public class GameLogic
         return ping;
     }
 
-    public static String doMoveShip(String id, int dLat, int dLon, int dDep,
-            SWGameBean game)
+    public static int doMoveShip(String id, int dLon, int dLat, int dDep,
+            SWGameBean game) throws SWGameException
     {
         SWPositionBean pos = game.getShips().get(id);
         if (pos == null)
-            return "no in game anymore";
+            throw new SWGameException("not in game");
         int newLat = pos.getLattitude() + dLat;
         int newLon = pos.getLongitude() + dLon;
         int newDep = pos.getDepth() - dDep; // -ve = sink, which we actually increment for
         if ((newLat < game.getNorth()) || (newLat > game.getSouth()))
-            return "out of bounds";
+            throw new SWGameException("out of bounds");
         if ((newLon < game.getWest()) || (newLon > game.getEast()))
-            return "out of bounds";
+            throw new SWGameException("out of bounds");
         if ((newDep < 0) || (newDep > game.getMaxDepth()))
-            return "out of bounds";
+            throw new SWGameException("out of bounds");
         pos.setLattitude(newLat);
         pos.setLongitude(newLon);
         pos.setDepth(newDep);
-        return null;
+        return SUCCESS;
     }
     
     // AI stuff

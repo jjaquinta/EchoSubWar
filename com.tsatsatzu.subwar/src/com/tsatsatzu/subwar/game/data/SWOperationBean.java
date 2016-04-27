@@ -10,6 +10,8 @@ public class SWOperationBean
     public static final String MOVE = "MOVE";
     public static final String MICROPHONE = "MICROPHONE";
     public static final String SONAR = "SONAR";
+    public static final String TORPEDO = "TORPEDO";
+    public static final String EXIT_GAME = "EXIT_GAME";
     
     public static final int TEST_CLEAR_USER = 0;
     public static final int TEST_RESET_SEED = 1;
