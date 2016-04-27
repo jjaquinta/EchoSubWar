@@ -27,7 +27,7 @@ public class SWInvocationBean
     public void addPause()
     {
         addSpoken(AudioConstLogic.SOUND_PAUSE);
-        addWritten("\n");
+        addWrittenLine("");
     }
     
     public void addText(String txt)
@@ -49,7 +49,13 @@ public class SWInvocationBean
     
     public void addWritten(String txt)
     {
+        mWrittenText = mWrittenText.trim() + " " + txt.trim();
+    }
+    
+    public void addWrittenLine(String txt)
+    {
         mWrittenText += txt;
+        mWrittenText += "\n";
     }
     
     // getters and setters

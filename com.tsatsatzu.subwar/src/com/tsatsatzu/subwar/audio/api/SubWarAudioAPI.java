@@ -5,13 +5,14 @@ import com.tsatsatzu.subwar.audio.data.SWSessionBean;
 import com.tsatsatzu.subwar.audio.logic.CombatLogic;
 import com.tsatsatzu.subwar.audio.logic.FrameworkLogic;
 import com.tsatsatzu.subwar.audio.logic.MoveLogic;
+import com.tsatsatzu.subwar.audio.logic.SWAudioException;
 import com.tsatsatzu.subwar.audio.logic.ScanLogic;
 import com.tsatsatzu.subwar.audio.logic.SessionLogic;
 
 public class SubWarAudioAPI
 {
-    public static final String CMD_LAUNCH = "$LAUNCH";
-    public static final String CMD_TERMINATE = "$TERMINATE";
+    public static final String CMD_LAUNCH_APP = "$LAUNCH";
+    public static final String CMD_TERMINATE_APP = "$TERMINATE";
     public static final String CMD_CANCEL = "AMAZON.CancelIntent";
     public static final String CMD_HELP = "AMAZON.HelpIntent";
     public static final String CMD_REPEAT = "AMAZON.RepeatIntent";
@@ -38,12 +39,33 @@ public class SubWarAudioAPI
     public static SWInvocationBean invoke(SWSessionBean ssn, String verb, String... args)
     {
         SWInvocationBean context = SessionLogic.loadSession(ssn);
+        try
+        {
+            invokeVerb(context, verb, args);
+        }
+        catch (SWAudioException e)
+        {
+            context.addText("An unexpected situation happened: "+e.getMessage());
+            context.addWrittenLine("");
+            for (StackTraceElement ele : e.getStackTrace())
+            {
+                context.addWrittenLine(ele.toString());
+            }
+            context.setEndSession(true);
+        }
+        SessionLogic.saveSession(context);
+        return context;
+    }
+
+    private static void invokeVerb(SWInvocationBean context, String verb,
+            String... args) throws SWAudioException
+    {
         switch (verb)
         {
-            case CMD_LAUNCH:
+            case CMD_LAUNCH_APP:
                 SessionLogic.launch(context);
                 break;
-            case CMD_TERMINATE:
+            case CMD_TERMINATE_APP:
                 SessionLogic.terminate(context);
                 break;
             case CMD_YES:
@@ -113,7 +135,5 @@ public class SubWarAudioAPI
                 SessionLogic.callShip(context, args[0]);                
                 break;            
         }
-        SessionLogic.saveSession(context);
-        return context;
     }
 }
