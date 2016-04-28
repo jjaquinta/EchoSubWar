@@ -81,7 +81,15 @@ public class SessionLogic
             ssn.getState().setState(AudioConstLogic.STATE_INTRO3_1);
         }
         else
-            throw new IllegalStateException("not implemented: launch."+ssn.getUser().getNumberOfGames());
+        {   // intro 4
+            ssn.addSound(AudioConstLogic.SOUND_BOSUN_WHISTLE);
+            ssn.addText("Attention. Captain on deck!");
+            ssn.addPause();
+            ssn.addText("Welcome again, {captain}.");
+            ssn.addText("{ship} is loaded and ready for patrol.");
+            ssn.addText("Just give the word and we will launch.");
+            ssn.getState().setState(AudioConstLogic.STATE_INTRO1_4);
+        }
     }
 
     public static void terminate(SWInvocationBean ssn)
