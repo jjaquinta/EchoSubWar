@@ -36,7 +36,7 @@ public class SubWarAudioAPI
     public static final String CMD_LISTEN = "LISTEN";
     public static final String CMD_SONAR = "SONAR";
     public static final String CMD_FIRE = "FIRE";
-    public static final String CMD_CALLME = "CALLME";
+    public static final String CMD_CALL_ME = "CALLME";
     public static final String CMD_CALL_SHIP = "CALLSHIP";
     public static final String CMD_LAUNCH = "LAUNCH";
     
@@ -131,7 +131,7 @@ public class SubWarAudioAPI
             case CMD_FIRE:
                 CombatLogic.fire(context, args[0]);
                 break;
-            case CMD_CALLME:
+            case CMD_CALL_ME:
                 SessionLogic.callMe(context, args[0]);
                 break;
             case CMD_CALL_SHIP:

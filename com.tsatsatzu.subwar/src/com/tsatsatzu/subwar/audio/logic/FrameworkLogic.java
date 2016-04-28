@@ -34,6 +34,13 @@ public class FrameworkLogic
                 ssn.addReprompt("To set your name, say \"call me Diana\".");
                 ssn.getState().setState(AudioConstLogic.STATE_INTRO1_4);
                 break;
+            case AudioConstLogic.STATE_INTRO3_1:
+                ssn.addText("Just say \"call my ship Cincinnati\" and I’ll call it that.");
+                ssn.addText("You can use the name of any big city or American president.");
+                ssn.addText("Try it now.");
+                ssn.addReprompt("To set your ship's name, say \"call my ship Cincinnati\".");
+                ssn.getState().setState(AudioConstLogic.STATE_INTRO1_4);
+                break;
             default:
                 throw new SWAudioException("YES:"+ssn.getState().getState()+" not implemented");
         }
@@ -58,6 +65,7 @@ public class FrameworkLogic
             case AudioConstLogic.STATE_INTRO1_2:
             case AudioConstLogic.STATE_INTRO1_3:
             case AudioConstLogic.STATE_INTRO2_1:
+            case AudioConstLogic.STATE_INTRO3_1:
                 ssn.addText("Would you like me to tell you about the ship, about combat, consult the leaderboard, or are you ready to launch?");
                 ssn.getState().setState(AudioConstLogic.STATE_INTRO1_4);
                 break;
@@ -114,6 +122,7 @@ public class FrameworkLogic
             case AudioConstLogic.STATE_INTRO1_1:
             case AudioConstLogic.STATE_INTRO1_4:
             case AudioConstLogic.STATE_INTRO2_1:
+            case AudioConstLogic.STATE_INTRO3_1:
                 doStartGame(ssn);
                 break;
             default:

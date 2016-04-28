@@ -68,6 +68,18 @@ public class SessionLogic
             ssn.addReprompt("For other options, say \"no\".");
             ssn.getState().setState(AudioConstLogic.STATE_INTRO2_1);
         }
+        else if ((ssn.getUser().getNumberOfGames() < 10) && StringUtils.trivial(ssn.getUser().getSubName()))
+        {   // intro 3
+            ssn.addSound(AudioConstLogic.SOUND_BOSUN_WHISTLE);
+            ssn.addText("Attention. Captain on deck!");
+            ssn.addPause();
+            ssn.addText("Welcome back, {captain}.");
+            ssn.addText("You seem to be pretty comfortable with your command.");
+            ssn.addText("Would you like to name your ship?");
+            ssn.addReprompt("To pick a name, say \"yes\".");
+            ssn.addReprompt("For other options, say \"no\".");
+            ssn.getState().setState(AudioConstLogic.STATE_INTRO3_1);
+        }
         else
             throw new IllegalStateException("not implemented: launch."+ssn.getUser().getNumberOfGames());
     }
@@ -88,7 +100,7 @@ public class SessionLogic
         else
         {
             InvocationLogic.game(ssn, SWOperationBean.SET_USER_DETAILS, name, "");
-            ssn.addText("Will do, Captain "+ssn.getUser().getUserName()+".");
+            ssn.addText("Will do, {captain}.");
             switch (ssn.getState().getState())
             {
                 case AudioConstLogic.STATE_INTRO1_4:
@@ -101,9 +113,28 @@ public class SessionLogic
         }
     }
 
-    public static void callShip(SWInvocationBean ssn, String direction)
+    public static void callShip(SWInvocationBean ssn, String name) throws SWAudioException
     {
-        throw new IllegalStateException("not implemented");
+        if (StringUtils.trivial(name))
+        {
+            ssn.addText("I'm not sure I caught that.");
+            ssn.addText("Can you repeat it?");
+            ssn.addText("Just say \"call my ship Boston\" and I'll call it that.");
+        }
+        else
+        {
+            InvocationLogic.game(ssn, SWOperationBean.SET_USER_DETAILS, "", name);
+            ssn.addText("Will do, {captain}.");
+            switch (ssn.getState().getState())
+            {
+                case AudioConstLogic.STATE_INTRO1_4:
+                    ssn.addText("Would you like me to tell you about the ship, about combat, consult the leaderboard, or are you ready to launch {ship}?");
+                    ssn.getState().setState(AudioConstLogic.STATE_INTRO1_4);
+                    break;
+                default:
+                    System.err.println("CallShip: unhandled state - "+ssn.getState().getState());
+            }
+        }
     }
 
 }
