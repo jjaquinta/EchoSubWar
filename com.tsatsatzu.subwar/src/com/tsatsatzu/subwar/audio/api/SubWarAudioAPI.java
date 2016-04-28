@@ -2,6 +2,7 @@ package com.tsatsatzu.subwar.audio.api;
 
 import com.tsatsatzu.subwar.audio.data.SWInvocationBean;
 import com.tsatsatzu.subwar.audio.data.SWSessionBean;
+import com.tsatsatzu.subwar.audio.logic.AudioConstLogic;
 import com.tsatsatzu.subwar.audio.logic.CombatLogic;
 import com.tsatsatzu.subwar.audio.logic.FrameworkLogic;
 import com.tsatsatzu.subwar.audio.logic.InvocationLogic;
@@ -9,6 +10,7 @@ import com.tsatsatzu.subwar.audio.logic.MoveLogic;
 import com.tsatsatzu.subwar.audio.logic.SWAudioException;
 import com.tsatsatzu.subwar.audio.logic.ScanLogic;
 import com.tsatsatzu.subwar.audio.logic.SessionLogic;
+import com.tsatsatzu.utils.obj.StringUtils;
 
 public class SubWarAudioAPI
 {
@@ -44,6 +46,8 @@ public class SubWarAudioAPI
         try
         {
             invokeVerb(context, verb, args);
+            if (StringUtils.trivial(context.getRepromptText()))
+                setGenericReprompt(context);
         }
         catch (SWAudioException e)
         {
@@ -135,6 +139,22 @@ public class SubWarAudioAPI
                 break;     
             default:
                 throw new SWAudioException("Unknown verb: "+verb);
+        }
+    }
+
+    private static void setGenericReprompt(SWInvocationBean context)
+    {
+        switch (context.getState().getState())
+        {
+            case AudioConstLogic.STATE_GAME_BASE:
+                context.addReprompt("Try move, listen, ping, or fire.");
+                break;
+            case AudioConstLogic.STATE_INTRO1_4:
+                context.addReprompt("Choose ship, combat, leaderboard, or launch.");
+                break;
+            default:
+                System.err.println("Don't know how to set generic reprompt for state="+context.getState().getState());
+                break;
         }
     }
 }

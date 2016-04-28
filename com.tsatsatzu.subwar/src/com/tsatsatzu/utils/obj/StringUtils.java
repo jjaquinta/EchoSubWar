@@ -9,11 +9,22 @@ package com.tsatsatzu.utils.obj;
 public class StringUtils
 {
     /**
-     * @param title
-     * @return
+     * This is a convenience function to test for both null and zero length.
      */
     public static boolean trivial(String title)
     {
         return (title == null) || (title.length() == 0);
+    }
+
+    /**
+     * This trims *only* spaces from the ends of a string.
+     */
+    public static String trimSpaces(String txt)
+    {
+        while (txt.startsWith(" "))
+            txt = txt.substring(1);
+        while (txt.endsWith(" "))
+            txt = txt.substring(0, txt.length() - 1);
+        return txt;
     }
 }

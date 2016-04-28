@@ -3,6 +3,7 @@ package com.tsatsatzu.subwar.audio.data;
 import com.tsatsatzu.subwar.audio.logic.AudioConstLogic;
 import com.tsatsatzu.subwar.game.data.SWGameDetailsBean;
 import com.tsatsatzu.subwar.game.data.SWUserBean;
+import com.tsatsatzu.utils.obj.StringUtils;
 
 public class SWInvocationBean
 {
@@ -44,18 +45,29 @@ public class SWInvocationBean
     
     public void addSpoken(String txt)
     {
-        mSpokenText = mSpokenText.trim() + " " + txt.trim();
+        mSpokenText = StringUtils.trimSpaces(mSpokenText) + " " + StringUtils.trimSpaces(txt);
     }
     
     public void addWritten(String txt)
     {
-        mWrittenText = mWrittenText.trim() + " " + txt.trim();
+        mWrittenText = StringUtils.trimSpaces(mWrittenText) + " " + StringUtils.trimSpaces(txt);
     }
     
     public void addWrittenLine(String txt)
     {
         mWrittenText += txt;
         mWrittenText += "\n";
+    }
+    
+    public void addReprompt(String txt)
+    {
+        if (txt == null)
+            return;
+        if (getUser().getSubName() != null)
+            txt = txt.replace("{ship}", getUser().getSubName());
+        if (getUser().getUserName() != null)
+            txt = txt.replace("{user}", getUser().getUserName());
+        mRepromptText = StringUtils.trimSpaces(mRepromptText) + " " + StringUtils.trimSpaces(txt);
     }
     
     // getters and setters

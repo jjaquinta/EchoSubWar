@@ -9,10 +9,16 @@ public class InvocationLogic
 {
     public static SWContextBean game(SWInvocationBean ssn, String opType) throws SWAudioException
     {
+        return game(ssn, opType, null, null);
+    }
+    public static SWContextBean game(SWInvocationBean ssn, String opType, String string1, String string2) throws SWAudioException
+    {
         SWOperationBean op = new SWOperationBean();
         op.setUserID(ssn.getSession().getUserID());
         op.setCredentials(AudioConstLogic.API_KEY);
         op.setOperation(opType);
+        op.setString1(string1);
+        op.setString2(string2);
         SWContextBean context = SubWarGameAPI.invoke(op);
         if (context.getLastOperationError() != null)
             throw new SWAudioException(context.getLastOperationError());

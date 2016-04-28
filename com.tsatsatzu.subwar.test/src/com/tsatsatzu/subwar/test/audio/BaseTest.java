@@ -2,12 +2,15 @@ package com.tsatsatzu.subwar.test.audio;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import org.junit.Before;
 
 import com.tsatsatzu.subwar.audio.api.SubWarAudioAPI;
 import com.tsatsatzu.subwar.audio.data.SWInvocationBean;
 import com.tsatsatzu.subwar.audio.data.SWSessionBean;
+import com.tsatsatzu.subwar.game.api.SubWarGameAPI;
+import com.tsatsatzu.subwar.game.data.SWOperationBean;
 
 public class BaseTest
 {
@@ -29,6 +32,13 @@ public class BaseTest
         System.setProperty("audio.api.key", TEST_CREDENTIALS);
         System.setProperty("apiKeys", TEST_CREDENTIALS);
         mSsn = getSession();
+        SWOperationBean op = new SWOperationBean();
+        op.setOperation(SWOperationBean.TEST);
+        op.setInt1(SWOperationBean.TEST_CLEAR_USER);
+        op.setUserID(TEST_USER);
+        op.setCredentials(TEST_CREDENTIALS);
+        SubWarGameAPI.invoke(op);
+        System.out.println("-------------------------------------------------------");
     }
     
     protected SWSessionBean getSession()
@@ -42,12 +52,18 @@ public class BaseTest
     {
         System.out.println("Alexa, "+verb);
         SWInvocationBean resp = SubWarAudioAPI.invoke(mSsn, verb, args);
-        assertNotNull(resp.getSpokenText());
-        assertNotNull(resp.getWrittenText());
-        assertNotNull(resp.getRepromptText());
-        assertNotNull(resp.getUser());
+        assertNotNull("No spoken text", resp.getSpokenText());
+        assertNotEquals("No spoken text", 0, resp.getSpokenText().trim().length());
+        assertNotNull("No written text", resp.getWrittenText());
+        assertNotEquals("No written text", 0, resp.getWrittenText().trim().length());
         System.out.println(resp.getWrittenText());
         assertEquals("unexpected situation", -1, resp.getWrittenText().indexOf("unexpected situation"));
+        if (!resp.isEndSession())
+        {
+            assertNotNull("No reprompt", resp.getRepromptText());
+            assertNotEquals("No reprompt", 0, resp.getRepromptText().trim().length());
+        }
+        assertNotNull(resp.getUser());
         return resp;
     }
 }

@@ -7,9 +7,9 @@ import org.junit.Test;
 import com.tsatsatzu.subwar.audio.api.SubWarAudioAPI;
 import com.tsatsatzu.subwar.audio.data.SWInvocationBean;
 
-public class LaunchTest extends BaseTest
+public class Launch1Test extends BaseTest
 {
-    //@Test
+    @Test
     public void launchNYN()
     {
         SWInvocationBean resp;
@@ -29,7 +29,7 @@ public class LaunchTest extends BaseTest
         assertNull(resp.getGame());
         assertTrue(resp.isEndSession());
     }
-    //@Test
+    @Test
     public void launchNYY()
     {
         SWInvocationBean resp;
@@ -45,14 +45,11 @@ public class LaunchTest extends BaseTest
         resp = dialog(SubWarAudioAPI.CMD_YES);
         assertNotNull(resp.getGame());
         assertFalse(resp.isEndSession());
-        resp = dialog(SubWarAudioAPI.CMD_LAUNCH);
-        assertNotNull(resp.getGame());
-        assertFalse(resp.isEndSession());
         resp = dialog(SubWarAudioAPI.CMD_STOP);
         assertNull(resp.getGame());
         assertTrue(resp.isEndSession());
     }
-    //@Test
+    @Test
     public void launchNN()
     {
         SWInvocationBean resp;
@@ -81,6 +78,17 @@ public class LaunchTest extends BaseTest
         assertFalse(resp.isEndSession());
         resp = dialog(SubWarAudioAPI.CMD_YES);
         assertNotNull(resp.getGame());
+        assertFalse(resp.isEndSession());
+        resp = dialog(SubWarAudioAPI.CMD_STOP);
+        assertNull(resp.getGame());
+        assertTrue(resp.isEndSession());
+    }
+    @Test
+    public void launch()
+    {
+        SWInvocationBean resp;
+        resp = dialog(SubWarAudioAPI.CMD_LAUNCH_APP);
+        assertNull(resp.getGame());
         assertFalse(resp.isEndSession());
         resp = dialog(SubWarAudioAPI.CMD_STOP);
         assertNull(resp.getGame());

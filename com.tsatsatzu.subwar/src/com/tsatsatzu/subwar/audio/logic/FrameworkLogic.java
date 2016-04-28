@@ -22,10 +22,17 @@ public class FrameworkLogic
                 ssn.addText("or whatever direction you specified.");
                 ssn.addPause();
                 ssn.addText("Are you ready to launch?");
+                ssn.addReprompt("Say \"yes\" to launch your ship, \"no\" for more information.");
                 ssn.getState().setState(AudioConstLogic.STATE_INTRO1_3);
                 break;
             case AudioConstLogic.STATE_INTRO1_3:
                 doStartGame(ssn);
+                break;
+            case AudioConstLogic.STATE_INTRO2_1:
+                ssn.addText("Just say \"call me Diana\" and I’ll address you as that.");
+                ssn.addText("Try it now.");
+                ssn.addReprompt("To set your name, say \"call me Diana\".");
+                ssn.getState().setState(AudioConstLogic.STATE_INTRO1_4);
                 break;
             default:
                 throw new SWAudioException("YES:"+ssn.getState().getState()+" not implemented");
@@ -45,10 +52,12 @@ public class FrameworkLogic
                 ssn.addText("However, whenever we release a sonar ping, we also alert everyone else to our location.");
                 ssn.addPause();
                 ssn.addText("Would you like to know more about the combat situation we are entering?");
+                ssn.addReprompt("Say \"yes\" for more information, or \"no\" to start.");
                 ssn.getState().setState(AudioConstLogic.STATE_INTRO1_2);
                 break;
             case AudioConstLogic.STATE_INTRO1_2:
             case AudioConstLogic.STATE_INTRO1_3:
+            case AudioConstLogic.STATE_INTRO2_1:
                 ssn.addText("Would you like me to tell you about the ship, about combat, consult the leaderboard, or are you ready to launch?");
                 ssn.getState().setState(AudioConstLogic.STATE_INTRO1_4);
                 break;
@@ -81,6 +90,7 @@ public class FrameworkLogic
     {
         switch (ssn.getState().getState())
         {
+            case AudioConstLogic.STATE_INTRO1_1:
             case AudioConstLogic.STATE_INTRO1_4:
                 ssn.addText("Aye, aye, sir.");
                 ssn.addText("Your ship will be waiting any time you want to come back.");
@@ -101,7 +111,9 @@ public class FrameworkLogic
     {
         switch (ssn.getState().getState())
         {
+            case AudioConstLogic.STATE_INTRO1_1:
             case AudioConstLogic.STATE_INTRO1_4:
+            case AudioConstLogic.STATE_INTRO2_1:
                 doStartGame(ssn);
                 break;
             default:
@@ -116,5 +128,6 @@ public class FrameworkLogic
         ssn.addSound(AudioConstLogic.SOUND_SHIP_LAUNCH);
         ssn.addText("We’ve launched!");
         ssn.getState().setState(AudioConstLogic.STATE_GAME_BASE);
+        ssn.getUser().setNumberOfGames(ssn.getUser().getNumberOfGames() + 1);
     }
 }

@@ -9,6 +9,7 @@ import com.tsatsatzu.subwar.audio.data.SWStateBean;
 import com.tsatsatzu.subwar.game.data.SWOperationBean;
 import com.tsatsatzu.subwar.game.data.SWUserBean;
 import com.tsatsatzu.subwar.game.logic.IOLogic;
+import com.tsatsatzu.utils.obj.StringUtils;
 
 public class SessionLogic
 {
@@ -51,7 +52,21 @@ public class SessionLogic
             ssn.addText("Welcome, Sir.");
             ssn.addText("I am Lieutenant Alexa, your first officer.");
             ssn.addText("Are you ready to hunt some submarines?");
+            ssn.addReprompt("To launch your ship, say \"yes\".");
+            ssn.addReprompt("For more information, say \"no\".");
             ssn.getState().setState(AudioConstLogic.STATE_INTRO1_1);
+        }
+        else if ((ssn.getUser().getNumberOfGames() < 5) && StringUtils.trivial(ssn.getUser().getUserName()))
+        {   // intro 2
+            ssn.addSound(AudioConstLogic.SOUND_BOSUN_WHISTLE);
+            ssn.addText("Attention. Captain on deck!");
+            ssn.addPause();
+            ssn.addText("Welcome back, Sir.");
+            ssn.addText("It is my pleasure to serve you again.");
+            ssn.addText("Would you prefer me to address you by name?");
+            ssn.addReprompt("To pick a name, say \"yes\".");
+            ssn.addReprompt("For other options, say \"no\".");
+            ssn.getState().setState(AudioConstLogic.STATE_INTRO2_1);
         }
         else
             throw new IllegalStateException("not implemented: launch."+ssn.getUser().getNumberOfGames());
@@ -62,9 +77,28 @@ public class SessionLogic
         throw new IllegalStateException("not implemented");
     }
 
-    public static void callMe(SWInvocationBean ssn, String direction)
+    public static void callMe(SWInvocationBean ssn, String name) throws SWAudioException
     {
-        throw new IllegalStateException("not implemented");
+        if (StringUtils.trivial(name))
+        {
+            ssn.addText("I'm not sure I caught that.");
+            ssn.addText("Can you repeat it?");
+            ssn.addText("Just say \"call me David\" and I'll call you that.");
+        }
+        else
+        {
+            InvocationLogic.game(ssn, SWOperationBean.SET_USER_DETAILS, name, "");
+            ssn.addText("Will do, Captain "+ssn.getUser().getUserName()+".");
+            switch (ssn.getState().getState())
+            {
+                case AudioConstLogic.STATE_INTRO1_4:
+                    ssn.addText("Would you like me to tell you about the ship, about combat, consult the leaderboard, or are you ready to launch?");
+                    ssn.getState().setState(AudioConstLogic.STATE_INTRO1_4);
+                    break;
+                default:
+                    System.err.println("CallMe: unhandled state - "+ssn.getState().getState());
+            }
+        }
     }
 
     public static void callShip(SWInvocationBean ssn, String direction)
