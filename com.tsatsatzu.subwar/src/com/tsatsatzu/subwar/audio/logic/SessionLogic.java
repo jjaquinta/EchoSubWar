@@ -88,7 +88,7 @@ public class SessionLogic
             ssn.addText("Welcome again, {captain}.");
             ssn.addText("{ship} is loaded and ready for patrol.");
             ssn.addText("Just give the word and we will launch.");
-            ssn.getState().setState(AudioConstLogic.STATE_INTRO1_4);
+            ssn.getState().setState(AudioConstLogic.STATE_PRE_GAME);
         }
     }
 
@@ -111,9 +111,9 @@ public class SessionLogic
             ssn.addText("Will do, {captain}.");
             switch (ssn.getState().getState())
             {
-                case AudioConstLogic.STATE_INTRO1_4:
+                case AudioConstLogic.STATE_PRE_GAME:
                     ssn.addText("Would you like me to tell you about the ship, about combat, consult the leaderboard, or are you ready to launch?");
-                    ssn.getState().setState(AudioConstLogic.STATE_INTRO1_4);
+                    ssn.getState().setState(AudioConstLogic.STATE_PRE_GAME);
                     break;
                 default:
                     System.err.println("CallMe: unhandled state - "+ssn.getState().getState());
@@ -135,9 +135,9 @@ public class SessionLogic
             ssn.addText("Will do, {captain}.");
             switch (ssn.getState().getState())
             {
-                case AudioConstLogic.STATE_INTRO1_4:
+                case AudioConstLogic.STATE_PRE_GAME:
                     ssn.addText("Would you like me to tell you about the ship, about combat, consult the leaderboard, or are you ready to launch {ship}?");
-                    ssn.getState().setState(AudioConstLogic.STATE_INTRO1_4);
+                    ssn.getState().setState(AudioConstLogic.STATE_PRE_GAME);
                     break;
                 default:
                     System.err.println("CallShip: unhandled state - "+ssn.getState().getState());

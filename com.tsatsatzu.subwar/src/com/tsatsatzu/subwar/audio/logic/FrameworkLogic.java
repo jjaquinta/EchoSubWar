@@ -11,7 +11,7 @@ public class FrameworkLogic
         switch (ssn.getState().getState())
         {
             case AudioConstLogic.STATE_INTRO1_1:
-                doStartGame(ssn);
+                PlayLogic.doStartGame(ssn);
                 break;
             case AudioConstLogic.STATE_INTRO1_2:
                 ssn.addText("Our duty is to patrol the Acton Straits and destroy any and all enemy submarines you encounter.");
@@ -26,20 +26,20 @@ public class FrameworkLogic
                 ssn.getState().setState(AudioConstLogic.STATE_INTRO1_3);
                 break;
             case AudioConstLogic.STATE_INTRO1_3:
-                doStartGame(ssn);
+                PlayLogic.doStartGame(ssn);
                 break;
             case AudioConstLogic.STATE_INTRO2_1:
                 ssn.addText("Just say \"call me Diana\" and I値l address you as that.");
                 ssn.addText("Try it now.");
                 ssn.addReprompt("To set your name, say \"call me Diana\".");
-                ssn.getState().setState(AudioConstLogic.STATE_INTRO1_4);
+                ssn.getState().setState(AudioConstLogic.STATE_PRE_GAME);
                 break;
             case AudioConstLogic.STATE_INTRO3_1:
                 ssn.addText("Just say \"call my ship Cincinnati\" and I値l call it that.");
                 ssn.addText("You can use the name of any big city or American president.");
                 ssn.addText("Try it now.");
                 ssn.addReprompt("To set your ship's name, say \"call my ship Cincinnati\".");
-                ssn.getState().setState(AudioConstLogic.STATE_INTRO1_4);
+                ssn.getState().setState(AudioConstLogic.STATE_PRE_GAME);
                 break;
             default:
                 throw new SWAudioException("YES:"+ssn.getState().getState()+" not implemented");
@@ -67,7 +67,7 @@ public class FrameworkLogic
             case AudioConstLogic.STATE_INTRO2_1:
             case AudioConstLogic.STATE_INTRO3_1:
                 ssn.addText("Would you like me to tell you about the ship, about combat, consult the leaderboard, or are you ready to launch?");
-                ssn.getState().setState(AudioConstLogic.STATE_INTRO1_4);
+                ssn.getState().setState(AudioConstLogic.STATE_PRE_GAME);
                 break;
             default:
                 throw new SWAudioException("NO:"+ssn.getState().getState()+" not implemented");
@@ -79,9 +79,22 @@ public class FrameworkLogic
         throw new IllegalStateException("Need to recover code");
     }
 
-    public static void help(SWInvocationBean context)
+    public static void help(SWInvocationBean ssn) throws SWAudioException
     {
-        throw new IllegalStateException("Need to recover code");
+        switch (ssn.getState().getState())
+        {
+            case AudioConstLogic.STATE_GAME_BASE:
+                ssn.addText("Just give the order to move North, South, East or West and I値l pass it on, {captain}.");
+                ssn.addText("You may also say Dive or Rise and I値l adjust the ballast.");
+                ssn.addText("You can say Fire for me to launch a torpedo, or Sonar and I値l send out a ping.");
+                ssn.addText("We can also just wait and listen passively for nearby traffic.");
+                ssn.addText("If all is lost, you can order us to return to port.");
+                ssn.addPause();
+                ssn.addText("What are your orders?");
+                break;
+            default:
+                throw new SWAudioException("HELP:"+ssn.getState().getState()+" not implemented");
+        }
     }
 
     public static void repeat(SWInvocationBean context)
@@ -99,7 +112,7 @@ public class FrameworkLogic
         switch (ssn.getState().getState())
         {
             case AudioConstLogic.STATE_INTRO1_1:
-            case AudioConstLogic.STATE_INTRO1_4:
+            case AudioConstLogic.STATE_PRE_GAME:
                 ssn.addText("Aye, aye, sir.");
                 ssn.addText("Your ship will be waiting any time you want to come back.");
                 ssn.setEndSession(true);
@@ -120,23 +133,13 @@ public class FrameworkLogic
         switch (ssn.getState().getState())
         {
             case AudioConstLogic.STATE_INTRO1_1:
-            case AudioConstLogic.STATE_INTRO1_4:
+            case AudioConstLogic.STATE_PRE_GAME:
             case AudioConstLogic.STATE_INTRO2_1:
             case AudioConstLogic.STATE_INTRO3_1:
-                doStartGame(ssn);
+                PlayLogic.doStartGame(ssn);
                 break;
             default:
                 throw new SWAudioException("START_GAME:"+ssn.getState().getState()+" not implemented");
         }
-    }
-
-    private static void doStartGame(SWInvocationBean ssn)
-            throws SWAudioException
-    {
-        InvocationLogic.game(ssn, SWOperationBean.ENTER_GAME);
-        ssn.addSound(AudioConstLogic.SOUND_SHIP_LAUNCH);
-        ssn.addText("We致e launched!");
-        ssn.getState().setState(AudioConstLogic.STATE_GAME_BASE);
-        ssn.getUser().setNumberOfGames(ssn.getUser().getNumberOfGames() + 1);
     }
 }

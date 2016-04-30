@@ -51,6 +51,7 @@ public class GameLogic
             doJoinGame(mGames.get(game), user.getUserID());
             user.setInGame(game);
         }
+        user.setNumberOfGames(user.getNumberOfGames() + 1);
         return SUCCESS;
     }
 
@@ -117,6 +118,7 @@ public class GameLogic
         if (pos.getTorpedoes() <= 0)
             throw new SWGameException("you are out of torpedos");
         int hits = doTorpedo(user.getUserID(), game, fireDLon, fireDLat, System.currentTimeMillis());
+        user.setNumberOfKills(user.getNumberOfKills() + hits);
         return SUCCESS|hits;
     }
     

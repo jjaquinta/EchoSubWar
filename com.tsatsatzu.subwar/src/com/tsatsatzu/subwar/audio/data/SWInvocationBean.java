@@ -36,9 +36,15 @@ public class SWInvocationBean
         if (txt == null)
             return;
         if (getUser().getSubName() != null)
-            txt = txt.replace("{ship}", "The "+getUser().getSubName());
+        {
+            txt = txt.replace("{ship}", "the "+getUser().getSubName());
+            txt = txt.replace("{Ship}", "The "+getUser().getSubName());
+        }
         else
+        {
             txt = txt.replace("{ship}", "your ship");
+            txt = txt.replace("{Ship}", "Your ship");
+        }
         if (getUser().getUserName() != null)
             txt = txt.replace("{captain}", getUser().getTitle()+" "+getUser().getUserName());
         else

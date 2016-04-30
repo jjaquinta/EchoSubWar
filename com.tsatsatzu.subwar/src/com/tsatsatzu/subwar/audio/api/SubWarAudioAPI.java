@@ -149,7 +149,7 @@ public class SubWarAudioAPI
             case AudioConstLogic.STATE_GAME_BASE:
                 context.addReprompt("Try move, listen, ping, or fire.");
                 break;
-            case AudioConstLogic.STATE_INTRO1_4:
+            case AudioConstLogic.STATE_PRE_GAME:
                 context.addReprompt("Choose ship, combat, leaderboard, or launch.");
                 break;
             default:

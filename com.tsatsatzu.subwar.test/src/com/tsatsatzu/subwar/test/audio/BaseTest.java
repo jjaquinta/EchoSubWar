@@ -1,6 +1,7 @@
 package com.tsatsatzu.subwar.test.audio;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
@@ -10,6 +11,7 @@ import com.tsatsatzu.subwar.audio.api.SubWarAudioAPI;
 import com.tsatsatzu.subwar.audio.data.SWInvocationBean;
 import com.tsatsatzu.subwar.audio.data.SWSessionBean;
 import com.tsatsatzu.subwar.game.api.SubWarGameAPI;
+import com.tsatsatzu.subwar.game.data.SWContextBean;
 import com.tsatsatzu.subwar.game.data.SWOperationBean;
 
 public class BaseTest
@@ -65,5 +67,22 @@ public class BaseTest
         }
         assertNotNull(resp.getUser());
         return resp;
+    }
+    
+    protected SWOperationBean getOperation(String opType)
+    {        
+        SWOperationBean op = new SWOperationBean();
+        op.setOperation(opType);
+        op.setUserID(TEST_USER);
+        op.setCredentials(TEST_CREDENTIALS);
+        return op;
+    }
+
+    protected void aiMove()
+    {
+        SWOperationBean op = getOperation(SWOperationBean.TEST);
+        op.setInt1(SWOperationBean.TEST_AI_MOVE);
+        SWContextBean context = SubWarGameAPI.invoke(op);
+        assertNull(context.getLastOperationError());
     }
 }

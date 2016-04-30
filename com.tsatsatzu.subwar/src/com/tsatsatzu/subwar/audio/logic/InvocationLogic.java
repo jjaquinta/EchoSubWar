@@ -9,9 +9,19 @@ public class InvocationLogic
 {
     public static SWContextBean game(SWInvocationBean ssn, String opType) throws SWAudioException
     {
-        return game(ssn, opType, null, null);
+        return game(ssn, opType, (String)null, (String)null, (Integer)null, (Integer)null);
     }
     public static SWContextBean game(SWInvocationBean ssn, String opType, String string1, String string2) throws SWAudioException
+    {
+        return game(ssn, opType, string1, string2, null, null);
+    }
+    public static SWContextBean game(SWInvocationBean ssn, String opType, Integer int1, Integer int2) throws SWAudioException
+    {
+        return game(ssn, opType, null, null, int1, int2);
+    }
+    public static SWContextBean game(SWInvocationBean ssn, String opType, 
+            String string1, String string2,
+            Integer int1, Integer int2) throws SWAudioException
     {
         SWOperationBean op = new SWOperationBean();
         op.setUserID(ssn.getSession().getUserID());
@@ -19,6 +29,10 @@ public class InvocationLogic
         op.setOperation(opType);
         op.setString1(string1);
         op.setString2(string2);
+        if (int1 != null)
+            op.setInt1(int1);
+        if (int2 != null)
+            op.setInt1(int2);
         SWContextBean context = SubWarGameAPI.invoke(op);
         if (context.getLastOperationError() != null)
             throw new SWAudioException(context.getLastOperationError());

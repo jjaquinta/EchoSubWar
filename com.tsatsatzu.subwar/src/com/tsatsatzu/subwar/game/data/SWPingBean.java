@@ -91,22 +91,22 @@ public class SWPingBean
     };
     public static final String[] DIRECTIONS = {
             "",
-            "NORTH",
-            "NORTHNORTHEAST",
-            "NORTHEAST",
-            "EASTNORTHEAST",
-            "EAST",
-            "EASTSOUTHEAST",
-            "SOUTHEAST",
-            "SOUTHSOUTHEAST",
-            "SOUTH",
-            "SOUTHSOUTHWEST",
-            "SOUTHWEST",
-            "WESTSOUTHWEST",
-            "WEST",
-            "WESTNORTHWEST",
-            "NORTHWEST",
-            "NORTHNORTHWEST",
+            "North",
+            "north-northeast",
+            "Northeast",
+            "East-northeast",
+            "East",
+            "East-southeast",
+            "Southeast",
+            "South-southeast",
+            "South",
+            "South-southwest",
+            "Southwest",
+            "West-southwest",
+            "West",
+            "West-northwest",
+            "Northwest",
+            "Norht-northwest",
     };
     public static final String[] TYPES = {
             "",
@@ -157,7 +157,7 @@ public class SWPingBean
     public static int angleToDirection(double a)
     {
         a = normalizeAngle(a);
-        for (int dir = 1; dir < NORTHNORTHWEST + 1; dir++)
+        for (int dir = 1; dir <= NORTHNORTHWEST + 1; dir++)
         {
             double delta = Math.abs(ANGLES[dir] - a);
             if (delta <= COMPASS_ANGLE/2)

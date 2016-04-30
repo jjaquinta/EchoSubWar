@@ -9,6 +9,8 @@ public class AudioConstLogic
     private static final String SOUND_ROOT = "https://s3.amazonaws.com/tsatsatzu-alexa/sound/blackjack/";
     public static final String SOUND_BOSUN_WHISTLE = SOUND_ROOT+"shuffle-cards-4.mp3";
     public static final String SOUND_SHIP_LAUNCH = SOUND_ROOT+"shuffle-cards-4.mp3";
+    public static final String SOUND_MOTOR_RUNNING = SOUND_ROOT+"shuffle-cards-4.mp3";
+    public static final String SOUND_EXPLOSION = SOUND_ROOT+"shuffle-cards-4.mp3";
 
     public static final String SOUND_PAUSE = "<break strength=\"medium\"/>";
     
@@ -16,7 +18,7 @@ public class AudioConstLogic
     public static final String STATE_INTRO1_1 = "intro.1.1";
     public static final String STATE_INTRO1_2 = "intro.1.2";
     public static final String STATE_INTRO1_3 = "intro.1.3";
-    public static final String STATE_INTRO1_4 = "intro.1.4";
+    public static final String STATE_PRE_GAME = "intro.1.4";
     public static final String STATE_INTRO2_1 = "intro.2.1";
     public static final String STATE_INTRO3_1 = "intro.3.1";
 
