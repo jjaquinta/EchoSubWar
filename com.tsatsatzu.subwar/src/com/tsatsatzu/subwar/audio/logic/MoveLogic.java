@@ -118,6 +118,8 @@ public class MoveLogic
         PlayLogic.describeGame(ssn);
         ssn.addPause();
         ssn.addText("What are your orders now?");
+        if ((dir != SWOperationBean.LOWER) && (dir != SWOperationBean.RAISE))
+            ssn.getState().setLastMove(dir);
     }
 
 }

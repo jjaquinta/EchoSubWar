@@ -6,6 +6,7 @@ public class SWStateBean
 {
     private String  mState = AudioConstLogic.STATE_INITIAL;
     private int mLastReportedTorpedos = -1;
+    private int mLastMove = -1;
 
     public String getState()
     {
@@ -25,5 +26,15 @@ public class SWStateBean
     public void setLastReportedTorpedos(int lastReportedTorpedos)
     {
         mLastReportedTorpedos = lastReportedTorpedos;
+    }
+
+    public int getLastMove()
+    {
+        return mLastMove;
+    }
+
+    public void setLastMove(int lastMove)
+    {
+        mLastMove = lastMove;
     }
 }

@@ -11,6 +11,7 @@ public class SWPositionBean
     private List<SWPingBean> mSoundings = new ArrayList<>();
     private long    mLastMove;
     private int mTorpedoes;
+    private int mHits;
 
     // utils
     @Override
@@ -79,5 +80,15 @@ public class SWPositionBean
     public void setTorpedoes(int torpedoes)
     {
         mTorpedoes = torpedoes;
+    }
+
+    public int getHits()
+    {
+        return mHits;
+    }
+
+    public void setHits(int hits)
+    {
+        mHits = hits;
     }
 }

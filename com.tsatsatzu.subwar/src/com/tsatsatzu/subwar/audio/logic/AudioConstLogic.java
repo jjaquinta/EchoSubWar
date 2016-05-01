@@ -11,6 +11,7 @@ public class AudioConstLogic
     public static final String SOUND_SHIP_LAUNCH = SOUND_ROOT+"shuffle-cards-4.mp3";
     public static final String SOUND_MOTOR_RUNNING = SOUND_ROOT+"shuffle-cards-4.mp3";
     public static final String SOUND_EXPLOSION = SOUND_ROOT+"shuffle-cards-4.mp3";
+    public static final String SOUND_TORPEDO = SOUND_ROOT+"shuffle-cards-4.mp3";
 
     public static final String SOUND_PAUSE = "<break strength=\"medium\"/>";
     

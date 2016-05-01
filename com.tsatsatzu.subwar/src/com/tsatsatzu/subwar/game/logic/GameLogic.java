@@ -118,6 +118,7 @@ public class GameLogic
         if (pos.getTorpedoes() <= 0)
             throw new SWGameException("you are out of torpedos");
         int hits = doTorpedo(user.getUserID(), game, fireDLon, fireDLat, System.currentTimeMillis());
+        pos.setHits(pos.getHits() + hits);
         user.setNumberOfKills(user.getNumberOfKills() + hits);
         return SUCCESS|hits;
     }
