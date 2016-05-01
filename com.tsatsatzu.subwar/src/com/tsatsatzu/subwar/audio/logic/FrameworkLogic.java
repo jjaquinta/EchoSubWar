@@ -14,12 +14,7 @@ public class FrameworkLogic
                 PlayLogic.doStartGame(ssn);
                 break;
             case AudioConstLogic.STATE_INTRO1_2:
-                ssn.addText("Our duty is to patrol the Acton Straits and destroy any and all enemy submarines you encounter.");
-                ssn.addText("The straits are ten kilometers east to west and twenty kilometers north to south.");
-                ssn.addText("You can give the order to go in any direction, plus dive or rise, and I will pass it on to the crew.");
-                ssn.addText("If you order a ping, we will operate the sonar and report the results.");
-                ssn.addText("Finally, you can give the order to fire the torpedoes and we will launch in the last direction we moved,");
-                ssn.addText("or whatever direction you specified.");
+                combatInfo(ssn);
                 ssn.addPause();
                 ssn.addText("Are you ready to launch?");
                 ssn.addReprompt("Say \"yes\" to launch your ship, \"no\" for more information.");
@@ -46,6 +41,15 @@ public class FrameworkLogic
         }
     }
 
+    private static void combatInfo(SWInvocationBean ssn)
+    {
+        ssn.addText("Our duty is to patrol the Acton Straits and destroy any and all enemy submarines you encounter.");
+        ssn.addText("The straits are ten kilometers east to west and twenty kilometers north to south.");
+        ssn.addText("You can give the order to go in any direction, plus dive or rise, and I will pass it on to the crew.");
+        ssn.addText("Finally, you can give the order to fire the torpedoes and we will launch in the last direction we moved,");
+        ssn.addText("or whatever direction you specified.");
+    }
+
     public static void no(SWInvocationBean ssn) throws SWAudioException
     {
         switch (ssn.getState().getState())
@@ -53,10 +57,7 @@ public class FrameworkLogic
             case AudioConstLogic.STATE_INTRO1_1:
                 ssn.addText("Well, I’m here to help familiarize you with your ship.");
                 ssn.addPause();
-                ssn.addText("We are a Marvel Class Hunter Killer submarine.");
-                ssn.addText("We can carry six torpedoes and are rated up to a depth of 300 meters."); 
-                ssn.addText("We have a top of the line sonar system that can report on any ships within six kilometers."); 
-                ssn.addText("However, whenever we release a sonar ping, we also alert everyone else to our location.");
+                shipInfo(ssn);
                 ssn.addPause();
                 ssn.addText("Would you like to know more about the combat situation we are entering?");
                 ssn.addReprompt("Say \"yes\" for more information, or \"no\" to start.");
@@ -72,6 +73,15 @@ public class FrameworkLogic
             default:
                 throw new SWAudioException("NO:"+ssn.getState().getState()+" not implemented");
         }
+    }
+
+    private static void shipInfo(SWInvocationBean ssn)
+    {
+        ssn.addText("We are a Marvel Class Hunter Killer submarine.");
+        ssn.addText("We can carry six torpedoes and are rated up to a depth of 300 meters."); 
+        ssn.addText("We have a top of the line sonar system that can report on any ships within six kilometers."); 
+        ssn.addText("However, whenever we release a sonar ping, we also alert everyone else to our location.");
+        ssn.addText("We also have underwater microphones and if you order us to listen, we can hear any nearby ships.");
     }
 
     public static void cancel(SWInvocationBean context)
@@ -140,6 +150,34 @@ public class FrameworkLogic
                 break;
             default:
                 throw new SWAudioException("START_GAME:"+ssn.getState().getState()+" not implemented");
+        }
+    }
+
+    public static void ship(SWInvocationBean ssn) throws SWAudioException
+    {
+        switch (ssn.getState().getState())
+        {
+            case AudioConstLogic.STATE_PRE_GAME:
+                shipInfo(ssn);
+                ssn.addPause();
+                ssn.addText("Would you like me to tell you about the ship, about combat, consult the leaderboard, or are you ready to launch?");
+                break;
+            default:
+                throw new SWAudioException("SHIP:"+ssn.getState().getState()+" not implemented");
+        }
+    }
+
+    public static void combat(SWInvocationBean ssn) throws SWAudioException
+    {
+        switch (ssn.getState().getState())
+        {
+            case AudioConstLogic.STATE_PRE_GAME:
+                combatInfo(ssn);
+                ssn.addPause();
+                ssn.addText("Would you like me to tell you about the ship, about combat, consult the leaderboard, or are you ready to launch?");
+                break;
+            default:
+                throw new SWAudioException("COMBAT:"+ssn.getState().getState()+" not implemented");
         }
     }
 }

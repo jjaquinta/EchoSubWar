@@ -15,6 +15,8 @@ public class AudioConstLogic
 
     public static final String SOUND_PAUSE = "<break strength=\"medium\"/>";
     
+    public static final int MAX_LEADERS = 3;
+    
     public static final String STATE_INITIAL = "init";
     public static final String STATE_INTRO1_1 = "intro.1.1";
     public static final String STATE_INTRO1_2 = "intro.1.2";

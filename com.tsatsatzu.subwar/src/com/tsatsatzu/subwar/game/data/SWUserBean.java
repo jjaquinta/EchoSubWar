@@ -13,6 +13,7 @@ public class SWUserBean
     private int     mNumberOfSessions;
     private int     mNumberOfGames;
     private int     mNumberOfKills;
+    private int     mNumberOfShots;
     // ship statistics
     private String  mSubName;
     private int     mMaxTorpedoes;
@@ -106,5 +107,13 @@ public class SWUserBean
     public void setMaxTorpedoes(int maxTorpedoes)
     {
         mMaxTorpedoes = maxTorpedoes;
+    }
+    public int getNumberOfShots()
+    {
+        return mNumberOfShots;
+    }
+    public void setNumberOfShots(int numberOfShots)
+    {
+        mNumberOfShots = numberOfShots;
     }
 }

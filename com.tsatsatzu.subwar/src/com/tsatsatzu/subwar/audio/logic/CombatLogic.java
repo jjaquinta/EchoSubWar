@@ -1,5 +1,8 @@
 package com.tsatsatzu.subwar.audio.logic;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.codec.EncoderException;
 import org.apache.commons.codec.language.AbstractCaverphone;
 import org.apache.commons.codec.language.Caverphone2;
@@ -9,6 +12,8 @@ import com.tsatsatzu.subwar.audio.data.SWInvocationBean;
 import com.tsatsatzu.subwar.game.data.SWContextBean;
 import com.tsatsatzu.subwar.game.data.SWOperationBean;
 import com.tsatsatzu.subwar.game.data.SWPingBean;
+import com.tsatsatzu.subwar.game.data.SWUserBean;
+import com.tsatsatzu.utils.obj.StringUtils;
 
 public class CombatLogic
 {
@@ -89,5 +94,36 @@ public class CombatLogic
             if (directions[i].equalsIgnoreCase(direction))
                 return i;
         return -1;
+    }
+
+    public static void leaders(SWInvocationBean ssn) throws SWAudioException
+    {
+        SWContextBean context = InvocationLogic.game(ssn, SWOperationBean.LEADERS, AudioConstLogic.MAX_LEADERS, null);
+        List<String> leaders = new ArrayList<>();
+        for (int i = 0; i < context.getLeaders().size(); i++)
+        {
+            SWUserBean leader = context.getLeaders().get(i);
+            StringBuffer txt = new StringBuffer();
+            txt.append(ResponseLogic.ORDINAL[i]+" place ");
+            if (!StringUtils.trivial(leader.getUserName()))
+            {
+                if (!StringUtils.trivial(leader.getTitle()))
+                    txt.append(leader.getTitle()+" ");
+                txt.append(leader.getUserName()+" ");
+            }
+            if (!StringUtils.trivial(leader.getSubName()))
+                txt.append("commanding The "+leader.getSubName()+" with ");
+            txt.append(leader.getNumberOfKills()+" kills");
+            leaders.add(txt.toString());
+        }
+        int success = 0;
+        if (ssn.getUser().getNumberOfShots() > 0)
+            success = (100*ssn.getUser().getNumberOfKills())/ssn.getUser().getNumberOfShots();
+        ssn.addText(ResponseLogic.andList(leaders));
+        ssn.addText("You have launched "+ssn.getUser().getNumberOfShots()+" torpedoes and have sunk "
+                +ssn.getUser().getNumberOfKills()+" subs, for a success rate of "+success+" percent.");
+        ssn.addText("You have embarked on "+ssn.getUser().getNumberOfGames()+" missions.");
+        ssn.addPause();
+        ssn.addText("Would you like me to tell you about the ship, about combat, consult the leaderboard, or are you ready to launch?");
     }
 }

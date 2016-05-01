@@ -1,5 +1,7 @@
 package com.tsatsatzu.subwar.game.logic;
 
+import java.util.List;
+
 import com.tsatsatzu.subwar.game.data.SWUserBean;
 
 public class IOLogic
@@ -38,5 +40,10 @@ public class IOLogic
         SWUserBean user = getDriver().getUser(userID);
         return user;
     }
-    
+
+    public static List<SWUserBean> getTopUsers(int total)
+    {
+        List<SWUserBean> users = getDriver().getTopUsers(total);
+        return users;
+    }
 }

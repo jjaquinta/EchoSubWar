@@ -39,6 +39,9 @@ public class SubWarAudioAPI
     public static final String CMD_CALL_ME = "CALLME";
     public static final String CMD_CALL_SHIP = "CALLSHIP";
     public static final String CMD_LAUNCH = "LAUNCH";
+    public static final String CMD_SHIP = "SHIP";
+    public static final String CMD_COMBAT = "COMBAT";
+    public static final String CMD_LEADERS = "LEADERS";
     
     public static SWInvocationBean invoke(SWSessionBean ssn, String verb, String... args)
     {
@@ -136,6 +139,15 @@ public class SubWarAudioAPI
                 break;
             case CMD_CALL_SHIP:
                 SessionLogic.callShip(context, args[0]);                
+                break;     
+            case CMD_SHIP:
+                FrameworkLogic.ship(context);                
+                break;     
+            case CMD_COMBAT:
+                FrameworkLogic.combat(context);                
+                break;     
+            case CMD_LEADERS:
+                CombatLogic.leaders(context);                
                 break;     
             default:
                 throw new SWAudioException("Unknown verb: "+verb);

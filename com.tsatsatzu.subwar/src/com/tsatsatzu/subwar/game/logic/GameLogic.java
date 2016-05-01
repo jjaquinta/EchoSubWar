@@ -120,6 +120,7 @@ public class GameLogic
         int hits = doTorpedo(user.getUserID(), game, fireDLon, fireDLat, System.currentTimeMillis());
         pos.setHits(pos.getHits() + hits);
         user.setNumberOfKills(user.getNumberOfKills() + hits);
+        user.setNumberOfShots(user.getNumberOfShots() + 1);
         return SUCCESS|hits;
     }
     
