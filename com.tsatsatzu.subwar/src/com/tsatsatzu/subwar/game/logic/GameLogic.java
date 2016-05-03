@@ -174,18 +174,18 @@ public class GameLogic
         {
             tLon += fireDLon;
             tLat += fireDLat;
-            System.out.println("Torpedo at "+tLon+","+tLat+","+pos.getDepth());
+            log("Torpedo at "+tLon+","+tLat+","+pos.getDepth());
             List<String> hits = findShipsAt(game, tLon, tLat, pos.getDepth());
             if (hits.size() > 0)
             {
-                System.out.println("Torpedo hits "+hits);
+                log("Torpedo hits "+hits);
                 for (String hit : hits)
                     doDie(game, hit);
                 doBoom(game, tLon, tLat, pos.getDepth(), now);
                 return hits.size();
             }
         }
-        System.out.println("Torpedo misses");
+        log("Torpedo misses");
         return 0;
     }
 
@@ -282,7 +282,7 @@ public class GameLogic
             ping.setAltitude(SWPingBean.UP);
         else
             ping.setAltitude(SWPingBean.LEVEL);
-        System.out.println("Pinger="+pinger.getLongitude()+","+pinger.getLattitude()
+        log("Pinger="+pinger.getLongitude()+","+pinger.getLattitude()
             +", pingee="+pingeeLon+","+pingeeLat
             +", delta="+deltaLon+","+deltaLat
             +", a="+(int)(a*128/Math.PI)+", dir="+dir+" "+SWPingBean.DIRECTIONS[dir]
@@ -380,5 +380,10 @@ public class GameLogic
             }
             updateGame(game);
         }
+    }
+    
+    private static void log(String msg)
+    {
+        // System.out.println(msg);
     }
 }

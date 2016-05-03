@@ -22,32 +22,45 @@ public class CombatLogic
 
     public static void fire(SWInvocationBean ssn, String direction) throws SWAudioException
     {
-        int dir = parseDirection(direction, ssn.getState().getLastMove());
-        if (dir < 0)
+        switch (ssn.getState().getState())
         {
-            ssn.addText("You need to tell me which direction you want to fire in, sir.");
-            return;
+            case AudioConstLogic.STATE_GAME_ABORT:
+                ssn.getState().setState(AudioConstLogic.STATE_GAME_BASE);
+            case AudioConstLogic.STATE_GAME_BASE:
+                int dir = parseDirection(direction, ssn.getState().getLastMove());
+                if (dir < 0)
+                {
+                    ssn.addText("You need to tell me which direction you want to fire in, sir.");
+                    return;
+                }
+                SWContextBean ret = InvocationLogic.game(ssn, SWOperationBean.TORPEDO, dir, null);
+                int hits = Integer.parseInt(ret.getLastOperationMessage());
+                ssn.addSound(AudioConstLogic.SOUND_TORPEDO);
+                ssn.addText("Torpedo away, {captain}!");
+                ssn.addPause();
+                ssn.addSound(AudioConstLogic.SOUND_EXPLOSION);
+                if (hits == 0)
+                    ssn.addText("Looks like a miss.");
+                else
+                {
+                    if (hits == 1)
+                        ssn.addText("Direct hit!");
+                    else
+                        ssn.addText("Wow, we managed to hit "+hits+" subs in one go!");
+                    if (hits != ssn.getGame().getUserPosition().getHits())
+                        ssn.addText("That brings our total to "+ssn.getGame().getUserPosition().getHits()+" kills this mission.");
+                }
+                ssn.addPause();
+                ssn.addText("What are your orders now?");
+                ssn.getState().setLastMove(dir);
+                break;
+            case AudioConstLogic.STATE_PRE_GAME:
+                ssn.addText("We need to launch first before we can fire our torpedos!");
+                FrameworkLogic.addPregamePrompt(ssn);
+                break;
+            default:
+                throw new SWAudioException("FIRE:"+ssn.getState().getState()+" not implemented");
         }
-        SWContextBean ret = InvocationLogic.game(ssn, SWOperationBean.TORPEDO, dir, null);
-        int hits = Integer.parseInt(ret.getLastOperationMessage());
-        ssn.addSound(AudioConstLogic.SOUND_TORPEDO);
-        ssn.addText("Torpedo away, {captain}!");
-        ssn.addPause();
-        ssn.addSound(AudioConstLogic.SOUND_EXPLOSION);
-        if (hits == 0)
-            ssn.addText("Looks like a miss.");
-        else
-        {
-            if (hits == 1)
-                ssn.addText("Direct hit!");
-            else
-                ssn.addText("Wow, we managed to hit "+hits+" subs in one go!");
-            if (hits != ssn.getGame().getUserPosition().getHits())
-                ssn.addText("That brings our total to "+ssn.getGame().getUserPosition().getHits()+" kills this mission.");
-        }
-        ssn.addPause();
-        ssn.addText("What are your orders now?");
-        ssn.getState().setLastMove(dir);
     }
 
     private static int parseDirection(String direction, int lastMove)

@@ -39,6 +39,7 @@ public class SubWarAudioAPI
     public static final String CMD_CALL_ME = "CALLME";
     public static final String CMD_CALL_SHIP = "CALLSHIP";
     public static final String CMD_LAUNCH = "LAUNCH";
+    public static final String CMD_DOCK = "DOCK";
     public static final String CMD_SHIP = "SHIP";
     public static final String CMD_COMBAT = "COMBAT";
     public static final String CMD_LEADERS = "LEADERS";
@@ -60,7 +61,9 @@ public class SubWarAudioAPI
         return context;
     }
 
-    private static void invokeVerb(SWInvocationBean context, String verb,
+    // Not truly public.
+    // Only made public to make execution of "repeat" easier.
+    public static void invokeVerb(SWInvocationBean context, String verb,
             String... args) throws SWAudioException
     {
         switch (verb)
@@ -149,8 +152,16 @@ public class SubWarAudioAPI
             case CMD_LEADERS:
                 CombatLogic.leaders(context);                
                 break;     
+            case CMD_DOCK:
+                MoveLogic.dock(context);                
+                break;     
             default:
                 throw new SWAudioException("Unknown verb: "+verb);
+        }
+        if (!CMD_REPEAT.equals(verb))
+        {
+            context.getState().setLastVerb(verb);
+            context.getState().setLastArgs(args);
         }
     }
 
@@ -163,6 +174,9 @@ public class SubWarAudioAPI
                 break;
             case AudioConstLogic.STATE_PRE_GAME:
                 context.addReprompt("Choose ship, combat, leaderboard, or launch.");
+                break;
+            case AudioConstLogic.STATE_GAME_ABORT:
+                context.addReprompt("Say yes to abort and return to dock, no to keep on with the mission.");
                 break;
             default:
                 System.err.println("Don't know how to set generic reprompt for state="+context.getState().getState());

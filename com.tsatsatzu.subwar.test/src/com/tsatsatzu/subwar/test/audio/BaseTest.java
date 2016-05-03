@@ -66,6 +66,7 @@ public class BaseTest
             assertNotEquals("No reprompt", 0, resp.getRepromptText().trim().length());
         }
         assertNotNull(resp.getUser());
+        System.out.println("state="+resp.getState().getState());
         return resp;
     }
     

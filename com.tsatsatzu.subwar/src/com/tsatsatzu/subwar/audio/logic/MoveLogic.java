@@ -59,67 +59,99 @@ public class MoveLogic
 
     private static void doMove(SWInvocationBean ssn, int dLon, int dLat, int dDep, int dir) throws SWAudioException
     {
-        SWGameDetailsBean game = ssn.getGame();
-        SWPositionBean pos = game.getUserPosition();
-        int newLon = pos.getLongitude() + dLon;
-        int newLat = pos.getLattitude() + dLat;
-        int newDep = pos.getDepth() + dDep;
-        if (newDep > game.getMaxDepth())
+        switch (ssn.getState().getState())
         {
-            ssn.addText("We can't go that deep {captain}!");
-            ssn.addText("{Ship} isn't rated for that depth.");
-            ssn.addPause();
-            ssn.addText("Just say rise it you meant for us to go up.");
-            return;
+            case AudioConstLogic.STATE_GAME_ABORT:
+                ssn.getState().setState(AudioConstLogic.STATE_GAME_BASE);
+                // fall through into normal command
+            case AudioConstLogic.STATE_GAME_BASE:
+                SWGameDetailsBean game = ssn.getGame();
+                SWPositionBean pos = game.getUserPosition();
+                int newLon = pos.getLongitude() + dLon;
+                int newLat = pos.getLattitude() + dLat;
+                int newDep = pos.getDepth() + dDep;
+                if (newDep > game.getMaxDepth())
+                {
+                    ssn.addText("We can't go that deep {captain}!");
+                    ssn.addText("{Ship} isn't rated for that depth.");
+                    ssn.addPause();
+                    ssn.addText("Just say rise it you meant for us to go up.");
+                    return;
+                }
+                if (newDep < 0)
+                {
+                    ssn.addText("Um, {captain}, we're already on the surface.");
+                    ssn.addPause();
+                    ssn.addText("Tell us to dive if you want us to go down instead.");
+                    return;
+                }
+                if (newLon < game.getWest())
+                {
+                    ssn.addText("I can't do that, {captain}.");
+                    ssn.addText("That would run {ship} on to the Western shore.");
+                    ssn.addPause();
+                    ssn.addText("What direction would you like us to go?");
+                    return;
+                }
+                if (newLon > game.getEast())
+                {
+                    ssn.addText("I can't comply, {captain}.");
+                    ssn.addText("{Ship} would run up on the Eastern shore if we tried.");
+                    ssn.addPause();
+                    ssn.addText("What direction would you like us to go?");
+                    return;
+                }
+                if (newLat < game.getNorth())
+                {
+                    ssn.addText("That would take us out of the Acton straights, {captain}.");
+                    ssn.addText("There aren't any targets there.");
+                    ssn.addPause();
+                    ssn.addText("You might consider giving the order to go South instead.");
+                    return;
+                }
+                if (newLat > game.getSouth())
+                {
+                    ssn.addText("That would take us out of the Acton straights, {captain}.");
+                    ssn.addText("I don't think we're ready to give up yet.");
+                    ssn.addPause();
+                    ssn.addText("You might consider giving the order to go North instead.");
+                    return;
+                }
+                InvocationLogic.game(ssn, SWOperationBean.MOVE, dir, null);
+                ssn.addSound(AudioConstLogic.SOUND_MOTOR_RUNNING);
+                //InvocationLogic.
+                PlayLogic.describeGame(ssn);
+                ssn.addPause();
+                ssn.addText("What are your orders now?");
+                if ((dir != SWOperationBean.LOWER) && (dir != SWOperationBean.RAISE))
+                    ssn.getState().setLastMove(dir);
+                break;
+            case AudioConstLogic.STATE_PRE_GAME:
+                ssn.addText("We need to launch first before we can move!");
+                FrameworkLogic.addPregamePrompt(ssn);
+                break;
+            default:
+                throw new SWAudioException("MOVE:"+ssn.getState().getState()+" not implemented");
         }
-        if (newDep < 0)
+    }
+
+    public static void dock(SWInvocationBean ssn) throws SWAudioException
+    {
+        switch (ssn.getState().getState())
         {
-            ssn.addText("Um, {captain}, we're already on the surface.");
-            ssn.addText("{Ship} isn't rated for that depth.");
-            ssn.addPause();
-            ssn.addText("Tell us to dive if you want us to go down instead.");
-            return;
+            case AudioConstLogic.STATE_GAME_BASE:
+                InvocationLogic.game(ssn, SWOperationBean.EXIT_GAME);
+                ssn.getState().setState(AudioConstLogic.STATE_PRE_GAME);
+                ssn.addText("Returning to dock, sir.");
+                FrameworkLogic.addPregamePrompt(ssn);
+                break;
+            case AudioConstLogic.STATE_PRE_GAME:
+                ssn.addText("We're already docked, sir.");
+                FrameworkLogic.addPregamePrompt(ssn);
+                break;
+            default:
+                throw new SWAudioException("DOCK:"+ssn.getState().getState()+" not implemented");
         }
-        if (newLon < game.getWest())
-        {
-            ssn.addText("I can't do that, {captain}.");
-            ssn.addText("That would run {ship} on to the Western shore.");
-            ssn.addPause();
-            ssn.addText("What direction would you like us to go?");
-            return;
-        }
-        if (newLon > game.getEast())
-        {
-            ssn.addText("I can't comply, {captain}.");
-            ssn.addText("{Ship} would run up on the Eastern shore if we tried.");
-            ssn.addPause();
-            ssn.addText("What direction would you like us to go?");
-            return;
-        }
-        if (newLat < game.getNorth())
-        {
-            ssn.addText("That would take us out of the Acton straights, {captain}.");
-            ssn.addText("There aren't any targets there.");
-            ssn.addPause();
-            ssn.addText("You might consider giving the order to go South instead.");
-            return;
-        }
-        if (newLat > game.getSouth())
-        {
-            ssn.addText("That would take us out of the Acton straights, {captain}.");
-            ssn.addText("I don't think we're ready to give up yet.");
-            ssn.addPause();
-            ssn.addText("You might consider giving the order to go North instead.");
-            return;
-        }
-        InvocationLogic.game(ssn, SWOperationBean.MOVE, dir, null);
-        ssn.addSound(AudioConstLogic.SOUND_MOTOR_RUNNING);
-        //InvocationLogic.
-        PlayLogic.describeGame(ssn);
-        ssn.addPause();
-        ssn.addText("What are your orders now?");
-        if ((dir != SWOperationBean.LOWER) && (dir != SWOperationBean.RAISE))
-            ssn.getState().setLastMove(dir);
     }
 
 }

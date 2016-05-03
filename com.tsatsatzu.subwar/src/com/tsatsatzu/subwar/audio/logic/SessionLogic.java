@@ -128,20 +128,26 @@ public class SessionLogic
             ssn.addText("I'm not sure I caught that.");
             ssn.addText("Can you repeat it?");
             ssn.addText("Just say \"call my ship Boston\" and I'll call it that.");
+            return;
         }
         else
         {
             InvocationLogic.game(ssn, SWOperationBean.SET_USER_DETAILS, "", name);
             ssn.addText("Will do, {captain}.");
-            switch (ssn.getState().getState())
-            {
-                case AudioConstLogic.STATE_PRE_GAME:
-                    ssn.addText("Would you like me to tell you about the ship, about combat, consult the leaderboard, or are you ready to launch {ship}?");
-                    ssn.getState().setState(AudioConstLogic.STATE_PRE_GAME);
-                    break;
-                default:
-                    System.err.println("CallShip: unhandled state - "+ssn.getState().getState());
-            }
+        }
+        switch (ssn.getState().getState())
+        {
+            case AudioConstLogic.STATE_INTRO1_1:
+            case AudioConstLogic.STATE_INTRO3_1:
+            case AudioConstLogic.STATE_PRE_GAME:
+                FrameworkLogic.addPregamePrompt(ssn);
+                ssn.getState().setState(AudioConstLogic.STATE_PRE_GAME);
+                break;
+            case AudioConstLogic.STATE_GAME_BASE:
+                FrameworkLogic.addGamePrompt(ssn);
+                break;
+            default:
+                System.err.println("CallShip: unhandled state - "+ssn.getState().getState());
         }
     }
 

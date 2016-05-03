@@ -68,6 +68,9 @@ public class GameTest extends BaseTest
         resp = dialog(SubWarAudioAPI.CMD_DIVE);
         assertNotNull(resp.getGame());
         assertFalse(resp.isEndSession());
+        resp = dialog(SubWarAudioAPI.CMD_DOCK);
+        assertNull(resp.getGame());
+        assertFalse(resp.isEndSession());
         resp = dialog(SubWarAudioAPI.CMD_STOP);
         assertNull(resp.getGame());
         assertTrue(resp.isEndSession());

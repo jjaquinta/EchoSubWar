@@ -106,7 +106,7 @@ public class SWPingBean
             "West",
             "West-northwest",
             "Northwest",
-            "Norht-northwest",
+            "North-northwest",
     };
     public static final String[] DIRECTIONS_DM = {
             "",

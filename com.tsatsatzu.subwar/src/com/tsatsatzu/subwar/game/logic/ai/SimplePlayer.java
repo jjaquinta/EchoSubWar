@@ -242,7 +242,7 @@ public class SimplePlayer implements IComputerPlayer
     
     private void log(String id, String msg)
     {
-        System.out.println(id+": "+msg);
+        //System.out.println(id+": "+msg);
     }
     
     class SimpleData
