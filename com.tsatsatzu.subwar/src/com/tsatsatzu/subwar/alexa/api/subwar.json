@@ -1,0 +1,169 @@
+{
+   "intents":[
+      {
+         "slots":[
+
+         ],
+         "intent":"NORTH"
+      },
+      {
+         "slots":[
+
+         ],
+         "intent":"SOUTH"
+      },
+      {
+         "slots":[
+
+         ],
+         "intent":"EAST"
+      },
+      {
+         "slots":[
+
+         ],
+         "intent":"WEST"
+      },
+      {
+         "slots":[
+
+         ],
+         "intent":"NORTHWEST"
+      },
+      {
+         "slots":[
+
+         ],
+         "intent":"NORTHEAST"
+      },
+      {
+         "slots":[
+
+         ],
+         "intent":"SOUTHWEST"
+      },
+      {
+         "slots":[
+
+         ],
+         "intent":"SOUTHEAST"
+      },
+      {
+         "slots":[
+
+         ],
+         "intent":"DIVE"
+      },
+      {
+         "slots":[
+
+         ],
+         "intent":"RISE"
+      },
+      {
+         "slots":[
+
+         ],
+         "intent":"LISTEN"
+      },
+      {
+         "slots":[
+
+         ],
+         "intent":"SONAR"
+      },
+      {
+         "slots":[
+            {
+               "name":"dir",
+               "type":"DIRECTION"
+            }
+         ],
+         "intent":"FIRE"
+      },
+      {
+         "slots":[
+
+         ],
+         "intent":"CALLME"
+      },
+      {
+         "slots":[
+
+         ],
+         "intent":"CALLSHIP"
+      },
+      {
+         "slots":[
+
+         ],
+         "intent":"LAUNCH"
+      },
+      {
+         "slots":[
+
+         ],
+         "intent":"DOCK"
+      },
+      {
+         "slots":[
+
+         ],
+         "intent":"LEADERS"
+      },
+      {
+         "slots":[
+
+         ],
+         "intent":"SHIP"
+      },
+      {
+         "slots":[
+
+         ],
+         "intent":"COMBAT"
+      },
+      {
+         "slots":[
+
+         ],
+         "intent":"AMAZON.NoIntent"
+      },
+      {
+         "slots":[
+
+         ],
+         "intent":"AMAZON.YesIntent"
+      },
+      {
+         "slots":[
+
+         ],
+         "intent":"AMAZON.RepeatIntent"
+      },
+      {
+         "slots":[
+
+         ],
+         "intent":"AMAZON.StartOverIntent"
+      },
+      {
+         "slots":[
+
+         ],
+         "intent":"AMAZON.HelpIntent"
+      },
+      {
+         "slots":[
+
+         ],
+         "intent":"AMAZON.StopIntent"
+      },
+      {
+         "slots":[
+
+         ],
+         "intent":"AMAZON.CancelIntent"
+      }
+   ]
+}

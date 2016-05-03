@@ -1,0 +1,24 @@
+NORTH north
+SOUTH south
+EAST east
+WEST west
+NORTHWEST northwest
+NORTHWEST north west
+NORTHEAST northeast
+NORTHEAST north east
+SOUTHWEST southwest
+SOUTHWEST south west
+SOUTHEAST southeast
+SOUTHEAST south east
+DIVE dive
+RISE rise
+LISTEN listen
+SONAR sonar
+FIRE fire
+CALLME call me
+CALLSHIP call my ship
+LAUNCH launch
+DOCK dock
+LEADERS leaders
+SHIP ship
+COMBAT combat

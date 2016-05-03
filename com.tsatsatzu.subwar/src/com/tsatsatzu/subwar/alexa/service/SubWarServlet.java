@@ -41,11 +41,8 @@ public class SubWarServlet extends SpeechletServlet
     private static StringBuffer mLogMessages = new StringBuffer();
     private static Map<Thread, HttpServletRequest> mRequests = new HashMap<Thread, HttpServletRequest>();
 
-    private static SubWarServlet mInstance = null;
-    
     public SubWarServlet()
     {
-        mInstance = this;
     }
     
     @Override
@@ -77,7 +74,7 @@ public class SubWarServlet extends SpeechletServlet
     @Override
     public void setSpeechlet(Speechlet speechlet)
     {
-        super.setSpeechlet(new SpeechletWrapper(getClass(), speechlet));
+        super.setSpeechlet(new SpeechletWrapper(speechlet));
     }
 
     @Override
@@ -111,7 +108,6 @@ public class SubWarServlet extends SpeechletServlet
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException
     {
-        String fetch = req.getParameter("fetch");
         if ((mLastException != null) || (mLogMessages.length() > 0))
         {
             resp.setContentType("text/html");
@@ -198,12 +194,10 @@ public class SubWarServlet extends SpeechletServlet
     }
     
     class SpeechletWrapper implements Speechlet {
-        private Class<?>  mServlet;
         private Speechlet mBase;
         
-        public SpeechletWrapper(Class<?> servlet, Speechlet base)
+        public SpeechletWrapper(Speechlet base)
         {
-            mServlet = servlet;
             mBase = base;
         }
         
