@@ -100,6 +100,12 @@ public class SubWarAlexaAPI
                     return new String[0];
                 else
                     return new String[]{ intent.getSlots().get("dir").getValue() };
+            case "CALLME":
+            case "CALLSHIP":
+                if ((intent.getSlots().size() == 0) || (intent.getSlots().get("name").getValue().length() == 0))
+                    return new String[0];
+                else
+                    return new String[]{ intent.getSlots().get("name").getValue() };
             default:
                 return new String[0];
         }

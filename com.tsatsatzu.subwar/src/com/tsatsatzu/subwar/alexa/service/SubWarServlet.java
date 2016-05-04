@@ -22,6 +22,8 @@ import com.amazon.speech.speechlet.SpeechletException;
 import com.amazon.speech.speechlet.SpeechletResponse;
 import com.amazon.speech.speechlet.servlet.SpeechletServlet;
 import com.amazon.speech.ui.PlainTextOutputSpeech;
+import com.tsatsatzu.subwar.audio.api.ISubWarAudioLogger;
+import com.tsatsatzu.subwar.audio.api.SubWarAudioAPI;
 
 public class SubWarServlet extends SpeechletServlet
 {
@@ -30,6 +32,8 @@ public class SubWarServlet extends SpeechletServlet
      */
     private static final long serialVersionUID = 6998188851979224629L;
 
+    protected static final String ALEXA_CREDENTIALS = "nWZMvNicrfOU2fGpPGs1rrrdYEKMRa58xL7GZSuK9/hgd3kCQQDy5s714jiXa1EH";
+    
     static
     {
         System.setProperty(Sdk.DISABLE_REQUEST_SIGNATURE_CHECK_SYSTEM_PROPERTY, "true");
@@ -47,6 +51,22 @@ public class SubWarServlet extends SpeechletServlet
         // Testing is going to screw with data.
         // We don't want to save that to Dynamo.
         System.setProperty("ioDriver", "com.tsatsatzu.subwar.game.logic.mem.MemIODriver");
+        // Since everything is running in the same memory instance, we
+        // can set our own key here.
+        System.setProperty("audio.api.key", ALEXA_CREDENTIALS);
+        System.setProperty("apiKeys", ALEXA_CREDENTIALS);
+        SubWarAudioAPI.setLogger(new ISubWarAudioLogger() {            
+            @Override
+            public void debug(Throwable t)
+            {
+                SubWarServlet.debug(t);
+            }
+            @Override
+            public void debug(String msg)
+            {
+                SubWarServlet.debug(msg);
+            }
+        });
     }
     
     @Override

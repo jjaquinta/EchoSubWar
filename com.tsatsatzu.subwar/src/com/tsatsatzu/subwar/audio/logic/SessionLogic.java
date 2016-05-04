@@ -3,6 +3,7 @@ package com.tsatsatzu.subwar.audio.logic;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.tsatsatzu.subwar.audio.api.SubWarAudioAPI;
 import com.tsatsatzu.subwar.audio.data.SWInvocationBean;
 import com.tsatsatzu.subwar.audio.data.SWSessionBean;
 import com.tsatsatzu.subwar.audio.data.SWStateBean;
@@ -116,7 +117,7 @@ public class SessionLogic
                     ssn.getState().setState(AudioConstLogic.STATE_PRE_GAME);
                     break;
                 default:
-                    System.err.println("CallMe: unhandled state - "+ssn.getState().getState());
+                    SubWarAudioAPI.debug("CallMe: unhandled state - "+ssn.getState().getState());
             }
         }
     }
@@ -147,7 +148,7 @@ public class SessionLogic
                 FrameworkLogic.addGamePrompt(ssn);
                 break;
             default:
-                System.err.println("CallShip: unhandled state - "+ssn.getState().getState());
+                SubWarAudioAPI.debug("CallShip: unhandled state - "+ssn.getState().getState());
         }
     }
 

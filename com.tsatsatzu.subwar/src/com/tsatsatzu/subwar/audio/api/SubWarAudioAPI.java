@@ -10,6 +10,8 @@ import com.tsatsatzu.subwar.audio.logic.MoveLogic;
 import com.tsatsatzu.subwar.audio.logic.SWAudioException;
 import com.tsatsatzu.subwar.audio.logic.ScanLogic;
 import com.tsatsatzu.subwar.audio.logic.SessionLogic;
+import com.tsatsatzu.subwar.game.api.ISubWarGameLogger;
+import com.tsatsatzu.subwar.game.api.SubWarGameAPI;
 import com.tsatsatzu.utils.obj.StringUtils;
 
 public class SubWarAudioAPI
@@ -44,17 +46,49 @@ public class SubWarAudioAPI
     public static final String CMD_COMBAT = "COMBAT";
     public static final String CMD_LEADERS = "LEADERS";
     
+    private static ISubWarAudioLogger mLogger = new ISubWarAudioLogger() {        
+        @Override
+        public void debug(Throwable t)
+        {
+            t.printStackTrace();
+        }
+        
+        @Override
+        public void debug(String msg)
+        {
+            System.err.println(msg);
+        }
+    };
+    static
+    {
+        SubWarGameAPI.setLogger(new ISubWarGameLogger() {            
+            @Override
+            public void debug(Throwable t)
+            {
+                SubWarAudioAPI.debug(t);
+            }            
+            @Override
+            public void debug(String msg)
+            {
+                SubWarAudioAPI.debug(msg);
+            }
+        });
+    }
+
     public static SWInvocationBean invoke(SWSessionBean ssn, String verb, String... args)
     {
+        debug("Invoking "+verb);
         SWInvocationBean context = SessionLogic.loadSession(ssn);
         try
         {
             invokeVerb(context, verb, args);
             if (StringUtils.trivial(context.getRepromptText()))
                 setGenericReprompt(context);
+            debug("Reply "+context.getSpokenText());
         }
         catch (SWAudioException e)
         {
+            debug(e);
             InvocationLogic.recordException(context, e);
         }
         SessionLogic.saveSession(context);
@@ -179,8 +213,28 @@ public class SubWarAudioAPI
                 context.addReprompt("Say yes to abort and return to dock, no to keep on with the mission.");
                 break;
             default:
-                System.err.println("Don't know how to set generic reprompt for state="+context.getState().getState());
+                SubWarAudioAPI.debug("Don't know how to set generic reprompt for state="+context.getState().getState());
                 break;
         }
+    }
+    
+    public static void setLogger(ISubWarAudioLogger logger)
+    {
+        mLogger = logger;
+    }
+    
+    public static void debug(String msg)
+    {
+        if (mLogger != null)
+            if (msg.startsWith("GAME:"))
+                mLogger.debug(msg);
+            else
+                mLogger.debug("AUDIO: "+msg);
+    }
+    
+    public static void debug(Throwable e)
+    {
+        if (mLogger != null)
+            mLogger.debug(e);
     }
 }

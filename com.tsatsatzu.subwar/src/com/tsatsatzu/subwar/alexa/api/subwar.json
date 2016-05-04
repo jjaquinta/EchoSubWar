@@ -83,13 +83,19 @@
       },
       {
          "slots":[
-
+            {
+               "name":"name",
+               "type":"AMAZON.US_FIRST_NAME"
+            }
          ],
          "intent":"CALLME"
       },
       {
          "slots":[
-
+            {
+               "name":"name",
+               "type":"AMAZON.US_CITY"
+            }
          ],
          "intent":"CALLSHIP"
       },
