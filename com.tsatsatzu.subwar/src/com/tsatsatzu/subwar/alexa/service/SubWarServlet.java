@@ -43,6 +43,10 @@ public class SubWarServlet extends SpeechletServlet
 
     public SubWarServlet()
     {
+        // Set I/O driver to the memory model.
+        // Testing is going to screw with data.
+        // We don't want to save that to Dynamo.
+        System.setProperty("ioDriver", "com.tsatsatzu.subwar.game.logic.mem.MemIODriver");
     }
     
     @Override
