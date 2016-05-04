@@ -50,8 +50,6 @@ public class SubWarServlet extends SpeechletServlet
     {
         super.init(config);
         this.setSpeechlet(new SubWarSpeechlet());
-        System.setProperty("aws.accessKeyId",  "AKIAJBFQIVVXXOXKPQLA");
-        System.setProperty("aws.secretKey",  "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");
     }
     
     public static void debug(Throwable t)
