@@ -96,21 +96,32 @@ public class SubWarAlexaAPI
         switch (intent.getName())
         {
             case "FIRE":
-                if ((intent.getSlots().size() == 0) || (intent.getSlots().get("dir").getValue().length() == 0))
+                String dir = getSlotValue(intent, "dir");
+                if (dir == null)
                     return new String[0];
                 else
-                    return new String[]{ intent.getSlots().get("dir").getValue() };
+                    return new String[]{ dir };
             case "CALLME":
             case "CALLSHIP":
-                if ((intent.getSlots().size() == 0) || (intent.getSlots().get("name").getValue().length() == 0))
+                String name = getSlotValue(intent, "name");
+                if (name == null)
                     return new String[0];
                 else
-                    return new String[]{ intent.getSlots().get("name").getValue() };
+                    return new String[]{ name };
             default:
                 return new String[0];
         }
     }
 
+    private static String getSlotValue(Intent intent, String name)
+    {
+        Slot slot = intent.getSlot(name);
+        if (slot == null)
+            return null;
+        String val = slot.getValue();
+        return val;
+    }
+    
     private static SpeechletResponse invocationToResponse(SWInvocationBean inv)
     {
         // Create the Simple card content.
