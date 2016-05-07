@@ -102,12 +102,17 @@ public class SubWarAlexaAPI
                 else
                     return new String[]{ dir };
             case "CALLME":
-            case "CALLSHIP":
                 String name = getSlotValue(intent, "name");
                 if (name == null)
                     return new String[0];
                 else
                     return new String[]{ name };
+            case "CALLSHIP":
+                String shipname = getSlotValue(intent, "shipname");
+                if (shipname == null)
+                    return new String[0];
+                else
+                    return new String[]{ shipname };
             default:
                 return new String[0];
         }

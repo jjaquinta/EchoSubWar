@@ -10,15 +10,75 @@ SOUTHWEST southwest
 SOUTHWEST south west
 SOUTHEAST southeast
 SOUTHEAST south east
+NORTH go north
+SOUTH go south
+EAST go east
+WEST go west
+NORTHWEST go northwest
+NORTHWEST go north west
+NORTHEAST go northeast
+NORTHEAST go north east
+SOUTHWEST go southwest
+SOUTHWEST go south west
+SOUTHEAST go southeast
+SOUTHEAST go south east
+NORTH move north
+SOUTH move south
+EAST move east
+WEST move west
+NORTHWEST move northwest
+NORTHWEST move north west
+NORTHEAST move northeast
+NORTHEAST move north east
+SOUTHWEST move southwest
+SOUTHWEST move south west
+SOUTHEAST move southeast
+SOUTHEAST move south east
 DIVE dive
+DIVE sink
+DIVE down
+RISE surface
 RISE rise
+RISE up
+RISE blow ballast
 LISTEN listen
+LISTEN microphone
+LISTEN silent running
 SONAR sonar
+SONAR ping
+SONAR activate sonar
+SONAR use sonar
 FIRE fire
-CALLME call me
-CALLSHIP call my ship
+FIRE fire torpedo
+FIRE launch torpedo
+FIRE fire {dir}
+FIRE fire torpedo {dir}
+FIRE launch torpedo {dir}
+CALLME call me {name}
+CALLME name me {name}
+CALLME set my name to {name}
+CALLSHIP call my ship {shipname}
+CALLSHIP name my ship {shipname}
 LAUNCH launch
+LAUNCH launch ship
+LAUNCH launch sub
+LAUNCH launch submarine
+LAUNCH launch me
 DOCK dock
+DOCK dock ship
+DOCK dock sub
+DOCK dock me
+DOCK back to dock
+DOCK return to dock
 LEADERS leaders
+LEADERS leader board
+LEADERS leaderboard
+LEADERS who are the leaders
+LEADERS score
+LEADERS score board
+LEADERS scoreboard
+LEADERS board
 SHIP ship
+SHIP tell me about my ship
 COMBAT combat
+COMBAT tell me about combat

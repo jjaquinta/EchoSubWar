@@ -6,12 +6,14 @@ public class AudioConstLogic
 {
     static final String API_KEY = CredentialsLogic.getProperty("audio.api.key");
     
-    private static final String SOUND_ROOT = "https://s3.amazonaws.com/tsatsatzu-alexa/sound/blackjack/";
-    public static final String SOUND_BOSUN_WHISTLE = SOUND_ROOT+"shuffle-cards-4.mp3";
-    public static final String SOUND_SHIP_LAUNCH = SOUND_ROOT+"shuffle-cards-4.mp3";
-    public static final String SOUND_MOTOR_RUNNING = SOUND_ROOT+"shuffle-cards-4.mp3";
-    public static final String SOUND_EXPLOSION = SOUND_ROOT+"shuffle-cards-4.mp3";
-    public static final String SOUND_TORPEDO = SOUND_ROOT+"shuffle-cards-4.mp3";
+    private static final String SOUND_ROOT = "https://s3.amazonaws.com/tsatsatzu-alexa/sound/subwar/";
+    public static final String SOUND_BOSUN_WHISTLE = SOUND_ROOT+"BOSUN_WHISTLE.mp3";
+    public static final String SOUND_SHIP_LAUNCH = SOUND_ROOT+"SHIP_LAUNCH.mp3";
+    public static final String SOUND_MOTOR_RUNNING = SOUND_ROOT+"MOTOR_RUNNING.mp3";
+    public static final String SOUND_EXPLOSION = SOUND_ROOT+"EXPLOSION.mp3";
+    public static final String SOUND_TORPEDO = SOUND_ROOT+"TORPEDO.mp3";
+    public static final String SOUND_SONAR = SOUND_ROOT+"SONAR.mp3";
+    public static final String SOUND_LISTEN_SHIP = SOUND_ROOT+"LISTEN_SHIP.mp3";
 
     public static final String SOUND_PAUSE = "<break strength=\"medium\"/>";
     

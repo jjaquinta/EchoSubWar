@@ -12,6 +12,7 @@ import com.tsatsatzu.subwar.audio.logic.ScanLogic;
 import com.tsatsatzu.subwar.audio.logic.SessionLogic;
 import com.tsatsatzu.subwar.game.api.ISubWarGameLogger;
 import com.tsatsatzu.subwar.game.api.SubWarGameAPI;
+import com.tsatsatzu.subwar.game.logic.GameConstLogic;
 import com.tsatsatzu.utils.obj.StringUtils;
 
 public class SubWarAudioAPI
@@ -100,103 +101,124 @@ public class SubWarAudioAPI
     public static void invokeVerb(SWInvocationBean context, String verb,
             String... args) throws SWAudioException
     {
-        switch (verb)
+        try
         {
-            case CMD_LAUNCH_APP:
-                SessionLogic.launch(context);
-                break;
-            case CMD_TERMINATE_APP:
-                SessionLogic.terminate(context);
-                break;
-            case CMD_YES:
-                FrameworkLogic.yes(context);
-                break;
-            case CMD_NO:
-                FrameworkLogic.no(context);
-                break;
-            case CMD_CANCEL:
-                FrameworkLogic.cancel(context);
-                break;
-            case CMD_HELP:
-                FrameworkLogic.help(context);
-                break;
-            case CMD_REPEAT:
-                FrameworkLogic.repeat(context);
-                break;
-            case CMD_STARTOVER:
-                FrameworkLogic.startOver(context);
-                break;
-            case CMD_STOP:
-                FrameworkLogic.stop(context);
-                break;
-            case CMD_LAUNCH:
-                FrameworkLogic.startGame(context);
-                break;
-            case CMD_NORTH:
-                MoveLogic.north(context);
-                break;
-            case CMD_SOUTH:
-                MoveLogic.south(context);
-                break;
-            case CMD_EAST:
-                MoveLogic.east(context);
-                break;
-            case CMD_WEST:
-                MoveLogic.west(context);
-                break;
-            case CMD_NORTHWEST:
-                MoveLogic.northwest(context);
-                break;
-            case CMD_NORTHEAST:
-                MoveLogic.northeast(context);
-                break;
-            case CMD_SOUTHWEST:
-                MoveLogic.southwest(context);
-                break;
-            case CMD_SOUTHEAST:
-                MoveLogic.southeast(context);
-                break;
-            case CMD_DIVE:
-                MoveLogic.dive(context);
-                break;
-            case CMD_RISE:
-                MoveLogic.rise(context);
-                break;
-            case CMD_LISTEN:
-                ScanLogic.listen(context);
-                break;
-            case CMD_SONAR:
-                ScanLogic.sonar(context);
-                break;
-            case CMD_FIRE:
-                CombatLogic.fire(context, args[0]);
-                break;
-            case CMD_CALL_ME:
-                SessionLogic.callMe(context, args[0]);
-                break;
-            case CMD_CALL_SHIP:
-                SessionLogic.callShip(context, args[0]);                
-                break;     
-            case CMD_SHIP:
-                FrameworkLogic.ship(context);                
-                break;     
-            case CMD_COMBAT:
-                FrameworkLogic.combat(context);                
-                break;     
-            case CMD_LEADERS:
-                CombatLogic.leaders(context);                
-                break;     
-            case CMD_DOCK:
-                MoveLogic.dock(context);                
-                break;     
-            default:
-                throw new SWAudioException("Unknown verb: "+verb);
+            switch (verb)
+            {
+                case CMD_LAUNCH_APP:
+                    SessionLogic.launch(context);
+                    break;
+                case CMD_TERMINATE_APP:
+                    SessionLogic.terminate(context);
+                    break;
+                case CMD_YES:
+                    FrameworkLogic.yes(context);
+                    break;
+                case CMD_NO:
+                    FrameworkLogic.no(context);
+                    break;
+                case CMD_CANCEL:
+                    FrameworkLogic.cancel(context);
+                    break;
+                case CMD_HELP:
+                    FrameworkLogic.help(context);
+                    break;
+                case CMD_REPEAT:
+                    FrameworkLogic.repeat(context);
+                    break;
+                case CMD_STARTOVER:
+                    FrameworkLogic.startOver(context);
+                    break;
+                case CMD_STOP:
+                    FrameworkLogic.stop(context);
+                    break;
+                case CMD_LAUNCH:
+                    FrameworkLogic.startGame(context);
+                    break;
+                case CMD_NORTH:
+                    MoveLogic.north(context);
+                    break;
+                case CMD_SOUTH:
+                    MoveLogic.south(context);
+                    break;
+                case CMD_EAST:
+                    MoveLogic.east(context);
+                    break;
+                case CMD_WEST:
+                    MoveLogic.west(context);
+                    break;
+                case CMD_NORTHWEST:
+                    MoveLogic.northwest(context);
+                    break;
+                case CMD_NORTHEAST:
+                    MoveLogic.northeast(context);
+                    break;
+                case CMD_SOUTHWEST:
+                    MoveLogic.southwest(context);
+                    break;
+                case CMD_SOUTHEAST:
+                    MoveLogic.southeast(context);
+                    break;
+                case CMD_DIVE:
+                    MoveLogic.dive(context);
+                    break;
+                case CMD_RISE:
+                    MoveLogic.rise(context);
+                    break;
+                case CMD_LISTEN:
+                    ScanLogic.listen(context);
+                    break;
+                case CMD_SONAR:
+                    ScanLogic.sonar(context);
+                    break;
+                case CMD_FIRE:
+                    CombatLogic.fire(context, args[0]);
+                    break;
+                case CMD_CALL_ME:
+                    SessionLogic.callMe(context, args[0]);
+                    break;
+                case CMD_CALL_SHIP:
+                    SessionLogic.callShip(context, args[0]);                
+                    break;     
+                case CMD_SHIP:
+                    FrameworkLogic.ship(context);                
+                    break;     
+                case CMD_COMBAT:
+                    FrameworkLogic.combat(context);                
+                    break;     
+                case CMD_LEADERS:
+                    CombatLogic.leaders(context);                
+                    break;     
+                case CMD_DOCK:
+                    MoveLogic.dock(context);                
+                    break;     
+                default:
+                    throw new SWAudioException("Unknown verb: "+verb);
+            }
+        }
+        catch (SWAudioException e)
+        {
+            handleException(context, e);
         }
         if (!CMD_REPEAT.equals(verb))
         {
             context.getState().setLastVerb(verb);
             context.getState().setLastArgs(args);
         }
+    }
+
+    private static void handleException(SWInvocationBean ssn,
+            SWAudioException e) throws SWAudioException
+    {
+        if (e.getMessage().equals(GameConstLogic.ERR_YOU_HAVE_BEEN_DESTROYED))
+        {
+            ssn.addText("Oh, dear. We got torpedoed!");
+            FrameworkLogic.addPregamePrompt(ssn);
+            ssn.getState().setState(AudioConstLogic.STATE_PRE_GAME);
+            return;
+        }
+        else
+            throw e;
     }
 
     private static void setGenericReprompt(SWInvocationBean context)

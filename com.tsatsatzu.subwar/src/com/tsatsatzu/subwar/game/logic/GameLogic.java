@@ -37,7 +37,7 @@ public class GameLogic
     public static int joinGame(SWUserBean user) throws SWGameException
     {
         if (user.getInGame() >= 0)
-            throw new SWGameException("already in game");
+            throw new SWGameException(GameConstLogic.ERR_ALREADY_IN_GAME);
         // find a game with room
         synchronized (mGames)
         {
@@ -58,12 +58,12 @@ public class GameLogic
     public static int leaveGame(SWUserBean user) throws SWGameException
     {
         if (user.getInGame() < 0)
-            throw new SWGameException("already not in game");
+            throw new SWGameException(GameConstLogic.ERR_NOT_IN_GAME);
         SWGameBean game = mGames.get(user.getInGame());
         updateGame(game);
         SWPositionBean pos = game.getShips().get(user.getUserID());
         if (pos == null)
-            throw new SWGameException("you have been destroyed");
+            throw new SWGameException(GameConstLogic.ERR_YOU_HAVE_BEEN_DESTROYED);
         doLeaveGame(game, user.getUserID());
         user.setInGame(-1);
         return SUCCESS;
@@ -72,7 +72,7 @@ public class GameLogic
     public static int move(SWUserBean user, int dLon, int dLat, int dDep) throws SWGameException
     {
         if (user.getInGame() < 0)
-            throw new SWGameException("not in game");
+            throw new SWGameException(GameConstLogic.ERR_NOT_IN_GAME);
         SWGameBean game = mGames.get(user.getInGame());
         int ret = doMoveShip(user.getUserID(), dLon, dLat, dDep, game);
         return ret;
@@ -81,12 +81,12 @@ public class GameLogic
     public static int listen(SWUserBean user) throws SWGameException
     {
         if (user.getInGame() < 0)
-            throw new SWGameException("not in game");
+            throw new SWGameException(GameConstLogic.ERR_NOT_IN_GAME);
         SWGameBean game = mGames.get(user.getInGame());
         updateGame(game);
         SWPositionBean pos = game.getShips().get(user.getUserID());
         if (pos == null)
-            throw new SWGameException("you have been destroyed");
+            throw new SWGameException(GameConstLogic.ERR_YOU_HAVE_BEEN_DESTROYED);
         List<SWPingBean> pings = doListen(user.getUserID(), game, System.currentTimeMillis());
         pos.getSoundings().addAll(pings);
         return SUCCESS;
@@ -95,12 +95,12 @@ public class GameLogic
     public static int ping(SWUserBean user) throws SWGameException
     {
         if (user.getInGame() < 0)
-            throw new SWGameException("not in game");
+            throw new SWGameException(GameConstLogic.ERR_NOT_IN_GAME);
         SWGameBean game = mGames.get(user.getInGame());
         updateGame(game);
         SWPositionBean pos = game.getShips().get(user.getUserID());
         if (pos == null)
-            throw new SWGameException("you have been destroyed");
+            throw new SWGameException(GameConstLogic.ERR_YOU_HAVE_BEEN_DESTROYED);
         List<SWPingBean> pings = doPing(user.getUserID(), game, System.currentTimeMillis());
         pos.getSoundings().addAll(pings);
         return SUCCESS;
@@ -109,14 +109,14 @@ public class GameLogic
     public static int fire(SWUserBean user, int fireDLon, int fireDLat) throws SWGameException
     {
         if (user.getInGame() < 0)
-            throw new SWGameException("not in game");
+            throw new SWGameException(GameConstLogic.ERR_NOT_IN_GAME);
         SWGameBean game = mGames.get(user.getInGame());
         updateGame(game);
         SWPositionBean pos = game.getShips().get(user.getUserID());
         if (pos == null)
-            throw new SWGameException("you have been destroyed");
+            throw new SWGameException(GameConstLogic.ERR_YOU_HAVE_BEEN_DESTROYED);
         if (pos.getTorpedoes() <= 0)
-            throw new SWGameException("you are out of torpedos");
+            throw new SWGameException(GameConstLogic.ERR_YOU_ARE_OUT_OF_TORPEDOS);
         int hits = doTorpedo(user.getUserID(), game, fireDLon, fireDLat, System.currentTimeMillis());
         pos.setHits(pos.getHits() + hits);
         user.setNumberOfKills(user.getNumberOfKills() + hits);
@@ -295,7 +295,7 @@ public class GameLogic
     {
         SWPositionBean pos = game.getShips().get(id);
         if (pos == null)
-            throw new SWGameException("not in game");
+            throw new SWGameException(GameConstLogic.ERR_NOT_IN_GAME);
         int newLat = pos.getLattitude() + dLat;
         int newLon = pos.getLongitude() + dLon;
         int newDep = pos.getDepth() - dDep; // -ve = sink, which we actually increment for

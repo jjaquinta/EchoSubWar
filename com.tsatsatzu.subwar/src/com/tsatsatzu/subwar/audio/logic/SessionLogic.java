@@ -28,6 +28,7 @@ public class SessionLogic
             if (!mStates.containsKey(ssn.getUserID()))
                 mStates.put(ssn.getUserID(), new SWStateBean());
             invocation.setState(mStates.get(ssn.getUserID()));
+            normalizeState(invocation);
         }
         catch (SWAudioException e)
         {
@@ -37,6 +38,28 @@ public class SessionLogic
         return invocation;
     }
     
+    private static void normalizeState(SWInvocationBean invocation)
+    {
+        switch (invocation.getState().getState())
+        {
+            case AudioConstLogic.STATE_GAME_BASE:
+            case AudioConstLogic.STATE_GAME_ABORT:
+                if (invocation.getUser().getInGame() < 0)
+                    invocation.getState().setState(AudioConstLogic.STATE_PRE_GAME);
+                break;
+            case AudioConstLogic.STATE_INITIAL:
+            case AudioConstLogic.STATE_INTRO1_1:
+            case AudioConstLogic.STATE_INTRO1_2:
+            case AudioConstLogic.STATE_INTRO1_3:
+            case AudioConstLogic.STATE_PRE_GAME:
+            case AudioConstLogic.STATE_INTRO2_1:
+            case AudioConstLogic.STATE_INTRO3_1:
+                if (invocation.getUser().getInGame() >= 0)
+                    invocation.getState().setState(AudioConstLogic.STATE_GAME_BASE);
+                break;
+        }
+    }
+
     public static void saveSession(SWInvocationBean context)
     {
         SWUserBean user = context.getUser();

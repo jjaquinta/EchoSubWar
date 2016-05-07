@@ -33,7 +33,14 @@ public class CombatLogic
                     ssn.addText("You need to tell me which direction you want to fire in, sir.");
                     return;
                 }
-                SWContextBean ret = InvocationLogic.game(ssn, SWOperationBean.TORPEDO, dir, null);
+                if (ssn.getGame().getUserPosition().getTorpedoes() == 0)
+                {
+                    ssn.addText("You don't have any torpedoes left.");
+                    ssn.addText("We should probably return to dock.");
+                    return;
+                }
+                SWContextBean ret = null;
+                ret = InvocationLogic.game(ssn, SWOperationBean.TORPEDO, dir, null);
                 int hits = Integer.parseInt(ret.getLastOperationMessage());
                 ssn.addSound(AudioConstLogic.SOUND_TORPEDO);
                 ssn.addText("Torpedo away, {captain}!");

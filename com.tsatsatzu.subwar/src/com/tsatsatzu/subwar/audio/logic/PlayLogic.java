@@ -139,7 +139,10 @@ public class PlayLogic
                     break;
             }
         if (listens.size() > 0)
+        {
+            ssn.addSound(AudioConstLogic.SOUND_LISTEN_SHIP);
             ssn.addText("We can hear a ship's screw "+ResponseLogic.andList(listens)+".");
+        }
         if (pings.size() == 1)
             ssn.addText("Our sonar hear's a signal return "+ResponseLogic.andList(pings)+".");
         else if (pings.size() > 1)

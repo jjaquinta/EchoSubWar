@@ -93,7 +93,7 @@
       {
          "slots":[
             {
-               "name":"name",
+               "name":"shipname",
                "type":"AMAZON.US_CITY"
             }
          ],

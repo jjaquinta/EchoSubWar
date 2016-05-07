@@ -14,4 +14,9 @@ public class GameConstLogic
     
     public static final int MAX_AIS_PER_GAME = MAX_SHIPS_PER_GAME/6;
     public static final long AI_MOVE_TICK = 12*1000L; // how often the computer moves
+    
+    public static final String ERR_YOU_ARE_OUT_OF_TORPEDOS = "you are out of torpedos";
+    public static final String ERR_YOU_HAVE_BEEN_DESTROYED = "you have been destroyed";
+    public static final String ERR_NOT_IN_GAME = "not in game";
+    public static final String ERR_ALREADY_IN_GAME = "already in game";
 }
