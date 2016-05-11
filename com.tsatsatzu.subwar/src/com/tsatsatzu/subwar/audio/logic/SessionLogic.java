@@ -153,9 +153,20 @@ public class SessionLogic
             ssn.addText("Will do, {captain}.");
             switch (ssn.getState().getState())
             {
+                case AudioConstLogic.STATE_INITIAL:
+                case AudioConstLogic.STATE_INTRO1_1:
+                case AudioConstLogic.STATE_INTRO1_2:
+                case AudioConstLogic.STATE_INTRO1_3:
+                case AudioConstLogic.STATE_INTRO2_1:
+                case AudioConstLogic.STATE_INTRO3_1:
                 case AudioConstLogic.STATE_PRE_GAME:
-                    ssn.addText("Would you like me to tell you about the ship, about combat, consult the leaderboard, or are you ready to launch?");
+                    FrameworkLogic.addPregamePrompt(ssn);
                     ssn.getState().setState(AudioConstLogic.STATE_PRE_GAME);
+                    break;
+                case AudioConstLogic.STATE_GAME_BASE:
+                case AudioConstLogic.STATE_GAME_ABORT:
+                    FrameworkLogic.addGamePrompt(ssn);
+                    ssn.getState().setState(AudioConstLogic.STATE_GAME_BASE);
                     break;
                 default:
                     SubWarAudioAPI.debug("CallMe: unhandled state - "+ssn.getState().getState());
@@ -179,14 +190,20 @@ public class SessionLogic
         }
         switch (ssn.getState().getState())
         {
+            case AudioConstLogic.STATE_INITIAL:
             case AudioConstLogic.STATE_INTRO1_1:
+            case AudioConstLogic.STATE_INTRO1_2:
+            case AudioConstLogic.STATE_INTRO1_3:
+            case AudioConstLogic.STATE_INTRO2_1:
             case AudioConstLogic.STATE_INTRO3_1:
             case AudioConstLogic.STATE_PRE_GAME:
                 FrameworkLogic.addPregamePrompt(ssn);
                 ssn.getState().setState(AudioConstLogic.STATE_PRE_GAME);
                 break;
+            case AudioConstLogic.STATE_GAME_ABORT:
             case AudioConstLogic.STATE_GAME_BASE:
                 FrameworkLogic.addGamePrompt(ssn);
+                ssn.getState().setState(AudioConstLogic.STATE_GAME_BASE);
                 break;
             default:
                 SubWarAudioAPI.debug("CallShip: unhandled state - "+ssn.getState().getState());

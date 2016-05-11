@@ -7,12 +7,8 @@ import java.util.StringTokenizer;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletResponseWrapper;
-
-import org.apache.commons.io.output.ByteArrayOutputStream;
 
 import com.amazon.speech.Sdk;
 import com.amazon.speech.slu.Slot;
@@ -118,32 +114,8 @@ public class SubWarServlet extends SpeechletServlet
     {
         try
         {
-            final HttpServletResponse respOrig = resp;
-            final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            HttpServletResponse respNew = new HttpServletResponseWrapper(respOrig) {
-                @Override
-                public ServletOutputStream getOutputStream() throws IOException
-                {
-                    return new ServletOutputStream() {                        
-                        @Override
-                        public void write(int b) throws IOException
-                        {
-                            baos.write(b);
-                        }
-                    };
-                }
-                @Override
-                public void sendError(int sc, String msg) throws IOException
-                {
-                    debug("Sending error: sc="+sc+", msg="+msg);
-                    super.sendError(sc, msg);
-                }
-            };
             mRequests.put(Thread.currentThread(), req);
-            super.doPost(req, respNew);
-            byte[] data = baos.toByteArray();
-            debug(new String(data));
-            respOrig.getOutputStream().write(data);
+            super.doPost(req, resp);
             mRequests.remove(Thread.currentThread());
         }
         catch (Exception e1)

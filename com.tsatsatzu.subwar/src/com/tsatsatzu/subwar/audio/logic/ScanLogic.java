@@ -10,10 +10,17 @@ public class ScanLogic
     {
         switch (ssn.getState().getState())
         {
+            case AudioConstLogic.STATE_INITIAL:
+            case AudioConstLogic.STATE_INTRO1_1:
+            case AudioConstLogic.STATE_INTRO1_2:
+            case AudioConstLogic.STATE_INTRO1_3:
+            case AudioConstLogic.STATE_INTRO2_1:
+            case AudioConstLogic.STATE_INTRO3_1:
             case AudioConstLogic.STATE_PRE_GAME:
                 ssn.addText("I'm sorry sir.");
                 ssn.addText("We can't use the underwater microphones until we launch.");
                 FrameworkLogic.addPregamePrompt(ssn);
+                ssn.getState().setState(AudioConstLogic.STATE_PRE_GAME);
                 break;
             case AudioConstLogic.STATE_GAME_ABORT:
                 ssn.getState().setState(AudioConstLogic.STATE_GAME_BASE);
@@ -38,10 +45,17 @@ public class ScanLogic
     {
         switch (ssn.getState().getState())
         {
+            case AudioConstLogic.STATE_INITIAL:
+            case AudioConstLogic.STATE_INTRO1_1:
+            case AudioConstLogic.STATE_INTRO1_2:
+            case AudioConstLogic.STATE_INTRO1_3:
+            case AudioConstLogic.STATE_INTRO2_1:
+            case AudioConstLogic.STATE_INTRO3_1:
             case AudioConstLogic.STATE_PRE_GAME:
                 ssn.addText("I'm sorry sir.");
                 ssn.addText("We can't use the sonar until we launch.");
                 FrameworkLogic.addPregamePrompt(ssn);
+                ssn.getState().setState(AudioConstLogic.STATE_PRE_GAME);
                 break;
             case AudioConstLogic.STATE_GAME_ABORT:
                 ssn.getState().setState(AudioConstLogic.STATE_GAME_BASE);

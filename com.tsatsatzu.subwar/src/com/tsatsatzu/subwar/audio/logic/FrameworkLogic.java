@@ -129,19 +129,25 @@ public class FrameworkLogic
     {
         switch (ssn.getState().getState())
         {
+            case AudioConstLogic.STATE_INITIAL:
+            case AudioConstLogic.STATE_INTRO1_1:
+            case AudioConstLogic.STATE_INTRO1_2:
+            case AudioConstLogic.STATE_INTRO1_3:
+            case AudioConstLogic.STATE_INTRO2_1:
+            case AudioConstLogic.STATE_INTRO3_1:
+            case AudioConstLogic.STATE_PRE_GAME:
+                ssn.addText("To learn more about the game, say ship or combat.");
+                ssn.addText("To see the best players, say leaderboard.");
+                ssn.addText("Or say launch to start the game.");
+                addPregamePrompt(ssn);
+                break;
             case AudioConstLogic.STATE_GAME_BASE:
                 ssn.addText("Just give the order to move North, South, East or West and I’ll pass it on, {captain}.");
                 ssn.addText("You may also say Dive or Rise and I’ll adjust the ballast.");
                 ssn.addText("You can say Fire for me to launch a torpedo, or Sonar and I’ll send out a ping.");
                 ssn.addText("We can also just wait and listen passively for nearby traffic.");
                 ssn.addText("If all is lost, you can order us to return to port.");
-                ssn.addPause();
-                ssn.addText("What are your orders?");
-                break;
-            case AudioConstLogic.STATE_PRE_GAME:
-                ssn.addText("To learn more about the game, say ship or combat.");
-                ssn.addText("To see the best players, say leaderboard.");
-                ssn.addText("Or say launch to start the game.");
+                addGamePrompt(ssn);
                 break;
             case AudioConstLogic.STATE_GAME_ABORT:
                 ssn.addText("Say yes to abort and return to dock, no to keep on with the mission.");
@@ -180,6 +186,12 @@ public class FrameworkLogic
             case AudioConstLogic.STATE_GAME_ABORT:
                 returnToDock(ssn);
                 break;
+            case AudioConstLogic.STATE_INITIAL:
+            case AudioConstLogic.STATE_INTRO1_1:
+            case AudioConstLogic.STATE_INTRO1_2:
+            case AudioConstLogic.STATE_INTRO1_3:
+            case AudioConstLogic.STATE_INTRO2_1:
+            case AudioConstLogic.STATE_INTRO3_1:
             case AudioConstLogic.STATE_PRE_GAME:
                 addPregamePrompt(ssn);
                 break;
@@ -203,7 +215,12 @@ public class FrameworkLogic
     {
         switch (ssn.getState().getState())
         {
+            case AudioConstLogic.STATE_INITIAL:
             case AudioConstLogic.STATE_INTRO1_1:
+            case AudioConstLogic.STATE_INTRO1_2:
+            case AudioConstLogic.STATE_INTRO1_3:
+            case AudioConstLogic.STATE_INTRO2_1:
+            case AudioConstLogic.STATE_INTRO3_1:
             case AudioConstLogic.STATE_PRE_GAME:
                 ssn.addText("Aye, aye, sir.");
                 ssn.addText("Your ship will be waiting any time you want to come back.");
@@ -226,9 +243,11 @@ public class FrameworkLogic
         switch (ssn.getState().getState())
         {
             case AudioConstLogic.STATE_INTRO1_1:
-            case AudioConstLogic.STATE_PRE_GAME:
+            case AudioConstLogic.STATE_INTRO1_2:
+            case AudioConstLogic.STATE_INTRO1_3:
             case AudioConstLogic.STATE_INTRO2_1:
             case AudioConstLogic.STATE_INTRO3_1:
+            case AudioConstLogic.STATE_PRE_GAME:
                 PlayLogic.doStartGame(ssn);
                 break;
             case AudioConstLogic.STATE_GAME_ABORT:
@@ -246,10 +265,16 @@ public class FrameworkLogic
     {
         switch (ssn.getState().getState())
         {
+            case AudioConstLogic.STATE_INTRO1_1:
+            case AudioConstLogic.STATE_INTRO1_2:
+            case AudioConstLogic.STATE_INTRO1_3:
+            case AudioConstLogic.STATE_INTRO2_1:
+            case AudioConstLogic.STATE_INTRO3_1:
             case AudioConstLogic.STATE_PRE_GAME:
                 shipInfo(ssn);
                 ssn.addPause();
                 addPregamePrompt(ssn);
+                ssn.getState().setState(AudioConstLogic.STATE_PRE_GAME);
                 break;
             case AudioConstLogic.STATE_GAME_ABORT:
                 ssn.getState().setState(AudioConstLogic.STATE_GAME_BASE);
@@ -267,10 +292,16 @@ public class FrameworkLogic
     {
         switch (ssn.getState().getState())
         {
+            case AudioConstLogic.STATE_INTRO1_1:
+            case AudioConstLogic.STATE_INTRO1_2:
+            case AudioConstLogic.STATE_INTRO1_3:
+            case AudioConstLogic.STATE_INTRO2_1:
+            case AudioConstLogic.STATE_INTRO3_1:
             case AudioConstLogic.STATE_PRE_GAME:
                 combatInfo(ssn);
                 ssn.addPause();
                 addPregamePrompt(ssn);
+                ssn.getState().setState(AudioConstLogic.STATE_PRE_GAME);
                 break;
             case AudioConstLogic.STATE_GAME_ABORT:
                 ssn.getState().setState(AudioConstLogic.STATE_GAME_BASE);

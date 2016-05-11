@@ -61,9 +61,16 @@ public class CombatLogic
                 ssn.addText("What are your orders now?");
                 ssn.getState().setLastMove(dir);
                 break;
+            case AudioConstLogic.STATE_INITIAL:
+            case AudioConstLogic.STATE_INTRO1_1:
+            case AudioConstLogic.STATE_INTRO1_2:
+            case AudioConstLogic.STATE_INTRO1_3:
+            case AudioConstLogic.STATE_INTRO2_1:
+            case AudioConstLogic.STATE_INTRO3_1:
             case AudioConstLogic.STATE_PRE_GAME:
                 ssn.addText("We need to launch first before we can fire our torpedos!");
                 FrameworkLogic.addPregamePrompt(ssn);
+                ssn.getState().setState(AudioConstLogic.STATE_PRE_GAME);
                 break;
             default:
                 throw new SWAudioException("FIRE:"+ssn.getState().getState()+" not implemented");
