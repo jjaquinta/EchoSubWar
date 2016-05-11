@@ -75,9 +75,16 @@ public class SubWarAlexaAPI
     public static void doSessionEnded(SessionEndedRequest request,
             Session session)
     {
-        SWSessionBean ssn = new SWSessionBean();
-        ssn.setUserID(session.getUser().getUserId());
-        SubWarAudioAPI.invoke(ssn, SubWarAudioAPI.CMD_TERMINATE_APP);
+        try
+        {
+            SWSessionBean ssn = new SWSessionBean();
+            ssn.setUserID(session.getUser().getUserId());
+            SubWarAudioAPI.invoke(ssn, SubWarAudioAPI.CMD_TERMINATE_APP);
+        }
+        catch (Exception e)
+        {
+            SubWarServlet.debug(e);
+        }
     }
     
     private static String intentToVerb(Intent intent)

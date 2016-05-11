@@ -29,4 +29,6 @@ public class AudioConstLogic
 
     public static final String STATE_GAME_BASE = "game.base";
     public static final String STATE_GAME_ABORT = "game.abort.query";
+
+    public static final long TIMEOUT_IDLE = 5*60*1000L;
 }

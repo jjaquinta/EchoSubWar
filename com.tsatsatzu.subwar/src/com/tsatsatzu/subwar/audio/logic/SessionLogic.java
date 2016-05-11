@@ -32,6 +32,8 @@ public class SessionLogic
         }
         catch (SWAudioException e)
         {
+            SubWarAudioAPI.debug("Caught in SessionLogic.loadSession():");
+            SubWarAudioAPI.debug(e);
             InvocationLogic.recordException(invocation, e);
         }
         
@@ -66,8 +68,24 @@ public class SessionLogic
         IOLogic.saveUser(user);
     }
 
-    public static void launch(SWInvocationBean ssn)
+    public static void launch(SWInvocationBean ssn) throws SWAudioException
     {
+        if (ssn.getUser().getInGame() >= 0)
+        {
+            long elapsed = System.currentTimeMillis() - ssn.getUser().getLastInteraction();
+            if (elapsed > AudioConstLogic.TIMEOUT_IDLE)
+            {
+                InvocationLogic.game(ssn, SWOperationBean.EXIT_GAME);
+                // fall through to normal intro
+            }
+            else
+            {
+                ssn.addText("Resuming game. ");
+                ssn.addPause();
+                ssn.getState().setState(AudioConstLogic.STATE_GAME_BASE);
+                PlayLogic.describeGame(ssn);
+            }
+        }
         if (ssn.getUser().getNumberOfGames() < 1)
         {   // intro 1
             ssn.addSound(AudioConstLogic.SOUND_BOSUN_WHISTLE);
@@ -118,7 +136,7 @@ public class SessionLogic
 
     public static void terminate(SWInvocationBean ssn)
     {
-        throw new IllegalStateException("not implemented");
+        // NOOP
     }
 
     public static void callMe(SWInvocationBean ssn, String name) throws SWAudioException

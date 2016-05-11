@@ -89,6 +89,7 @@ public class SubWarAudioAPI
         }
         catch (SWAudioException e)
         {
+            debug("Caught in SubWarAudioAPI.invoke():");
             debug(e);
             InvocationLogic.recordException(context, e);
         }
@@ -212,7 +213,9 @@ public class SubWarAudioAPI
     {
         if (e.getMessage().equals(GameConstLogic.ERR_YOU_HAVE_BEEN_DESTROYED))
         {
+            ssn.addSound(AudioConstLogic.SOUND_EXPLOSION);
             ssn.addText("Oh, dear. We got torpedoed!");
+            ssn.addText("Launching lifeboats and returning to dock.");
             FrameworkLogic.addPregamePrompt(ssn);
             ssn.getState().setState(AudioConstLogic.STATE_PRE_GAME);
             return;

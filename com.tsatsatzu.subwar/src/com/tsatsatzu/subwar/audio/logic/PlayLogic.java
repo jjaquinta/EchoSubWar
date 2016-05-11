@@ -20,6 +20,7 @@ public class PlayLogic
         ssn.addText("We’ve launched!");
         ssn.getState().setState(AudioConstLogic.STATE_GAME_BASE);
         describeGame(ssn);
+        FrameworkLogic.addGamePrompt(ssn);
     }
 
     static void describeGame(SWInvocationBean ssn)
@@ -96,6 +97,10 @@ public class PlayLogic
                 }
             }
         }
+        if (pos.getDepth() == 0)
+            ssn.addText("We are just at the surface.");
+        else
+            ssn.addText("We are "+pos.getDepth()+"00 meters below the surface.");
     }
 
     private static void describeTorpedos(SWInvocationBean ssn,

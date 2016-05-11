@@ -7,8 +7,12 @@ import java.util.StringTokenizer;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
+
+import org.apache.commons.io.output.ByteArrayOutputStream;
 
 import com.amazon.speech.Sdk;
 import com.amazon.speech.slu.Slot;
@@ -109,13 +113,37 @@ public class SubWarServlet extends SpeechletServlet
     }
     
     @Override
-    protected void doPost(HttpServletRequest arg0, HttpServletResponse arg1)
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws IOException
     {
         try
         {
-            mRequests.put(Thread.currentThread(), arg0);
-            super.doPost(arg0, arg1);
+            final HttpServletResponse respOrig = resp;
+            final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            HttpServletResponse respNew = new HttpServletResponseWrapper(respOrig) {
+                @Override
+                public ServletOutputStream getOutputStream() throws IOException
+                {
+                    return new ServletOutputStream() {                        
+                        @Override
+                        public void write(int b) throws IOException
+                        {
+                            baos.write(b);
+                        }
+                    };
+                }
+                @Override
+                public void sendError(int sc, String msg) throws IOException
+                {
+                    debug("Sending error: sc="+sc+", msg="+msg);
+                    super.sendError(sc, msg);
+                }
+            };
+            mRequests.put(Thread.currentThread(), req);
+            super.doPost(req, respNew);
+            byte[] data = baos.toByteArray();
+            debug(new String(data));
+            respOrig.getOutputStream().write(data);
             mRequests.remove(Thread.currentThread());
         }
         catch (Exception e1)
@@ -270,6 +298,7 @@ public class SubWarServlet extends SpeechletServlet
                 throws SpeechletException {
             SubWarServlet.debug("onSessionEnded requestId="+request.getRequestId()+", sessionId="+session.getSessionId());
             mBase.onSessionEnded(request, session);
+            SubWarServlet.debug("onSessionEnded done");
         }
 
         private void logResponse(SpeechletResponse response)
