@@ -57,9 +57,6 @@ public class SubWarAlexaAPI
             ssn.setUserID(session.getUser().getUserId());
             String verb = intentToVerb(request.getIntent());
             String[] args = intentToArgs(request.getIntent());
-            int i = 0;
-            for (Slot slot : request.getIntent().getSlots().values())
-                args[i++] = slot.getValue();
             SWInvocationBean inv = SubWarAudioAPI.invoke(ssn, verb, args);
             SpeechletResponse resp = invocationToResponse(inv);
             return resp;

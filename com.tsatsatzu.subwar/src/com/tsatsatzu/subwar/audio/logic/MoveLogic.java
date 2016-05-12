@@ -4,6 +4,7 @@ import com.tsatsatzu.subwar.audio.data.SWInvocationBean;
 import com.tsatsatzu.subwar.game.data.SWGameDetailsBean;
 import com.tsatsatzu.subwar.game.data.SWOperationBean;
 import com.tsatsatzu.subwar.game.data.SWPositionBean;
+import com.tsatsatzu.subwar.game.logic.GameConstLogic;
 
 public class MoveLogic
 {
@@ -67,6 +68,8 @@ public class MoveLogic
             case AudioConstLogic.STATE_GAME_BASE:
                 SWGameDetailsBean game = ssn.getGame();
                 SWPositionBean pos = game.getUserPosition();
+                if (pos == null)
+                    throw new SWAudioException(GameConstLogic.ERR_YOU_HAVE_BEEN_DESTROYED);
                 int newLon = pos.getLongitude() + dLon;
                 int newLat = pos.getLattitude() + dLat;
                 int newDep = pos.getDepth() + dDep;

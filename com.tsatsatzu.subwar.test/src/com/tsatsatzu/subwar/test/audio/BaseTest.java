@@ -27,7 +27,8 @@ public class BaseTest
         // Set I/O driver to the memory model.
         // Testing is going to screw with data.
         // We don't want to save that to Dynamo.
-        System.setProperty("ioDriver", "com.tsatsatzu.subwar.game.logic.mem.MemIODriver");
+        if (System.getProperty("ioDriver") == null)
+            System.setProperty("ioDriver", "com.tsatsatzu.subwar.game.logic.mem.MemIODriver");
         // Override built in apiKeys with our test API key.
         // That way we don't have to use a real key for testing,
         // and the key is safe to check in while clear text.

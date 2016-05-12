@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.tsatsatzu.subwar.game.logic.dynamo.DynamoUtils;
+import com.tsatsatzu.utils.obj.StringUtils;
 
 public class SWUserBean
 {
@@ -46,10 +47,10 @@ public class SWUserBean
     public Map<String, AttributeValue> toMap()
     {
         Map<String, AttributeValue> u = new HashMap<String, AttributeValue>();
-        u.put("UserID", new AttributeValue().withS(getUserID()));
-        u.put("UserName", new AttributeValue().withS(getUserName()));
-        u.put("Title", new AttributeValue().withS(getTitle()));
-        u.put("SubName", new AttributeValue().withS(getSubName()));
+        putString(u, "UserID", getUserID());
+        putString(u, "UserName", getUserName());
+        putString(u, "Title", getTitle());
+        putString(u, "SubName", getSubName());
         u.put("LastInteraction", new AttributeValue().withN(Long.toString(getLastInteraction())));
         u.put("NumberOfInteractions", new AttributeValue().withN(Integer.toString(getNumberOfInteractions())));
         u.put("NumberOfSessions", new AttributeValue().withN(Integer.toString(getNumberOfSessions())));
@@ -59,6 +60,12 @@ public class SWUserBean
         u.put("MaxTorpedoes", new AttributeValue().withN(Integer.toString(getMaxTorpedoes())));
         u.put("InGame", new AttributeValue().withN(Integer.toString(getInGame())));
         return u;
+    }
+    
+    private void putString(Map<String, AttributeValue> u, String key, String value)
+    {
+        if (!StringUtils.trivial(value))
+            u.put(key, new AttributeValue().withS(value));
     }
     
     // getters and setters

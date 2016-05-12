@@ -1,5 +1,6 @@
 package com.tsatsatzu.subwar.game.logic.dynamo;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -7,13 +8,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.auth.SystemPropertiesCredentialsProvider;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.DeleteItemRequest;
 import com.amazonaws.services.dynamodbv2.model.GetItemRequest;
 import com.amazonaws.services.dynamodbv2.model.GetItemResult;
 import com.amazonaws.services.dynamodbv2.model.PutItemRequest;
+import com.amazonaws.services.dynamodbv2.model.QueryRequest;
+import com.amazonaws.services.dynamodbv2.model.QueryResult;
 import com.tsatsatzu.subwar.game.api.SubWarGameAPI;
 import com.tsatsatzu.subwar.game.data.SWUserBean;
 import com.tsatsatzu.subwar.game.logic.CredentialsLogic;
@@ -28,6 +31,7 @@ public class DynamoIODriver implements IIODriver
     private AmazonDynamoDBClient mClient;
     public static final String USER_TABLE_NAME = "SubWarUsers";
     public static final String USER_KILLS_INDEX = "numerofkills-index";
+    private static final String USER_PRIMARY_KEY = "UserID";
 
     private Map<String, SWUserBean> mUserCache = new HashMap<>();
     private Map<String, Long> mUserCacheFetch = new HashMap<>();
@@ -44,7 +48,8 @@ public class DynamoIODriver implements IIODriver
         String secretKey = CredentialsLogic.getProperty("secretKey");
         System.setProperty("aws.accessKeyId",  accessKey);
         System.setProperty("aws.secretKey",  secretKey);
-        mClient = new AmazonDynamoDBClient(new ProfileCredentialsProvider());
+        mClient = new AmazonDynamoDBClient(new SystemPropertiesCredentialsProvider());
+        mSingleThreaded = true;
     }
 
     public DynamoIODriver(boolean singleThreaded)
@@ -82,7 +87,7 @@ public class DynamoIODriver implements IIODriver
                         return (SWUserBean)o;
         }
         Map<String, AttributeValue> key = new HashMap<String, AttributeValue>();
-        key.put("UserID", new AttributeValue().withS(id));
+        key.put(USER_PRIMARY_KEY, new AttributeValue().withS(id));
         GetItemRequest getItemRequest = new GetItemRequest().withTableName(USER_TABLE_NAME).withKey(key);
         GetItemResult result = mClient.getItem(getItemRequest);
         if (result.getItem() == null)
@@ -120,7 +125,7 @@ public class DynamoIODriver implements IIODriver
     public void deleteUser(String id)
     {
         Map<String, AttributeValue> key = new HashMap<>();
-        key.put("UserID", new AttributeValue().withS(id));
+        key.put(USER_PRIMARY_KEY, new AttributeValue().withS(id));
         DeleteItemRequest request = new DeleteItemRequest(USER_TABLE_NAME, key);
         mClient.deleteItem(request);
     }
@@ -128,7 +133,27 @@ public class DynamoIODriver implements IIODriver
     @Override
     public List<SWUserBean> getTopUsers(int total)
     {
-        throw new IllegalStateException("Not implemented.");
+        List<SWUserBean> top = new ArrayList<>();
+        QueryRequest queryRequest = new QueryRequest()
+                .withTableName(USER_TABLE_NAME)
+                .withLimit(total)
+                .withScanIndexForward(false);
+        QueryResult result = mClient.query(queryRequest);
+        for (Map<String,AttributeValue> item : result.getItems())
+        {
+            SWUserBean user = new SWUserBean();
+            user.fromMap(item);
+            if (mUserCache.containsKey(user.getUserID()))
+            {
+                user = mUserCache.get(user.getUserID());
+                user.fromMap(item);
+            }
+            else
+                mUserCache.put(user.getUserID(), user);
+            mUserCacheFetch.put(user.getUserID(), System.currentTimeMillis());
+            top.add(user);
+        }
+        return top;
     }
     
     private void addToOutputQueue(String idx, Object obj)

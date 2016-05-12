@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.tsatsatzu.subwar.game.api.SubWarGameAPI;
 import com.tsatsatzu.subwar.game.data.SWGameBean;
 import com.tsatsatzu.subwar.game.data.SWGameDetailsBean;
 import com.tsatsatzu.subwar.game.data.SWPingBean;
@@ -353,7 +354,15 @@ public class GameLogic
                 long tick = pos.getLastMove() + GameConstLogic.AI_MOVE_TICK;
                 while (tick < now)
                 {
-                    ai.move(game, id, tick);
+                    try
+                    {
+                        ai.move(game, id, tick);
+                    }
+                    catch (Exception e)
+                    {
+                        SubWarGameAPI.debug("Error trying to move "+id);
+                        SubWarGameAPI.debug(e);
+                    }
                     tick += GameConstLogic.AI_MOVE_TICK;
                 }
             }

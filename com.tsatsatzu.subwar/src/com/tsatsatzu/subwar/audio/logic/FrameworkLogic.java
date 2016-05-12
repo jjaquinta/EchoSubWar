@@ -3,6 +3,7 @@ package com.tsatsatzu.subwar.audio.logic;
 import com.tsatsatzu.subwar.audio.api.SubWarAudioAPI;
 import com.tsatsatzu.subwar.audio.data.SWInvocationBean;
 import com.tsatsatzu.subwar.game.data.SWOperationBean;
+import com.tsatsatzu.subwar.game.logic.GameConstLogic;
 
 public class FrameworkLogic
 {
@@ -174,6 +175,8 @@ public class FrameworkLogic
         switch (ssn.getState().getState())
         {
             case AudioConstLogic.STATE_GAME_BASE:
+                if (ssn.getGame().getUserPosition() == null)
+                    throw new SWAudioException(GameConstLogic.ERR_YOU_HAVE_BEEN_DESTROYED);
                 if (ssn.getGame().getUserPosition().getTorpedoes() == 0)
                     returnToDock(ssn);
                 else
@@ -184,6 +187,8 @@ public class FrameworkLogic
                 }
                 break;
             case AudioConstLogic.STATE_GAME_ABORT:
+                if (ssn.getGame().getUserPosition() == null)
+                    throw new SWAudioException(GameConstLogic.ERR_YOU_HAVE_BEEN_DESTROYED);
                 returnToDock(ssn);
                 break;
             case AudioConstLogic.STATE_INITIAL:

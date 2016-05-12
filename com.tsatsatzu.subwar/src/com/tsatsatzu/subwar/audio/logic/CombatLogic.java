@@ -13,6 +13,7 @@ import com.tsatsatzu.subwar.game.data.SWContextBean;
 import com.tsatsatzu.subwar.game.data.SWOperationBean;
 import com.tsatsatzu.subwar.game.data.SWPingBean;
 import com.tsatsatzu.subwar.game.data.SWUserBean;
+import com.tsatsatzu.subwar.game.logic.GameConstLogic;
 import com.tsatsatzu.utils.obj.StringUtils;
 
 public class CombatLogic
@@ -27,6 +28,8 @@ public class CombatLogic
             case AudioConstLogic.STATE_GAME_ABORT:
                 ssn.getState().setState(AudioConstLogic.STATE_GAME_BASE);
             case AudioConstLogic.STATE_GAME_BASE:
+                if (ssn.getGame().getUserPosition() == null)
+                    throw new SWAudioException(GameConstLogic.ERR_YOU_HAVE_BEEN_DESTROYED);
                 int dir = parseDirection(direction, ssn.getState().getLastMove());
                 if (dir < 0)
                 {
