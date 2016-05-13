@@ -12,6 +12,7 @@ import com.tsatsatzu.subwar.audio.logic.ScanLogic;
 import com.tsatsatzu.subwar.audio.logic.SessionLogic;
 import com.tsatsatzu.subwar.game.api.ISubWarGameLogger;
 import com.tsatsatzu.subwar.game.api.SubWarGameAPI;
+import com.tsatsatzu.subwar.game.data.SWOperationBean;
 import com.tsatsatzu.subwar.game.logic.GameConstLogic;
 import com.tsatsatzu.utils.obj.StringUtils;
 
@@ -78,8 +79,8 @@ public class SubWarAudioAPI
 
     public static SWInvocationBean invoke(SWSessionBean ssn, String verb, String... args)
     {
+        debug("Invoking "+verb);
         SWInvocationBean context = SessionLogic.loadSession(ssn);
-        debug("Invoking "+verb+", state="+context.getState().getState());
         try
         {
             invokeVerb(context, verb, args);
@@ -218,6 +219,8 @@ public class SubWarAudioAPI
             ssn.addText("Launching lifeboats and returning to dock.");
             FrameworkLogic.addPregamePrompt(ssn);
             ssn.getState().setState(AudioConstLogic.STATE_PRE_GAME);
+            if (ssn.getUser().getInGame() >= 0)
+                InvocationLogic.game(ssn, SWOperationBean.EXIT_GAME);
             return;
         }
         else

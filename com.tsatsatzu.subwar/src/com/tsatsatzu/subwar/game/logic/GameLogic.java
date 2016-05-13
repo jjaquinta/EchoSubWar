@@ -62,9 +62,6 @@ public class GameLogic
             throw new SWGameException(GameConstLogic.ERR_NOT_IN_GAME);
         SWGameBean game = mGames.get(user.getInGame());
         updateGame(game);
-        SWPositionBean pos = game.getShips().get(user.getUserID());
-        if (pos == null)
-            throw new SWGameException(GameConstLogic.ERR_YOU_HAVE_BEEN_DESTROYED);
         doLeaveGame(game, user.getUserID());
         user.setInGame(-1);
         return SUCCESS;

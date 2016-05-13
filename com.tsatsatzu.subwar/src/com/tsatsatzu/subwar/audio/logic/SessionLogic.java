@@ -36,7 +36,7 @@ public class SessionLogic
             SubWarAudioAPI.debug(e);
             InvocationLogic.recordException(invocation, e);
         }
-        
+        SubWarAudioAPI.debug("Loading session, state="+invocation.getState().getState());
         return invocation;
     }
     
@@ -66,6 +66,7 @@ public class SessionLogic
     {
         SWUserBean user = context.getUser();
         IOLogic.saveUser(user);
+        SubWarAudioAPI.debug("Saving session, state="+context.getState().getState());
     }
 
     public static void launch(SWInvocationBean ssn) throws SWAudioException

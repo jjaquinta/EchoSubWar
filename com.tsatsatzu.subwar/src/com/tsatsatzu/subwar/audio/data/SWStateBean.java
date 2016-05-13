@@ -1,5 +1,6 @@
 package com.tsatsatzu.subwar.audio.data;
 
+import com.tsatsatzu.subwar.audio.api.SubWarAudioAPI;
 import com.tsatsatzu.subwar.audio.logic.AudioConstLogic;
 
 public class SWStateBean
@@ -18,6 +19,7 @@ public class SWStateBean
     public void setState(String state)
     {
         mState = state;
+        SubWarAudioAPI.debug("Setting state="+state);
     }
 
     public int getLastReportedTorpedos()
