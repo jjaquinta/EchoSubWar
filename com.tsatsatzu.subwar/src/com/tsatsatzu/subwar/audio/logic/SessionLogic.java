@@ -91,7 +91,7 @@ public class SessionLogic
             ssn.addSound(AudioConstLogic.SOUND_BOSUN_WHISTLE);
             ssn.addText("Attention. Captain on deck!");
             ssn.addPause();
-            ssn.addText("Welcome, Sir.");
+            ssn.addText("Welcome Sir.");
             ssn.addText("I am Lieutenant Alexa, your first officer.");
             ssn.addText("Are you ready to hunt some submarines?");
             ssn.addReprompt("To launch your ship, say \"yes\".");
@@ -103,7 +103,7 @@ public class SessionLogic
             ssn.addSound(AudioConstLogic.SOUND_BOSUN_WHISTLE);
             ssn.addText("Attention. Captain on deck!");
             ssn.addPause();
-            ssn.addText("Welcome back, Sir.");
+            ssn.addText("Welcome back Sir.");
             ssn.addText("It is my pleasure to serve you again.");
             ssn.addText("Would you prefer me to address you by name?");
             ssn.addReprompt("To pick a name, say \"yes\".");

@@ -63,7 +63,7 @@ public class ScanLogic
             case AudioConstLogic.STATE_GAME_BASE:
                 InvocationLogic.game(ssn, SWOperationBean.SONAR);
                 ssn.addSound(AudioConstLogic.SOUND_SONAR);
-                ssn.addText("Pinging sonar, sir.");
+                ssn.addText("Pinging sonar sir.");
                 ssn.addSound(AudioConstLogic.SOUND_SONAR);
                 ssn.addPause();
                 ssn.addSound(AudioConstLogic.SOUND_SONAR);

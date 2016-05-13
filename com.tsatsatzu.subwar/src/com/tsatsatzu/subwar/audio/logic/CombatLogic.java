@@ -33,7 +33,7 @@ public class CombatLogic
                 int dir = parseDirection(direction, ssn.getState().getLastMove());
                 if (dir < 0)
                 {
-                    ssn.addText("You need to tell me which direction you want to fire in, sir.");
+                    ssn.addText("You need to tell me which direction you want to fire in sir.");
                     return;
                 }
                 if (ssn.getGame().getUserPosition().getTorpedoes() == 0)

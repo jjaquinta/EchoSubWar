@@ -209,7 +209,7 @@ public class FrameworkLogic
 
     private static void returnToDock(SWInvocationBean ssn) throws SWAudioException
     {
-        ssn.addText("Returning to dock, sir.");
+        ssn.addText("Returning to dock sir.");
         if (ssn.getGame().getUserPosition().getHits() > 0)
             ssn.addText("Let's stock up again and get back out there!");
         else
@@ -229,14 +229,14 @@ public class FrameworkLogic
             case AudioConstLogic.STATE_INTRO2_1:
             case AudioConstLogic.STATE_INTRO3_1:
             case AudioConstLogic.STATE_PRE_GAME:
-                ssn.addText("Aye, aye, sir.");
+                ssn.addText("Aye aye sir.");
                 ssn.addText("Your ship will be waiting any time you want to come back.");
                 ssn.setEndSession(true);
                 break;
             case AudioConstLogic.STATE_GAME_ABORT:
             case AudioConstLogic.STATE_GAME_BASE:
                 InvocationLogic.game(ssn, SWOperationBean.EXIT_GAME);
-                ssn.addText("Abandoning mission, sir.");
+                ssn.addText("Abandoning mission sir.");
                 ssn.addText("Better luck next time.");
                 ssn.setEndSession(true);
                 break;

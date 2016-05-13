@@ -129,6 +129,7 @@ public class MoveLogic
                 if ((dir != SWOperationBean.LOWER) && (dir != SWOperationBean.RAISE))
                     ssn.getState().setLastMove(dir);
                 break;
+            case AudioConstLogic.STATE_INITIAL:
             case AudioConstLogic.STATE_INTRO1_1:
             case AudioConstLogic.STATE_INTRO1_2:
             case AudioConstLogic.STATE_INTRO1_3:
@@ -151,16 +152,17 @@ public class MoveLogic
             case AudioConstLogic.STATE_GAME_BASE:
                 InvocationLogic.game(ssn, SWOperationBean.EXIT_GAME);
                 ssn.getState().setState(AudioConstLogic.STATE_PRE_GAME);
-                ssn.addText("Returning to dock, sir.");
+                ssn.addText("Returning to dock sir.");
                 FrameworkLogic.addPregamePrompt(ssn);
                 break;
+            case AudioConstLogic.STATE_INITIAL:
             case AudioConstLogic.STATE_INTRO1_1:
             case AudioConstLogic.STATE_INTRO1_2:
             case AudioConstLogic.STATE_INTRO1_3:
             case AudioConstLogic.STATE_INTRO2_1:
             case AudioConstLogic.STATE_INTRO3_1:
             case AudioConstLogic.STATE_PRE_GAME:
-                ssn.addText("We're already docked, sir.");
+                ssn.addText("We're already docked sir.");
                 ssn.getState().setState(AudioConstLogic.STATE_PRE_GAME);
                 FrameworkLogic.addPregamePrompt(ssn);
                 break;

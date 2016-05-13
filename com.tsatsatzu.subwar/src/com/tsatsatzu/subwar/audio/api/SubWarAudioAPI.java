@@ -78,8 +78,8 @@ public class SubWarAudioAPI
 
     public static SWInvocationBean invoke(SWSessionBean ssn, String verb, String... args)
     {
-        debug("Invoking "+verb);
         SWInvocationBean context = SessionLogic.loadSession(ssn);
+        debug("Invoking "+verb+", state="+context.getState().getState());
         try
         {
             invokeVerb(context, verb, args);
@@ -173,13 +173,13 @@ public class SubWarAudioAPI
                     ScanLogic.sonar(context);
                     break;
                 case CMD_FIRE:
-                    CombatLogic.fire(context, args[0]);
+                    CombatLogic.fire(context, args.length > 0 ? args[0] : "");
                     break;
                 case CMD_CALL_ME:
-                    SessionLogic.callMe(context, args[0]);
+                    SessionLogic.callMe(context, args.length > 0 ? args[0] : "");
                     break;
                 case CMD_CALL_SHIP:
-                    SessionLogic.callShip(context, args[0]);                
+                    SessionLogic.callShip(context, args.length > 0 ? args[0] : "");                
                     break;     
                 case CMD_SHIP:
                     FrameworkLogic.ship(context);                
@@ -231,6 +231,12 @@ public class SubWarAudioAPI
             case AudioConstLogic.STATE_GAME_BASE:
                 context.addReprompt("Try move, listen, ping, or fire.");
                 break;
+            case AudioConstLogic.STATE_INITIAL:
+            case AudioConstLogic.STATE_INTRO1_1:
+            case AudioConstLogic.STATE_INTRO1_2:
+            case AudioConstLogic.STATE_INTRO1_3:
+            case AudioConstLogic.STATE_INTRO2_1:
+            case AudioConstLogic.STATE_INTRO3_1:
             case AudioConstLogic.STATE_PRE_GAME:
                 context.addReprompt("Choose ship, combat, leaderboard, or launch.");
                 break;

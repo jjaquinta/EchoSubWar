@@ -362,6 +362,7 @@ public class GameLogic
                     {
                         SubWarGameAPI.debug("Error trying to move "+id);
                         SubWarGameAPI.debug(e);
+                        doLeaveGame(game, id);
                     }
                     tick += GameConstLogic.AI_MOVE_TICK;
                 }
