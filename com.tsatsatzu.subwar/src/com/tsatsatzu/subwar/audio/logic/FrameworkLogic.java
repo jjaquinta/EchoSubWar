@@ -217,6 +217,7 @@ public class FrameworkLogic
             ssn.addText("Better luck next time.");
         InvocationLogic.game(ssn, SWOperationBean.EXIT_GAME);
         ssn.getState().setState(AudioConstLogic.STATE_PRE_GAME);
+        addPregamePrompt(ssn);
     }
 
     public static void stop(SWInvocationBean ssn) throws SWAudioException
