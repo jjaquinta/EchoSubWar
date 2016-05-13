@@ -12,6 +12,7 @@ public class FrameworkLogic
     {
         switch (ssn.getState().getState())
         {
+            case AudioConstLogic.STATE_INITIAL:
             case AudioConstLogic.STATE_INTRO1_1:
                 PlayLogic.doStartGame(ssn);
                 break;
@@ -73,6 +74,7 @@ public class FrameworkLogic
                 addPregamePrompt(ssn);
                 ssn.getState().setState(AudioConstLogic.STATE_PRE_GAME);
                 break;
+            case AudioConstLogic.STATE_INITIAL:
             case AudioConstLogic.STATE_PRE_GAME:
                 ssn.addText("I'm sorry, {captain}. I'm not sure what you are saying 'no' to.");
                 addPregamePrompt(ssn);
@@ -95,7 +97,7 @@ public class FrameworkLogic
         ssn.addText("Our duty is to patrol the Acton Straits and destroy any and all enemy submarines you encounter.");
         ssn.addText("The straits are ten kilometers east to west and twenty kilometers north to south.");
         ssn.addText("You can give the order to go in any direction, plus dive or rise, and I will pass it on to the crew.");
-        ssn.addText("Finally, you can give the order to fire the torpedoes and we will launch in the last direction we moved,");
+        ssn.addText("Finally, you can give the order to fire the torpedoes and we will fire in the last direction we moved,");
         ssn.addText("or whatever direction you specified.");
     }
 
@@ -247,6 +249,7 @@ public class FrameworkLogic
     {
         switch (ssn.getState().getState())
         {
+            case AudioConstLogic.STATE_INITIAL:
             case AudioConstLogic.STATE_INTRO1_1:
             case AudioConstLogic.STATE_INTRO1_2:
             case AudioConstLogic.STATE_INTRO1_3:
@@ -270,6 +273,7 @@ public class FrameworkLogic
     {
         switch (ssn.getState().getState())
         {
+            case AudioConstLogic.STATE_INITIAL:
             case AudioConstLogic.STATE_INTRO1_1:
             case AudioConstLogic.STATE_INTRO1_2:
             case AudioConstLogic.STATE_INTRO1_3:
@@ -297,6 +301,7 @@ public class FrameworkLogic
     {
         switch (ssn.getState().getState())
         {
+            case AudioConstLogic.STATE_INITIAL:
             case AudioConstLogic.STATE_INTRO1_1:
             case AudioConstLogic.STATE_INTRO1_2:
             case AudioConstLogic.STATE_INTRO1_3:
