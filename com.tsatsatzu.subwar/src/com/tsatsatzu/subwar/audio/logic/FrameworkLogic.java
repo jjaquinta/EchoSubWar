@@ -200,6 +200,7 @@ public class FrameworkLogic
             case AudioConstLogic.STATE_INTRO2_1:
             case AudioConstLogic.STATE_INTRO3_1:
             case AudioConstLogic.STATE_PRE_GAME:
+                ssn.addText("Starting over again.");
                 addPregamePrompt(ssn);
                 break;
             default:
