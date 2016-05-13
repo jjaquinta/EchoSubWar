@@ -41,6 +41,7 @@ RISE surface
 RISE rise
 RISE up
 RISE blow ballast
+LISTEN wait
 LISTEN listen
 LISTEN microphone
 LISTEN silent running
@@ -70,6 +71,8 @@ DOCK dock sub
 DOCK dock me
 DOCK back to dock
 DOCK return to dock
+DOCK back to port
+DOCK return to port
 LEADERS leaders
 LEADERS leader board
 LEADERS leaderboard
