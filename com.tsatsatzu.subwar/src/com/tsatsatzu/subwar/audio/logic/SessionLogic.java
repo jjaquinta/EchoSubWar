@@ -66,6 +66,9 @@ public class SessionLogic
     {
         SWUserBean user = context.getUser();
         IOLogic.saveUser(user);
+        context.getState().setLastSpokenText(context.getSpokenText());
+        context.getState().setLastWrittenText(context.getWrittenText());
+        context.getState().setLastRepromptText(context.getRepromptText());
         SubWarAudioAPI.debug("Saving session, state="+context.getState().getState());
     }
 
@@ -85,6 +88,8 @@ public class SessionLogic
                 ssn.addPause();
                 ssn.getState().setState(AudioConstLogic.STATE_GAME_BASE);
                 PlayLogic.describeGame(ssn);
+                FrameworkLogic.addGamePrompt(ssn);
+                return;
             }
         }
         if (ssn.getUser().getNumberOfGames() < 1)

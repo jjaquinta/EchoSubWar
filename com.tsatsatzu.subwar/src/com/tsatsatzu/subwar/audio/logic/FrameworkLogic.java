@@ -1,6 +1,5 @@
 package com.tsatsatzu.subwar.audio.logic;
 
-import com.tsatsatzu.subwar.audio.api.SubWarAudioAPI;
 import com.tsatsatzu.subwar.audio.data.SWInvocationBean;
 import com.tsatsatzu.subwar.game.data.SWOperationBean;
 import com.tsatsatzu.subwar.game.logic.GameConstLogic;
@@ -162,13 +161,34 @@ public class FrameworkLogic
 
     public static void repeat(SWInvocationBean ssn) throws SWAudioException
     {
-        if ((ssn.getState().getLastVerb() != null)
-                && !SubWarAudioAPI.CMD_REPEAT.equals(ssn.getState().getLastVerb()))
-            SubWarAudioAPI.invokeVerb(ssn, ssn.getState().getLastVerb(), ssn.getState().getLastArgs());
+        if (ssn.getState().getLastSpokenText() != null)
+        {
+            ssn.setSpokenText(ssn.getState().getLastSpokenText());
+            ssn.setWrittenText(ssn.getState().getLastWrittenText());
+            ssn.setRepromptText(ssn.getState().getLastRepromptText());
+            switch (ssn.getState().getState())
+            {
+                case AudioConstLogic.STATE_INTRO1_1:
+                case AudioConstLogic.STATE_INTRO1_2:
+                case AudioConstLogic.STATE_INTRO1_3:
+                case AudioConstLogic.STATE_INTRO2_1:
+                case AudioConstLogic.STATE_INTRO3_1:
+                case AudioConstLogic.STATE_INITIAL:
+                case AudioConstLogic.STATE_PRE_GAME:
+                    addPregamePrompt(ssn);
+                    break;
+                case AudioConstLogic.STATE_GAME_ABORT:
+                case AudioConstLogic.STATE_GAME_BASE:
+                    addGamePrompt(ssn);
+                    break;
+                default:
+                    throw new SWAudioException("REPEAT:"+ssn.getState().getState()+" not implemented");
+            }
+        }
         else
         {
             ssn.addText("I'm not sure what you want to repeat.");
-            ssn.addText("Please just ask it agian.");
+            ssn.addText("I haven't said anything yet!");
         }
     }
 

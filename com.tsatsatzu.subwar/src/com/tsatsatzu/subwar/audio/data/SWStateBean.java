@@ -10,6 +10,9 @@ public class SWStateBean
     private int       mLastMove = -1;
     private String    mLastVerb;
     private String[]  mLastArgs;
+    private String    mLastSpokenText;
+    private String    mLastWrittenText;
+    private String    mLastRepromptText;
 
     public String getState()
     {
@@ -60,5 +63,35 @@ public class SWStateBean
     public void setLastArgs(String[] lastArgs)
     {
         mLastArgs = lastArgs;
+    }
+
+    public String getLastSpokenText()
+    {
+        return mLastSpokenText;
+    }
+
+    public void setLastSpokenText(String lastSpokenText)
+    {
+        mLastSpokenText = lastSpokenText;
+    }
+
+    public String getLastWrittenText()
+    {
+        return mLastWrittenText;
+    }
+
+    public void setLastWrittenText(String lastWrittenText)
+    {
+        mLastWrittenText = lastWrittenText;
+    }
+
+    public String getLastRepromptText()
+    {
+        return mLastRepromptText;
+    }
+
+    public void setLastRepromptText(String lastRepromptText)
+    {
+        mLastRepromptText = lastRepromptText;
     }
 }

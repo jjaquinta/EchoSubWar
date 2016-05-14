@@ -98,9 +98,7 @@ public class SubWarAudioAPI
         return context;
     }
 
-    // Not truly public.
-    // Only made public to make execution of "repeat" easier.
-    public static void invokeVerb(SWInvocationBean context, String verb,
+    private static void invokeVerb(SWInvocationBean context, String verb,
             String... args) throws SWAudioException
     {
         try
