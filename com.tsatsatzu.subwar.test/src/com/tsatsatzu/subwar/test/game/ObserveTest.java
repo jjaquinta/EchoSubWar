@@ -23,15 +23,15 @@ import com.tsatsatzu.subwar.game.api.SubWarGameAPI;
 import com.tsatsatzu.subwar.game.data.SWContextBean;
 import com.tsatsatzu.subwar.game.data.SWOperationBean;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ObserveTest.
+ * Testing the different ways of detecting other ships.
  */
 public class ObserveTest extends BaseTest
 {
     
     /**
-     * Test.
+     * Test sonar and underwater microphone.
      */
     @Test
     public void test()

@@ -21,6 +21,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * The Class AllGameTests.
+ * This is the test suite for running all the game tests.
  */
 @RunWith(Suite.class)
 @SuiteClasses({ AITest.class, AngleTest.class, AttackTest.class,

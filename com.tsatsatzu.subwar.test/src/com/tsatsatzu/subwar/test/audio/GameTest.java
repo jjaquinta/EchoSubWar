@@ -25,15 +25,14 @@ import com.tsatsatzu.subwar.game.api.SubWarGameAPI;
 import com.tsatsatzu.subwar.game.data.SWContextBean;
 import com.tsatsatzu.subwar.game.data.SWOperationBean;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class GameTest.
+ * This test walks through the game play design dialog.
  */
 public class GameTest extends BaseTest
 {
     
     /**
-     * Play.
+     * Play a basic round of the game.
      */
     @Test
     public void play()

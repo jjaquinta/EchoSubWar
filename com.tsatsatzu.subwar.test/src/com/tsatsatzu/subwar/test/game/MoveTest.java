@@ -23,15 +23,15 @@ import com.tsatsatzu.subwar.game.api.SubWarGameAPI;
 import com.tsatsatzu.subwar.game.data.SWContextBean;
 import com.tsatsatzu.subwar.game.data.SWOperationBean;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class MoveTest.
+ * Test submarine movement.
  */
 public class MoveTest extends BaseTest
 {
     
     /**
-     * Test.
+     * Test the basic cardinal directions up to the limits of the arena.
      */
     @Test
     public void test()

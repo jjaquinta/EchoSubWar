@@ -22,19 +22,23 @@ import org.junit.Test;
 
 import com.tsatsatzu.subwar.game.data.SWPingBean;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class AngleTest.
+ * There is a lot of complicated math needed to translate between directional constants and angles.
+ * So we test that logic specifically in this class.
  */
 public class AngleTest
 {
     
     /**
      * Assert nearly equals.
+     * Doubles can be off by small amounts, preventing the use of AssertEquals.
+     * So we have our own utility function to assert two double values are *almost* equal.
+     * Close enough for government work.
      *
-     * @param msg the msg
-     * @param expected the expected
-     * @param actual the actual
+     * @param msg What to say if it fails
+     * @param expected the expected value
+     * @param actual the actual value
      */
     private void assertNearlyEquals(String msg, double expected, double actual)
     {

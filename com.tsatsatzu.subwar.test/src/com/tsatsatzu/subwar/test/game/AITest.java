@@ -24,15 +24,17 @@ import com.tsatsatzu.subwar.game.api.SubWarGameAPI;
 import com.tsatsatzu.subwar.game.data.SWContextBean;
 import com.tsatsatzu.subwar.game.data.SWOperationBean;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class AITest.
+ * Tests the AI logic for gameplay. 
  */
 public class AITest extends BaseTest
 {
 
     /**
-     * Test.
+     * This is kind of a dumb test.
+     * Basically it loops for a long time, letting the AI player fight itself.
+     * However, if there are any critical bugs, then the crash can be seen.
      */
     @Test
     public void test()
@@ -47,7 +49,6 @@ public class AITest extends BaseTest
         context = SubWarGameAPI.invoke(op);
         assertNull(context.getLastOperationError());
         assertNotNull(context.getUser());
-        System.out.println("User at "+context.getGame().getUserPosition());
 
         for (int i = 0; i < 120; i++)
         {

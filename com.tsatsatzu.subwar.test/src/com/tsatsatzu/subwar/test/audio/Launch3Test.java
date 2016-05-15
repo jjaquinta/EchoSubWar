@@ -22,15 +22,14 @@ import org.junit.Test;
 import com.tsatsatzu.subwar.audio.api.SubWarAudioAPI;
 import com.tsatsatzu.subwar.audio.data.SWInvocationBean;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class Launch3Test.
+ * The Class tests launching for the Third time.
  */
 public class Launch3Test extends BaseTest
 {
     
     /**
-     * Launch y.
+     * Launch and reply Yes.
      */
     @Test
     public void launchY()
@@ -83,7 +82,7 @@ public class Launch3Test extends BaseTest
     }
     
     /**
-     * Launch n.
+     * Launch and reply No.
      */
     @Test
     public void launchN()
@@ -133,7 +132,7 @@ public class Launch3Test extends BaseTest
     }
     
     /**
-     * Launch.
+     * Launch with no reply.
      */
     @Test
     public void launch()

@@ -26,12 +26,13 @@ import com.tsatsatzu.subwar.game.data.SWOperationBean;
 // TODO: Auto-generated Javadoc
 /**
  * The Class UserTest.
+ * Test the customization aspects for a user.
  */
 public class UserTest extends BaseTest
 {
     
     /**
-     * Test.
+     * Test that we can name a user and their ship.
      */
     @Test
     public void test()

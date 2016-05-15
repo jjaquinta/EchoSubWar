@@ -29,24 +29,27 @@ import com.tsatsatzu.subwar.game.api.SubWarGameAPI;
 import com.tsatsatzu.subwar.game.data.SWContextBean;
 import com.tsatsatzu.subwar.game.data.SWOperationBean;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class BaseTest.
+ * This is the parent class of all audio layer tests.
  */
 public class BaseTest
 {
     
-    /** The Constant TEST_USER. */
+    /** The Constant TEST_USER.
+     * We need to authenticate as someone. This is the user to use
+     * to login for testing. */
     protected static final String TEST_USER = "amadan";
     
-    /** The Constant TEST_CREDENTIALS. */
+    /** The Constant TEST_CREDENTIALS. 
+     * This is that user's credentials. */
     protected static final String TEST_CREDENTIALS = "xyzzy";
     
-    /** The Ssn. */
+    /** The session object with the user's credentials in it. */
     private SWSessionBean mSsn;
 
     /**
-     * Sets the up.
+     * This is the set up run before each test.
      */
     @Before
     public void setUp()
@@ -72,7 +75,7 @@ public class BaseTest
     }
     
     /**
-     * Gets the session.
+     * Gets a pre-filled session object.
      *
      * @return the session
      */
@@ -85,9 +88,11 @@ public class BaseTest
 
     /**
      * Dialog.
+     * This conducts a call to the audio layer. It makes sure it runs with no error,
+     * and tests conformity for the reply.
      *
      * @param verb the verb
-     * @param args the args
+     * @param args any args for the verb
      * @return the SW invocation bean
      */
     protected SWInvocationBean dialog(String verb, String... args)
@@ -111,10 +116,10 @@ public class BaseTest
     }
     
     /**
-     * Gets the operation.
+     * Gets an operation object. Fill in baisc parameters.
      *
-     * @param opType the op type
-     * @return the operation
+     * @param opType the type of operation used
+     * @return the populated operation
      */
     protected SWOperationBean getOperation(String opType)
     {        
@@ -126,7 +131,7 @@ public class BaseTest
     }
 
     /**
-     * Ai move.
+     * Ask the Ai to make a move.
      */
     protected void aiMove()
     {

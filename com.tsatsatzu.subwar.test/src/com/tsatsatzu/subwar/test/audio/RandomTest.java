@@ -30,9 +30,11 @@ import com.tsatsatzu.subwar.game.api.SubWarGameAPI;
 import com.tsatsatzu.subwar.game.data.SWContextBean;
 import com.tsatsatzu.subwar.game.data.SWOperationBean;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class RandomTest.
+ * This is kind of a dumb test. It just randomly invokes any sort of audio command.
+ * Although that does not always make sense, the audio model should gracefully degrade
+ * when something nonsensical is done.
  */
 public class RandomTest extends BaseTest
 {
@@ -102,7 +104,7 @@ public class RandomTest extends BaseTest
     }
     
     /**
-     * Play.
+     * Just call a bunch of random values and make sure it doesn't crash.
      */
     @Test
     public void play()

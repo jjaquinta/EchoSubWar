@@ -24,15 +24,16 @@ import com.tsatsatzu.subwar.game.data.SWContextBean;
 import com.tsatsatzu.subwar.game.data.SWOperationBean;
 import com.tsatsatzu.subwar.game.logic.GameConstLogic;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class AttackTest.
+ * Test the game operations used to perform an attack.
  */
 public class AttackTest extends BaseTest
 {
     
     /**
      * Test cardinal.
+     * Try firing in cardinal directions.
      */
     @Test
     public void testCardinal()
@@ -92,6 +93,7 @@ public class AttackTest extends BaseTest
 
     /**
      * Test angle.
+     * Test firing at non-cardinal directions.
      */
     @Test
     public void testAngle()
@@ -151,6 +153,7 @@ public class AttackTest extends BaseTest
 
     /**
      * Test empty.
+     * Test that the game correctly handles when you fire with no torpedoes left.
      */
     @Test
     public void testEmpty()

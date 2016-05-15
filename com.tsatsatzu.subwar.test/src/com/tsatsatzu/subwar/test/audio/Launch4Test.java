@@ -22,15 +22,14 @@ import org.junit.Test;
 import com.tsatsatzu.subwar.audio.api.SubWarAudioAPI;
 import com.tsatsatzu.subwar.audio.data.SWInvocationBean;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class Launch4Test.
+ * The Class tests launching for the Fourth time.
  */
 public class Launch4Test extends BaseTest
 {
     
     /**
-     * Launch y.
+     * Launch and reply Yes.
      */
     @Test
     public void launchY()

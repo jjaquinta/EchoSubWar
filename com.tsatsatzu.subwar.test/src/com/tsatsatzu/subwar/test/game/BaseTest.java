@@ -19,21 +19,26 @@ import org.junit.Before;
 
 import com.tsatsatzu.subwar.game.data.SWOperationBean;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class BaseTest.
+ * The is the parent class of all Game tests. It contains common set up logic that
+ * each test has to perform, and a utility function to get a pre-configuration operation
+ * to use.
  */
 public class BaseTest
 {
     
-    /** The Constant TEST_USER. */
+    /** The Constant TEST_USER. 
+     * Used as the user-id for doing the tests. */
     protected static final String TEST_USER = "amadan";
     
-    /** The Constant TEST_CREDENTIALS. */
+    /** The Constant TEST_CREDENTIALS. 
+     * Have have to authenticate to use the game layer. 
+     * We define the credentials to do so here. */
     protected static final String TEST_CREDENTIALS = "xyzzy";
 
     /**
-     * Sets the up.
+     Common set up code. Run before each test case.
      */
     @Before
     public void setUp()
@@ -49,10 +54,10 @@ public class BaseTest
     }
     
     /**
-     * Gets the operation.
+     * Gets an operation object. Fill in baisc parameters.
      *
-     * @param opType the op type
-     * @return the operation
+     * @param opType the type of operation used
+     * @return the populated operation
      */
     protected SWOperationBean getOperation(String opType)
     {        

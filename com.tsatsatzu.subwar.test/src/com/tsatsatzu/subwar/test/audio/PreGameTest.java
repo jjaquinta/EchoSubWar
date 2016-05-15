@@ -24,15 +24,14 @@ import org.junit.Test;
 import com.tsatsatzu.subwar.audio.api.SubWarAudioAPI;
 import com.tsatsatzu.subwar.audio.data.SWInvocationBean;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class PreGameTest.
+ * This test walks through the pre-game design dialog.
  */
 public class PreGameTest extends BaseTest
 {
     
     /**
-     * Play.
+     * Pre-game dialog.
      */
     @Test
     public void play()

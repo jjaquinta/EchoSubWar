@@ -21,9 +21,12 @@ import org.junit.Test;
 
 import com.tsatsatzu.subwar.game.logic.CredentialsLogic;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class CredentialTest.
+ * Check that mandatory values are set in the credentials file.
+ * Note: this file is not checked into source code. So you are going to
+ * need to make one for your own version of the project. That's why this
+ * test is handy.
  */
 public class CredentialTest
 {

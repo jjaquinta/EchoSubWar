@@ -21,10 +21,11 @@ import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * The Class AllAudioTests.
+ * This is the test suite comprising all audio layer tests.
  */
 @RunWith(Suite.class)
 @SuiteClasses({ Launch1Test.class, Launch2Test.class, Launch3Test.class,
-        Launch4Test.class })
+        Launch4Test.class, GameTest.class, PreGameTest.class, RandomTest.class })
 public class AllAudioTests
 {
 
