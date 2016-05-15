@@ -21,58 +21,133 @@ import com.tsatsatzu.subwar.game.data.SWOperationBean;
 import com.tsatsatzu.subwar.game.data.SWPositionBean;
 import com.tsatsatzu.subwar.game.logic.GameConstLogic;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MoveLogic.
+ */
 public class MoveLogic
 {
+    
+    /**
+     * North.
+     *
+     * @param ssn the ssn
+     * @throws SWAudioException the SW audio exception
+     */
     public static void north(SWInvocationBean ssn) throws SWAudioException
     {
         doMove(ssn, 0, -1, 0, SWOperationBean.NORTH);
     }
 
+    /**
+     * South.
+     *
+     * @param ssn the ssn
+     * @throws SWAudioException the SW audio exception
+     */
     public static void south(SWInvocationBean ssn) throws SWAudioException
     {
         doMove(ssn, 0, 1, 0, SWOperationBean.SOUTH);
     }
 
+    /**
+     * East.
+     *
+     * @param ssn the ssn
+     * @throws SWAudioException the SW audio exception
+     */
     public static void east(SWInvocationBean ssn) throws SWAudioException
     {
         doMove(ssn, 1, 0, 0, SWOperationBean.EAST);
     }
 
+    /**
+     * West.
+     *
+     * @param ssn the ssn
+     * @throws SWAudioException the SW audio exception
+     */
     public static void west(SWInvocationBean ssn) throws SWAudioException
     {
         doMove(ssn, -1, 0, 0, SWOperationBean.WEST);
     }
 
+    /**
+     * Northwest.
+     *
+     * @param ssn the ssn
+     * @throws SWAudioException the SW audio exception
+     */
     public static void northwest(SWInvocationBean ssn) throws SWAudioException
     {
         doMove(ssn, -1, -1, 0, SWOperationBean.NORTHWEST);
     }
 
+    /**
+     * Northeast.
+     *
+     * @param ssn the ssn
+     * @throws SWAudioException the SW audio exception
+     */
     public static void northeast(SWInvocationBean ssn) throws SWAudioException
     {
         doMove(ssn, 1, -1, 0, SWOperationBean.NORTHEAST);
     }
 
+    /**
+     * Southwest.
+     *
+     * @param ssn the ssn
+     * @throws SWAudioException the SW audio exception
+     */
     public static void southwest(SWInvocationBean ssn) throws SWAudioException
     {
         doMove(ssn, -1, 1, 0, SWOperationBean.SOUTHWEST);
     }
 
+    /**
+     * Southeast.
+     *
+     * @param ssn the ssn
+     * @throws SWAudioException the SW audio exception
+     */
     public static void southeast(SWInvocationBean ssn) throws SWAudioException
     {
         doMove(ssn, 1, 1, 0, SWOperationBean.SOUTHEAST);
     }
 
+    /**
+     * Dive.
+     *
+     * @param ssn the ssn
+     * @throws SWAudioException the SW audio exception
+     */
     public static void dive(SWInvocationBean ssn) throws SWAudioException
     {
         doMove(ssn, 0, 0, 1, SWOperationBean.LOWER);
     }
 
+    /**
+     * Rise.
+     *
+     * @param ssn the ssn
+     * @throws SWAudioException the SW audio exception
+     */
     public static void rise(SWInvocationBean ssn) throws SWAudioException
     {
         doMove(ssn, 0, 0, -1, SWOperationBean.RAISE);
     }
 
+    /**
+     * Do move.
+     *
+     * @param ssn the ssn
+     * @param dLon the d lon
+     * @param dLat the d lat
+     * @param dDep the d dep
+     * @param dir the dir
+     * @throws SWAudioException the SW audio exception
+     */
     private static void doMove(SWInvocationBean ssn, int dLon, int dLat, int dDep, int dir) throws SWAudioException
     {
         switch (ssn.getState().getState())
@@ -159,6 +234,12 @@ public class MoveLogic
         }
     }
 
+    /**
+     * Dock.
+     *
+     * @param ssn the ssn
+     * @throws SWAudioException the SW audio exception
+     */
     public static void dock(SWInvocationBean ssn) throws SWAudioException
     {
         switch (ssn.getState().getState())

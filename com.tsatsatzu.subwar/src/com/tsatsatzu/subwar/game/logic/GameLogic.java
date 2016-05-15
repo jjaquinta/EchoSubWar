@@ -28,13 +28,29 @@ import com.tsatsatzu.subwar.game.data.SWUserBean;
 import com.tsatsatzu.subwar.game.logic.ai.IComputerPlayer;
 import com.tsatsatzu.subwar.game.logic.ai.SimplePlayer;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GameLogic.
+ */
 public class GameLogic
 {
+    
+    /** The Constant SUCCESS. */
     public static final int SUCCESS = 0;
     
+    /** The RND. */
     private static Random mRND = new Random();
+    
+    /** The Games. */
     private static List<SWGameBean> mGames = new ArrayList<>();
 
+    /**
+     * Gets the game details.
+     *
+     * @param inGame the in game
+     * @param userID the user id
+     * @return the game details
+     */
     public static SWGameDetailsBean getGameDetails(int inGame, String userID)
     {
         if ((inGame < 0) || (inGame >= mGames.size()))
@@ -50,6 +66,13 @@ public class GameLogic
         return details;
     }
 
+    /**
+     * Join game.
+     *
+     * @param user the user
+     * @return the int
+     * @throws SWGameException the SW game exception
+     */
     public static int joinGame(SWUserBean user) throws SWGameException
     {
         if (user.getInGame() >= 0)
@@ -71,6 +94,13 @@ public class GameLogic
         return SUCCESS;
     }
 
+    /**
+     * Leave game.
+     *
+     * @param user the user
+     * @return the int
+     * @throws SWGameException the SW game exception
+     */
     public static int leaveGame(SWUserBean user) throws SWGameException
     {
         if (user.getInGame() < 0)
@@ -82,6 +112,16 @@ public class GameLogic
         return SUCCESS;
     }
 
+    /**
+     * Move.
+     *
+     * @param user the user
+     * @param dLon the d lon
+     * @param dLat the d lat
+     * @param dDep the d dep
+     * @return the int
+     * @throws SWGameException the SW game exception
+     */
     public static int move(SWUserBean user, int dLon, int dLat, int dDep) throws SWGameException
     {
         if (user.getInGame() < 0)
@@ -91,6 +131,13 @@ public class GameLogic
         return ret;
     }
 
+    /**
+     * Listen.
+     *
+     * @param user the user
+     * @return the int
+     * @throws SWGameException the SW game exception
+     */
     public static int listen(SWUserBean user) throws SWGameException
     {
         if (user.getInGame() < 0)
@@ -105,6 +152,13 @@ public class GameLogic
         return SUCCESS;
     }
 
+    /**
+     * Ping.
+     *
+     * @param user the user
+     * @return the int
+     * @throws SWGameException the SW game exception
+     */
     public static int ping(SWUserBean user) throws SWGameException
     {
         if (user.getInGame() < 0)
@@ -119,6 +173,15 @@ public class GameLogic
         return SUCCESS;
     }
 
+    /**
+     * Fire.
+     *
+     * @param user the user
+     * @param fireDLon the fire d lon
+     * @param fireDLat the fire d lat
+     * @return the int
+     * @throws SWGameException the SW game exception
+     */
     public static int fire(SWUserBean user, int fireDLon, int fireDLat) throws SWGameException
     {
         if (user.getInGame() < 0)
@@ -137,6 +200,11 @@ public class GameLogic
         return SUCCESS|hits;
     }
     
+    /**
+     * New game.
+     *
+     * @return the SW game bean
+     */
     private static SWGameBean newGame()
     {
         SWGameBean game = new SWGameBean();
@@ -149,6 +217,12 @@ public class GameLogic
         return game;
     }
 
+    /**
+     * Do join game.
+     *
+     * @param game the game
+     * @param id the id
+     */
     public static void doJoinGame(SWGameBean game, String id)
     {
         synchronized (game)
@@ -163,6 +237,12 @@ public class GameLogic
         }
     }
 
+    /**
+     * Do leave game.
+     *
+     * @param game the game
+     * @param id the id
+     */
     public static void doLeaveGame(SWGameBean game, String id)
     {
         synchronized (game)
@@ -174,6 +254,16 @@ public class GameLogic
         }
     }
 
+    /**
+     * Do torpedo.
+     *
+     * @param id the id
+     * @param game the game
+     * @param fireDLon the fire d lon
+     * @param fireDLat the fire d lat
+     * @param now the now
+     * @return the int
+     */
     public static int doTorpedo(String id, SWGameBean game, Integer fireDLon,
             Integer fireDLat, long now)
     {
@@ -202,6 +292,15 @@ public class GameLogic
         return 0;
     }
 
+    /**
+     * Find ships at.
+     *
+     * @param game the game
+     * @param tLon the t lon
+     * @param tLat the t lat
+     * @param depth the depth
+     * @return the list
+     */
     private static List<String> findShipsAt(SWGameBean game, int tLon, int tLat, int depth)
     {
         List<String> hits = new ArrayList<>();
@@ -214,11 +313,26 @@ public class GameLogic
         return hits;
     }
 
+    /**
+     * Do die.
+     *
+     * @param game the game
+     * @param id the id
+     */
     private static void doDie(SWGameBean game, String id)
     {
         doLeaveGame(game, id);
     }
 
+    /**
+     * Do boom.
+     *
+     * @param game the game
+     * @param lon the lon
+     * @param lat the lat
+     * @param dep the dep
+     * @param now the now
+     */
     public static void doBoom(SWGameBean game, int lon, int lat, int dep, long now)
     {
         for (String shipID : game.getShips().keySet())
@@ -230,6 +344,14 @@ public class GameLogic
         }
     }
 
+    /**
+     * Do ping.
+     *
+     * @param id the id
+     * @param game the game
+     * @param now the now
+     * @return the list
+     */
     public static List<SWPingBean> doPing(String id, SWGameBean game, long now)
     {
         List<SWPingBean> pings = new ArrayList<>();
@@ -252,6 +374,14 @@ public class GameLogic
         return pings;
     }
 
+    /**
+     * Do listen.
+     *
+     * @param id the id
+     * @param game the game
+     * @param now the now
+     * @return the list
+     */
     public static List<SWPingBean> doListen(String id, SWGameBean game, long now)
     {
         List<SWPingBean> pings = new ArrayList<>();
@@ -270,12 +400,32 @@ public class GameLogic
         return pings;
     }
 
+    /**
+     * Make ping.
+     *
+     * @param pinger the pinger
+     * @param pingee the pingee
+     * @param type the type
+     * @param time the time
+     * @return the SW ping bean
+     */
     private static SWPingBean makePing(SWPositionBean pinger,
             SWPositionBean pingee, int type, long time)
     {
         return makePing(pinger, pingee.getLongitude(), pingee.getLattitude(), pingee.getDepth(), type, time);
     }
     
+    /**
+     * Make ping.
+     *
+     * @param pinger the pinger
+     * @param pingeeLon the pingee lon
+     * @param pingeeLat the pingee lat
+     * @param pingeeDep the pingee dep
+     * @param type the type
+     * @param time the time
+     * @return the SW ping bean
+     */
     private static SWPingBean makePing(SWPositionBean pinger,
             int pingeeLon, int pingeeLat, int pingeeDep, int type, long time)
     {
@@ -303,6 +453,17 @@ public class GameLogic
         return ping;
     }
 
+    /**
+     * Do move ship.
+     *
+     * @param id the id
+     * @param dLon the d lon
+     * @param dLat the d lat
+     * @param dDep the d dep
+     * @param game the game
+     * @return the int
+     * @throws SWGameException the SW game exception
+     */
     public static int doMoveShip(String id, int dLon, int dLat, int dDep,
             SWGameBean game) throws SWGameException
     {
@@ -326,9 +487,17 @@ public class GameLogic
     
     // AI stuff
     
+    /** The AI count. */
     private static int mAICount = 0;
+    
+    /** The Constant PREFIX_AI. */
     private static final String PREFIX_AI = "ai://";
     
+    /**
+     * Update game.
+     *
+     * @param game the game
+     */
     private static void updateGame(SWGameBean game)
     {
         long now = System.currentTimeMillis();
@@ -384,11 +553,19 @@ public class GameLogic
     
     // testing stuff
 
+    /**
+     * Test reset to seed.
+     *
+     * @param seed the seed
+     */
     public static void testResetToSeed(long seed)
     {
         mRND = new Random(seed);
     }
 
+    /**
+     * Test ai move.
+     */
     public static void testAIMove()
     {
         long tick = System.currentTimeMillis() - GameConstLogic.AI_MOVE_TICK - 1;
@@ -404,6 +581,11 @@ public class GameLogic
         }
     }
     
+    /**
+     * Log.
+     *
+     * @param msg the msg
+     */
     private static void log(String msg)
     {
         // System.out.println(msg);

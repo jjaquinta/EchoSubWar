@@ -15,15 +15,31 @@
  */
 package com.tsatsatzu.subwar.audio.data;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SWSessionBean.
+ */
 public class SWSessionBean
 {
+    
+    /** The User id. */
     private String  mUserID;
 
+    /**
+     * Gets the user id.
+     *
+     * @return the user id
+     */
     public String getUserID()
     {
         return mUserID;
     }
 
+    /**
+     * Sets the user id.
+     *
+     * @param userID the new user id
+     */
     public void setUserID(String userID)
     {
         mUserID = userID;

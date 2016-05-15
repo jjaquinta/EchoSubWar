@@ -1,3 +1,18 @@
+/*
+ * Copyright 2016 Jo Jaquinta, TsaTsaTzu
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.tsatsatzu.subwar.test.audio;
 
 import static org.junit.Assert.assertNotNull;
@@ -14,13 +29,25 @@ import com.tsatsatzu.subwar.game.api.SubWarGameAPI;
 import com.tsatsatzu.subwar.game.data.SWContextBean;
 import com.tsatsatzu.subwar.game.data.SWOperationBean;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class BaseTest.
+ */
 public class BaseTest
 {
+    
+    /** The Constant TEST_USER. */
     protected static final String TEST_USER = "amadan";
+    
+    /** The Constant TEST_CREDENTIALS. */
     protected static final String TEST_CREDENTIALS = "xyzzy";
     
+    /** The Ssn. */
     private SWSessionBean mSsn;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp()
     {
@@ -44,6 +71,11 @@ public class BaseTest
         System.out.println("-------------------------------------------------------");
     }
     
+    /**
+     * Gets the session.
+     *
+     * @return the session
+     */
     protected SWSessionBean getSession()
     {        
         SWSessionBean ssn = new SWSessionBean();
@@ -51,6 +83,13 @@ public class BaseTest
         return ssn;
     }
 
+    /**
+     * Dialog.
+     *
+     * @param verb the verb
+     * @param args the args
+     * @return the SW invocation bean
+     */
     protected SWInvocationBean dialog(String verb, String... args)
     {
         System.out.println("Alexa, "+verb);
@@ -71,6 +110,12 @@ public class BaseTest
         return resp;
     }
     
+    /**
+     * Gets the operation.
+     *
+     * @param opType the op type
+     * @return the operation
+     */
     protected SWOperationBean getOperation(String opType)
     {        
         SWOperationBean op = new SWOperationBean();
@@ -80,6 +125,9 @@ public class BaseTest
         return op;
     }
 
+    /**
+     * Ai move.
+     */
     protected void aiMove()
     {
         SWOperationBean op = getOperation(SWOperationBean.TEST);

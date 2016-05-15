@@ -22,26 +22,59 @@ import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.tsatsatzu.subwar.game.logic.dynamo.DynamoUtils;
 import com.tsatsatzu.utils.obj.StringUtils;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SWUserBean.
+ */
 public class SWUserBean
 {
+    
+    /** The User id. */
     // primary key
     private String  mUserID;
+    
+    /** The User name. */
     // user statistics
     private String  mUserName;
+    
+    /** The Title. */
     private String  mTitle;
+    
+    /** The Last interaction. */
     // book keeping
     private long    mLastInteraction;
+    
+    /** The Number of interactions. */
     private int     mNumberOfInteractions;
+    
+    /** The Number of sessions. */
     private int     mNumberOfSessions;
+    
+    /** The Number of games. */
     private int     mNumberOfGames;
+    
+    /** The Number of kills. */
     private int     mNumberOfKills;
+    
+    /** The Number of shots. */
     private int     mNumberOfShots;
+    
+    /** The Sub name. */
     // ship statistics
     private String  mSubName;
+    
+    /** The Max torpedoes. */
     private int     mMaxTorpedoes;
+    
+    /** The In game. */
     // game statistics
     private int     mInGame;
 
+    /**
+     * From map.
+     *
+     * @param data the data
+     */
     // utility functions
     public void fromMap(Map<String, AttributeValue> data)
     {
@@ -59,6 +92,11 @@ public class SWUserBean
         setInGame(DynamoUtils.getInt(data, "InGame"));
     }
 
+    /**
+     * To map.
+     *
+     * @return the map
+     */
     public Map<String, AttributeValue> toMap()
     {
         Map<String, AttributeValue> u = new HashMap<String, AttributeValue>();
@@ -77,6 +115,13 @@ public class SWUserBean
         return u;
     }
     
+    /**
+     * Put string.
+     *
+     * @param u the u
+     * @param key the key
+     * @param value the value
+     */
     private void putString(Map<String, AttributeValue> u, String key, String value)
     {
         if (!StringUtils.trivial(value))
@@ -85,98 +130,241 @@ public class SWUserBean
     
     // getters and setters
     
+    /**
+     * Gets the user id.
+     *
+     * @return the user id
+     */
     public String getUserID()
     {
         return mUserID;
     }
+    
+    /**
+     * Sets the user id.
+     *
+     * @param userID the new user id
+     */
     public void setUserID(String userID)
     {
         mUserID = userID;
     }
+    
+    /**
+     * Gets the user name.
+     *
+     * @return the user name
+     */
     public String getUserName()
     {
         return mUserName;
     }
+    
+    /**
+     * Sets the user name.
+     *
+     * @param userName the new user name
+     */
     public void setUserName(String userName)
     {
         mUserName = userName;
     }
+    
+    /**
+     * Gets the sub name.
+     *
+     * @return the sub name
+     */
     public String getSubName()
     {
         return mSubName;
     }
+    
+    /**
+     * Sets the sub name.
+     *
+     * @param subName the new sub name
+     */
     public void setSubName(String subName)
     {
         mSubName = subName;
     }
+    
+    /**
+     * Gets the last interaction.
+     *
+     * @return the last interaction
+     */
     public long getLastInteraction()
     {
         return mLastInteraction;
     }
+    
+    /**
+     * Sets the last interaction.
+     *
+     * @param lastInteraction the new last interaction
+     */
     public void setLastInteraction(long lastInteraction)
     {
         mLastInteraction = lastInteraction;
     }
+    
+    /**
+     * Gets the number of sessions.
+     *
+     * @return the number of sessions
+     */
     public int getNumberOfSessions()
     {
         return mNumberOfSessions;
     }
+    
+    /**
+     * Sets the number of sessions.
+     *
+     * @param numberOfSessions the new number of sessions
+     */
     public void setNumberOfSessions(int numberOfSessions)
     {
         mNumberOfSessions = numberOfSessions;
     }
+    
+    /**
+     * Gets the number of games.
+     *
+     * @return the number of games
+     */
     public int getNumberOfGames()
     {
         return mNumberOfGames;
     }
+    
+    /**
+     * Sets the number of games.
+     *
+     * @param numberOfGames the new number of games
+     */
     public void setNumberOfGames(int numberOfGames)
     {
         mNumberOfGames = numberOfGames;
     }
+    
+    /**
+     * Gets the number of kills.
+     *
+     * @return the number of kills
+     */
     public int getNumberOfKills()
     {
         return mNumberOfKills;
     }
+    
+    /**
+     * Sets the number of kills.
+     *
+     * @param numberOfKills the new number of kills
+     */
     public void setNumberOfKills(int numberOfKills)
     {
         mNumberOfKills = numberOfKills;
     }
+    
+    /**
+     * Gets the number of interactions.
+     *
+     * @return the number of interactions
+     */
     public int getNumberOfInteractions()
     {
         return mNumberOfInteractions;
     }
+    
+    /**
+     * Sets the number of interactions.
+     *
+     * @param numberOfInteractions the new number of interactions
+     */
     public void setNumberOfInteractions(int numberOfInteractions)
     {
         mNumberOfInteractions = numberOfInteractions;
     }
+    
+    /**
+     * Gets the in game.
+     *
+     * @return the in game
+     */
     public int getInGame()
     {
         return mInGame;
     }
+    
+    /**
+     * Sets the in game.
+     *
+     * @param inGame the new in game
+     */
     public void setInGame(int inGame)
     {
         mInGame = inGame;
     }
+    
+    /**
+     * Gets the title.
+     *
+     * @return the title
+     */
     public String getTitle()
     {
         return mTitle;
     }
+    
+    /**
+     * Sets the title.
+     *
+     * @param title the new title
+     */
     public void setTitle(String title)
     {
         mTitle = title;
     }
+    
+    /**
+     * Gets the max torpedoes.
+     *
+     * @return the max torpedoes
+     */
     public int getMaxTorpedoes()
     {
         return mMaxTorpedoes;
     }
+    
+    /**
+     * Sets the max torpedoes.
+     *
+     * @param maxTorpedoes the new max torpedoes
+     */
     public void setMaxTorpedoes(int maxTorpedoes)
     {
         mMaxTorpedoes = maxTorpedoes;
     }
+    
+    /**
+     * Gets the number of shots.
+     *
+     * @return the number of shots
+     */
     public int getNumberOfShots()
     {
         return mNumberOfShots;
     }
+    
+    /**
+     * Sets the number of shots.
+     *
+     * @param numberOfShots the new number of shots
+     */
     public void setNumberOfShots(int numberOfShots)
     {
         mNumberOfShots = numberOfShots;

@@ -17,8 +17,19 @@ package com.tsatsatzu.subwar.game.logic;
 
 import com.tsatsatzu.subwar.game.data.SWUserBean;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class UserLogic.
+ */
 public class UserLogic
 {
+    
+    /**
+     * Validate.
+     *
+     * @param userID the user id
+     * @return the SW user bean
+     */
     public static SWUserBean validate(String userID)
     {
         SWUserBean user = IOLogic.getUser(userID);
@@ -27,6 +38,12 @@ public class UserLogic
         return user;
     }
     
+    /**
+     * New instance.
+     *
+     * @param userID the user id
+     * @return the SW user bean
+     */
     public static SWUserBean newInstance(String userID)
     {
         SWUserBean user = new SWUserBean();
@@ -39,6 +56,12 @@ public class UserLogic
         return user;
     }
 
+    /**
+     * Sets the user name.
+     *
+     * @param user the user
+     * @param name the name
+     */
     public static void setUserName(SWUserBean user, String name)
     {
         if (name != null)
@@ -48,6 +71,12 @@ public class UserLogic
                 user.setUserName(name);
     }
 
+    /**
+     * Sets the ship name.
+     *
+     * @param user the user
+     * @param name the name
+     */
     public static void setShipName(SWUserBean user, String name)
     {
         if (name != null)

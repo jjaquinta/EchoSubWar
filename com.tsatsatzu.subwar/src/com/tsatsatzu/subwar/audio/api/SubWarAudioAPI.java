@@ -31,38 +31,101 @@ import com.tsatsatzu.subwar.game.data.SWOperationBean;
 import com.tsatsatzu.subwar.game.logic.GameConstLogic;
 import com.tsatsatzu.utils.obj.StringUtils;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SubWarAudioAPI.
+ */
 public class SubWarAudioAPI
 {
+    
+    /** The Constant CMD_LAUNCH_APP. */
     public static final String CMD_LAUNCH_APP = "$LAUNCH";
+    
+    /** The Constant CMD_TERMINATE_APP. */
     public static final String CMD_TERMINATE_APP = "$TERMINATE";
+    
+    /** The Constant CMD_CANCEL. */
     public static final String CMD_CANCEL = "AMAZON.CancelIntent";
+    
+    /** The Constant CMD_HELP. */
     public static final String CMD_HELP = "AMAZON.HelpIntent";
+    
+    /** The Constant CMD_REPEAT. */
     public static final String CMD_REPEAT = "AMAZON.RepeatIntent";
+    
+    /** The Constant CMD_STARTOVER. */
     public static final String CMD_STARTOVER = "AMAZON.StartOverIntent";
+    
+    /** The Constant CMD_STOP. */
     public static final String CMD_STOP = "AMAZON.StopIntent";
+    
+    /** The Constant CMD_YES. */
     public static final String CMD_YES = "AMAZON.YesIntent";
+    
+    /** The Constant CMD_NO. */
     public static final String CMD_NO = "AMAZON.NoIntent";
+    
+    /** The Constant CMD_NORTH. */
     public static final String CMD_NORTH = "NORTH";
+    
+    /** The Constant CMD_SOUTH. */
     public static final String CMD_SOUTH = "SOUTH";
+    
+    /** The Constant CMD_EAST. */
     public static final String CMD_EAST = "EAST";
+    
+    /** The Constant CMD_WEST. */
     public static final String CMD_WEST = "WEST";
+    
+    /** The Constant CMD_NORTHWEST. */
     public static final String CMD_NORTHWEST = "NORTHWEST";
+    
+    /** The Constant CMD_NORTHEAST. */
     public static final String CMD_NORTHEAST = "NORTHEAST";
+    
+    /** The Constant CMD_SOUTHWEST. */
     public static final String CMD_SOUTHWEST = "SOUTHWEST";
+    
+    /** The Constant CMD_SOUTHEAST. */
     public static final String CMD_SOUTHEAST = "SOUTHEAST";
+    
+    /** The Constant CMD_DIVE. */
     public static final String CMD_DIVE = "DIVE";
+    
+    /** The Constant CMD_RISE. */
     public static final String CMD_RISE = "RISE";
+    
+    /** The Constant CMD_LISTEN. */
     public static final String CMD_LISTEN = "LISTEN";
+    
+    /** The Constant CMD_SONAR. */
     public static final String CMD_SONAR = "SONAR";
+    
+    /** The Constant CMD_FIRE. */
     public static final String CMD_FIRE = "FIRE";
+    
+    /** The Constant CMD_CALL_ME. */
     public static final String CMD_CALL_ME = "CALLME";
+    
+    /** The Constant CMD_CALL_SHIP. */
     public static final String CMD_CALL_SHIP = "CALLSHIP";
+    
+    /** The Constant CMD_LAUNCH. */
     public static final String CMD_LAUNCH = "LAUNCH";
+    
+    /** The Constant CMD_DOCK. */
     public static final String CMD_DOCK = "DOCK";
+    
+    /** The Constant CMD_SHIP. */
     public static final String CMD_SHIP = "SHIP";
+    
+    /** The Constant CMD_COMBAT. */
     public static final String CMD_COMBAT = "COMBAT";
+    
+    /** The Constant CMD_LEADERS. */
     public static final String CMD_LEADERS = "LEADERS";
     
+    /** The Logger. */
     private static ISubWarAudioLogger mLogger = new ISubWarAudioLogger() {        
         @Override
         public void debug(Throwable t)
@@ -92,6 +155,14 @@ public class SubWarAudioAPI
         });
     }
 
+    /**
+     * Invoke.
+     *
+     * @param ssn the ssn
+     * @param verb the verb
+     * @param args the args
+     * @return the SW invocation bean
+     */
     public static SWInvocationBean invoke(SWSessionBean ssn, String verb, String... args)
     {
         debug("Invoking "+verb);
@@ -113,6 +184,14 @@ public class SubWarAudioAPI
         return context;
     }
 
+    /**
+     * Invoke verb.
+     *
+     * @param context the context
+     * @param verb the verb
+     * @param args the args
+     * @throws SWAudioException the SW audio exception
+     */
     private static void invokeVerb(SWInvocationBean context, String verb,
             String... args) throws SWAudioException
     {
@@ -222,6 +301,13 @@ public class SubWarAudioAPI
         }
     }
 
+    /**
+     * Handle exception.
+     *
+     * @param ssn the ssn
+     * @param e the e
+     * @throws SWAudioException the SW audio exception
+     */
     private static void handleException(SWInvocationBean ssn,
             SWAudioException e) throws SWAudioException
     {
@@ -240,6 +326,11 @@ public class SubWarAudioAPI
             throw e;
     }
 
+    /**
+     * Sets the generic reprompt.
+     *
+     * @param context the new generic reprompt
+     */
     private static void setGenericReprompt(SWInvocationBean context)
     {
         switch (context.getState().getState())
@@ -265,11 +356,21 @@ public class SubWarAudioAPI
         }
     }
     
+    /**
+     * Sets the logger.
+     *
+     * @param logger the new logger
+     */
     public static void setLogger(ISubWarAudioLogger logger)
     {
         mLogger = logger;
     }
     
+    /**
+     * Debug.
+     *
+     * @param msg the msg
+     */
     public static void debug(String msg)
     {
         if (mLogger != null)
@@ -279,6 +380,11 @@ public class SubWarAudioAPI
                 mLogger.debug("AUDIO: "+msg);
     }
     
+    /**
+     * Debug.
+     *
+     * @param e the e
+     */
     public static void debug(Throwable e)
     {
         if (mLogger != null)

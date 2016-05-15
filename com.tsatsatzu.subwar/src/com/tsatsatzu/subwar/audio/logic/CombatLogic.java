@@ -31,11 +31,26 @@ import com.tsatsatzu.subwar.game.data.SWUserBean;
 import com.tsatsatzu.subwar.game.logic.GameConstLogic;
 import com.tsatsatzu.utils.obj.StringUtils;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CombatLogic.
+ */
 public class CombatLogic
 {
+    
+    /** The Constant mDoubleMetaphone. */
     private static final DoubleMetaphone mDoubleMetaphone = new DoubleMetaphone();
+    
+    /** The Constant mCaverphone. */
     private static final AbstractCaverphone mCaverphone = new Caverphone2();
 
+    /**
+     * Fire.
+     *
+     * @param ssn the ssn
+     * @param direction the direction
+     * @throws SWAudioException the SW audio exception
+     */
     public static void fire(SWInvocationBean ssn, String direction) throws SWAudioException
     {
         switch (ssn.getState().getState())
@@ -95,6 +110,13 @@ public class CombatLogic
         }
     }
 
+    /**
+     * Parses the direction.
+     *
+     * @param direction the direction
+     * @param lastMove the last move
+     * @return the int
+     */
     private static int parseDirection(String direction, int lastMove)
     {
         int dir = parseExactMatch(direction);
@@ -109,17 +131,35 @@ public class CombatLogic
         return lastMove;
     }
 
+    /**
+     * Parses the exact match.
+     *
+     * @param direction the direction
+     * @return the int
+     */
     private static int parseExactMatch(String direction)
     {
         return parseMatch(direction, SWPingBean.DIRECTIONS);
     }
 
+    /**
+     * Parses the double metaphone.
+     *
+     * @param direction the direction
+     * @return the int
+     */
     private static int parseDoubleMetaphone(String direction)
     {
         String dir = mDoubleMetaphone.encode(direction);
         return parseMatch(dir, SWPingBean.DIRECTIONS_DM);
     }
 
+    /**
+     * Parses the caverphone.
+     *
+     * @param direction the direction
+     * @return the int
+     */
     private static int parseCaverphone(String direction)
     {
         try
@@ -133,6 +173,13 @@ public class CombatLogic
         }
     }
 
+    /**
+     * Parses the match.
+     *
+     * @param direction the direction
+     * @param directions the directions
+     * @return the int
+     */
     private static int parseMatch(String direction, String[] directions)
     {
         for (int i = SWOperationBean.NORTH; i <= SWOperationBean.NORTHWEST; i += 2)
@@ -141,6 +188,12 @@ public class CombatLogic
         return -1;
     }
 
+    /**
+     * Leaders.
+     *
+     * @param ssn the ssn
+     * @throws SWAudioException the SW audio exception
+     */
     public static void leaders(SWInvocationBean ssn) throws SWAudioException
     {
         SWContextBean context = InvocationLogic.game(ssn, SWOperationBean.LEADERS, AudioConstLogic.MAX_LEADERS, null);

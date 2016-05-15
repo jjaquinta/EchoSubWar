@@ -37,26 +37,53 @@ import com.tsatsatzu.subwar.game.data.SWUserBean;
 import com.tsatsatzu.subwar.game.logic.CredentialsLogic;
 import com.tsatsatzu.subwar.game.logic.IIODriver;
 
+// TODO: Auto-generated Javadoc
 /*
  * This I/O driver is used for persisting values in a set of DynamoDB databases.
  */
 
+/**
+ * The Class DynamoIODriver.
+ */
 public class DynamoIODriver implements IIODriver
 {
+    
+    /** The Client. */
     private AmazonDynamoDBClient mClient;
+    
+    /** The Constant USER_TABLE_NAME. */
     public static final String USER_TABLE_NAME = "SubWarUsers";
+    
+    /** The Constant USER_KILLS_INDEX. */
     public static final String USER_KILLS_INDEX = "numerofkills-index";
+    
+    /** The Constant USER_PRIMARY_KEY. */
     private static final String USER_PRIMARY_KEY = "UserID";
 
+    /** The User cache. */
     private Map<String, SWUserBean> mUserCache = new HashMap<>();
+    
+    /** The User cache fetch. */
     private Map<String, Long> mUserCacheFetch = new HashMap<>();
 
+    /** The fetch timeout. */
     private int FETCH_TIMEOUT = 1000; // latency for almost-continuous
+    
+    /** The Output queue index. */
     private Set<String> mOutputQueueIndex = new HashSet<String>();
+    
+    /** The Output queue. */
     private List<Object> mOutputQueue = new LinkedList<Object>();
+    
+    /** The Output queue thread. */
     private Thread mOutputQueueThread = null;
+    
+    /** The Single threaded. */
     private boolean mSingleThreaded;
     
+    /**
+     * Instantiates a new dynamo io driver.
+     */
     public DynamoIODriver()
     {
         String accessKey = CredentialsLogic.getProperty("accessKey");
@@ -67,12 +94,20 @@ public class DynamoIODriver implements IIODriver
         mSingleThreaded = true;
     }
 
+    /**
+     * Instantiates a new dynamo io driver.
+     *
+     * @param singleThreaded the single threaded
+     */
     public DynamoIODriver(boolean singleThreaded)
     {
         this();
         mSingleThreaded = singleThreaded;
     }
 
+    /* (non-Javadoc)
+     * @see com.tsatsatzu.subwar.game.logic.IIODriver#clearCaches()
+     */
     @Override
     public void clearCaches()
     {
@@ -80,6 +115,9 @@ public class DynamoIODriver implements IIODriver
         mUserCacheFetch.clear();
     }
 
+    /* (non-Javadoc)
+     * @see com.tsatsatzu.subwar.game.logic.IIODriver#getUser(java.lang.String)
+     */
     @Override
     public SWUserBean getUser(String id)
     {
@@ -117,6 +155,9 @@ public class DynamoIODriver implements IIODriver
         return user;
     }
 
+    /* (non-Javadoc)
+     * @see com.tsatsatzu.subwar.game.logic.IIODriver#saveUser(com.tsatsatzu.subwar.game.data.SWUserBean)
+     */
     @Override
     public void saveUser(SWUserBean user)
     {
@@ -127,6 +168,12 @@ public class DynamoIODriver implements IIODriver
         else
             addToOutputQueue(user.getUserID(), user);
     }
+    
+    /**
+     * Do save user.
+     *
+     * @param user the user
+     */
     private void doSaveUser(SWUserBean user)
     {
         user.setNumberOfInteractions(user.getNumberOfInteractions() + 1);
@@ -136,6 +183,9 @@ public class DynamoIODriver implements IIODriver
         mClient.putItem(itemRequest);
     }
 
+    /* (non-Javadoc)
+     * @see com.tsatsatzu.subwar.game.logic.IIODriver#deleteUser(java.lang.String)
+     */
     @Override
     public void deleteUser(String id)
     {
@@ -145,6 +195,9 @@ public class DynamoIODriver implements IIODriver
         mClient.deleteItem(request);
     }
 
+    /* (non-Javadoc)
+     * @see com.tsatsatzu.subwar.game.logic.IIODriver#getTopUsers(int)
+     */
     @Override
     public List<SWUserBean> getTopUsers(int total)
     {
@@ -171,6 +224,12 @@ public class DynamoIODriver implements IIODriver
         return top;
     }
     
+    /**
+     * Adds the to output queue.
+     *
+     * @param idx the idx
+     * @param obj the obj
+     */
     private void addToOutputQueue(String idx, Object obj)
     {
         synchronized (mOutputQueueIndex)
@@ -187,6 +246,11 @@ public class DynamoIODriver implements IIODriver
         }
     }
 
+    /**
+     * Gets the from output queue.
+     *
+     * @return the from output queue
+     */
     private Object getFromOutputQueue()
     {
         if (mOutputQueue.size() == 0)
@@ -200,6 +264,9 @@ public class DynamoIODriver implements IIODriver
         return obj;
     }
     
+    /**
+     * Run output.
+     */
     private void runOutput()
     {
         for (;;)

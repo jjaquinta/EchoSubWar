@@ -19,13 +19,33 @@ import java.util.Map;
 
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DynamoUtils.
+ */
 public class DynamoUtils
 {
+    
+    /**
+     * Gets the string.
+     *
+     * @param data the data
+     * @param name the name
+     * @return the string
+     */
     public static String getString(Map<String, AttributeValue> data, String name)
     {
         return getString(data, name, "");
     }
 
+    /**
+     * Gets the string.
+     *
+     * @param data the data
+     * @param name the name
+     * @param def the def
+     * @return the string
+     */
     public static String getString(Map<String, AttributeValue> data, String name, String def)
     {
         AttributeValue val = data.get(name);
@@ -37,10 +57,26 @@ public class DynamoUtils
         return snum;
     }
     
+    /**
+     * Gets the int.
+     *
+     * @param data the data
+     * @param name the name
+     * @return the int
+     */
     public static int getInt(Map<String, AttributeValue> data, String name)
     {
         return getInt(data, name, 0);
     }
+    
+    /**
+     * Gets the int.
+     *
+     * @param data the data
+     * @param name the name
+     * @param def the def
+     * @return the int
+     */
     public static int getInt(Map<String, AttributeValue> data, String name, int def)
     {
         AttributeValue val = data.get(name);
@@ -60,11 +96,26 @@ public class DynamoUtils
         }
     }
 
+    /**
+     * Gets the long.
+     *
+     * @param data the data
+     * @param name the name
+     * @return the long
+     */
     public static long getLong(Map<String, AttributeValue> data, String name)
     {
         return getLong(data, name, 0);
     }
 
+    /**
+     * Gets the long.
+     *
+     * @param data the data
+     * @param name the name
+     * @param def the def
+     * @return the long
+     */
     public static long getLong(Map<String, AttributeValue> data, String name, long def)
     {
         AttributeValue val = data.get(name);

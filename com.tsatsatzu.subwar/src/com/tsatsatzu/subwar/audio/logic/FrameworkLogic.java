@@ -19,9 +19,19 @@ import com.tsatsatzu.subwar.audio.data.SWInvocationBean;
 import com.tsatsatzu.subwar.game.data.SWOperationBean;
 import com.tsatsatzu.subwar.game.logic.GameConstLogic;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class FrameworkLogic.
+ */
 public class FrameworkLogic
 {
 
+    /**
+     * Yes.
+     *
+     * @param ssn the ssn
+     * @throws SWAudioException the SW audio exception
+     */
     public static void yes(SWInvocationBean ssn) throws SWAudioException
     {
         switch (ssn.getState().getState())
@@ -68,6 +78,12 @@ public class FrameworkLogic
         }
     }
 
+    /**
+     * No.
+     *
+     * @param ssn the ssn
+     * @throws SWAudioException the SW audio exception
+     */
     public static void no(SWInvocationBean ssn) throws SWAudioException
     {
         switch (ssn.getState().getState())
@@ -106,6 +122,11 @@ public class FrameworkLogic
         }
     }
 
+    /**
+     * Combat info.
+     *
+     * @param ssn the ssn
+     */
     private static void combatInfo(SWInvocationBean ssn)
     {
         ssn.addText("Our duty is to patrol the Acton Straits and destroy any and all enemy submarines you encounter.");
@@ -115,6 +136,11 @@ public class FrameworkLogic
         ssn.addText("or whatever direction you specified.");
     }
 
+    /**
+     * Adds the pregame prompt.
+     *
+     * @param ssn the ssn
+     */
     public static void addPregamePrompt(SWInvocationBean ssn)
     {
         if ((ssn.getSpokenText().length() > 0) && !ssn.getSpokenText().endsWith(AudioConstLogic.SOUND_PAUSE))
@@ -122,12 +148,22 @@ public class FrameworkLogic
         ssn.addText("Would you like me to tell you about the ship, about combat, consult the leaderboard, or are you ready to launch?");
     }
 
+    /**
+     * Adds the game prompt.
+     *
+     * @param ssn the ssn
+     */
     public static void addGamePrompt(SWInvocationBean ssn)
     {
         ssn.addPause();
         ssn.addText("Try giving an order to move, fire, listen, or ping the sonar.");
     }
 
+    /**
+     * Ship info.
+     *
+     * @param ssn the ssn
+     */
     private static void shipInfo(SWInvocationBean ssn)
     {
         ssn.addText("We are a Marvel Class Hunter Killer submarine.");
@@ -137,11 +173,23 @@ public class FrameworkLogic
         ssn.addText("We also have underwater microphones and if you order us to listen, we can hear any nearby ships.");
     }
 
+    /**
+     * Cancel.
+     *
+     * @param ssn the ssn
+     * @throws SWAudioException the SW audio exception
+     */
     public static void cancel(SWInvocationBean ssn) throws SWAudioException
     {
         startOver(ssn);
     }
 
+    /**
+     * Help.
+     *
+     * @param ssn the ssn
+     * @throws SWAudioException the SW audio exception
+     */
     public static void help(SWInvocationBean ssn) throws SWAudioException
     {
         switch (ssn.getState().getState())
@@ -174,6 +222,12 @@ public class FrameworkLogic
         }
     }
 
+    /**
+     * Repeat.
+     *
+     * @param ssn the ssn
+     * @throws SWAudioException the SW audio exception
+     */
     public static void repeat(SWInvocationBean ssn) throws SWAudioException
     {
         if (ssn.getState().getLastSpokenText() != null)
@@ -207,6 +261,12 @@ public class FrameworkLogic
         }
     }
 
+    /**
+     * Start over.
+     *
+     * @param ssn the ssn
+     * @throws SWAudioException the SW audio exception
+     */
     public static void startOver(SWInvocationBean ssn) throws SWAudioException
     {
         switch (ssn.getState().getState())
@@ -243,6 +303,12 @@ public class FrameworkLogic
         }
     }
 
+    /**
+     * Return to dock.
+     *
+     * @param ssn the ssn
+     * @throws SWAudioException the SW audio exception
+     */
     private static void returnToDock(SWInvocationBean ssn) throws SWAudioException
     {
         ssn.addText("Returning to dock sir.");
@@ -255,6 +321,12 @@ public class FrameworkLogic
         addPregamePrompt(ssn);
     }
 
+    /**
+     * Stop.
+     *
+     * @param ssn the ssn
+     * @throws SWAudioException the SW audio exception
+     */
     public static void stop(SWInvocationBean ssn) throws SWAudioException
     {
         switch (ssn.getState().getState())
@@ -282,6 +354,12 @@ public class FrameworkLogic
         }
     }
 
+    /**
+     * Start game.
+     *
+     * @param ssn the ssn
+     * @throws SWAudioException the SW audio exception
+     */
     public static void startGame(SWInvocationBean ssn) throws SWAudioException
     {
         switch (ssn.getState().getState())
@@ -306,6 +384,12 @@ public class FrameworkLogic
         }
     }
 
+    /**
+     * Ship.
+     *
+     * @param ssn the ssn
+     * @throws SWAudioException the SW audio exception
+     */
     public static void ship(SWInvocationBean ssn) throws SWAudioException
     {
         switch (ssn.getState().getState())
@@ -334,6 +418,12 @@ public class FrameworkLogic
         }
     }
 
+    /**
+     * Combat.
+     *
+     * @param ssn the ssn
+     * @throws SWAudioException the SW audio exception
+     */
     public static void combat(SWInvocationBean ssn) throws SWAudioException
     {
         switch (ssn.getState().getState())

@@ -15,10 +15,18 @@
  */
 package com.tsatsatzu.utils.obj;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class StringUtils.
+ */
 public class StringUtils
 {
+    
     /**
      * This is a convenience function to test for both null and zero length.
+     *
+     * @param title the title
+     * @return true, if successful
      */
     public static boolean trivial(String title)
     {
@@ -27,6 +35,9 @@ public class StringUtils
 
     /**
      * This trims *only* spaces from the ends of a string.
+     *
+     * @param txt the txt
+     * @return the string
      */
     public static String trimSpaces(String txt)
     {

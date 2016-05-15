@@ -15,8 +15,24 @@
  */
 package com.tsatsatzu.subwar.audio.api;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface ISubWarAudioLogger.
+ */
 public interface ISubWarAudioLogger
 {
+    
+    /**
+     * Debug.
+     *
+     * @param msg the msg
+     */
     public void debug(String msg);
+    
+    /**
+     * Debug.
+     *
+     * @param t the t
+     */
     public void debug(Throwable t);
 }

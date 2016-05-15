@@ -25,8 +25,19 @@ import com.tsatsatzu.subwar.game.data.SWPingBean;
 import com.tsatsatzu.subwar.game.data.SWPositionBean;
 import com.tsatsatzu.subwar.game.logic.GameConstLogic;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PlayLogic.
+ */
 public class PlayLogic
 {
+    
+    /**
+     * Do start game.
+     *
+     * @param ssn the ssn
+     * @throws SWAudioException the SW audio exception
+     */
     static void doStartGame(SWInvocationBean ssn)
             throws SWAudioException
     {
@@ -38,6 +49,11 @@ public class PlayLogic
         FrameworkLogic.addGamePrompt(ssn);
     }
 
+    /**
+     * Describe game.
+     *
+     * @param ssn the ssn
+     */
     static void describeGame(SWInvocationBean ssn)
     {
         SWGameDetailsBean game = ssn.getGame();
@@ -56,6 +72,13 @@ public class PlayLogic
         describeSoundings(ssn);
     }
 
+    /**
+     * Describe location.
+     *
+     * @param ssn the ssn
+     * @param game the game
+     * @param pos the pos
+     */
     private static void describeLocation(SWInvocationBean ssn,
             SWGameDetailsBean game, SWPositionBean pos)
     {
@@ -118,6 +141,12 @@ public class PlayLogic
             ssn.addText("We are "+pos.getDepth()+"00 meters below the surface.");
     }
 
+    /**
+     * Describe torpedos.
+     *
+     * @param ssn the ssn
+     * @param pos the pos
+     */
     private static void describeTorpedos(SWInvocationBean ssn,
             SWPositionBean pos)
     {
@@ -135,6 +164,11 @@ public class PlayLogic
         }
     }
 
+    /**
+     * Describe soundings.
+     *
+     * @param ssn the ssn
+     */
     public static void describeSoundings(SWInvocationBean ssn)
     {
         SWPositionBean pos = ssn.getGame().getUserPosition();
@@ -178,6 +212,12 @@ public class PlayLogic
         pos.getSoundings().clear();
     }
     
+    /**
+     * Describe ping.
+     *
+     * @param ping the ping
+     * @return the string
+     */
     private static String describePing(SWPingBean ping)
     {
         StringBuffer txt = new StringBuffer();

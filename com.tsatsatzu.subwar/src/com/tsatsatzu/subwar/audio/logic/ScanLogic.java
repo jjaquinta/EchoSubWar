@@ -18,9 +18,19 @@ package com.tsatsatzu.subwar.audio.logic;
 import com.tsatsatzu.subwar.audio.data.SWInvocationBean;
 import com.tsatsatzu.subwar.game.data.SWOperationBean;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ScanLogic.
+ */
 public class ScanLogic
 {
 
+    /**
+     * Listen.
+     *
+     * @param ssn the ssn
+     * @throws SWAudioException the SW audio exception
+     */
     public static void listen(SWInvocationBean ssn) throws SWAudioException
     {
         switch (ssn.getState().getState())
@@ -56,6 +66,12 @@ public class ScanLogic
         }
     }
 
+    /**
+     * Sonar.
+     *
+     * @param ssn the ssn
+     * @throws SWAudioException the SW audio exception
+     */
     public static void sonar(SWInvocationBean ssn) throws SWAudioException
     {
         switch (ssn.getState().getState())

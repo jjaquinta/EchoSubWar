@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+// TODO: Auto-generated Javadoc
 /*
  * Application secrets are kept in a AwsCredentials.properties file in the root of the source
  * tree. This is not checked into source control. Several values are contained there.
@@ -29,16 +30,36 @@ import java.util.Properties;
  * apiKeys=
  */
 
+/**
+ * The Class CredentialsLogic.
+ */
 public class CredentialsLogic
 {
+    
+    /** The Constant SYSTEM_SECRETS. */
     private static final String SYSTEM_SECRETS = "AwsCredentials.properties";
+    
+    /** The Credentials. */
     private static Properties mCredentials = null;
     
+    /**
+     * Gets the property.
+     *
+     * @param key the key
+     * @return the property
+     */
     public static String getProperty(String key)
     {
         return getProperty(key, null);
     }
     
+    /**
+     * Gets the property.
+     *
+     * @param key the key
+     * @param defaultValue the default value
+     * @return the property
+     */
     public static String getProperty(String key, String defaultValue)
     {
         // System properties are bound later than compiled in settings.
@@ -74,6 +95,12 @@ public class CredentialsLogic
         return defaultValue;
     }
 
+    /**
+     * Validate api key.
+     *
+     * @param credentials the credentials
+     * @return true, if successful
+     */
     public static boolean validateAPIKey(String credentials)
     {
         if (credentials == null)

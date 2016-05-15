@@ -36,14 +36,31 @@ import com.tsatsatzu.subwar.audio.data.SWInvocationBean;
 import com.tsatsatzu.subwar.audio.data.SWSessionBean;
 import com.tsatsatzu.utils.obj.StringUtils;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SubWarAlexaAPI.
+ */
 public class SubWarAlexaAPI
 {
 
+    /**
+     * Do session started.
+     *
+     * @param request the request
+     * @param session the session
+     */
     public static void doSessionStarted(SessionStartedRequest request,
             Session session)
     {
     }
 
+    /**
+     * Do launch.
+     *
+     * @param request the request
+     * @param session the session
+     * @return the speechlet response
+     */
     public static SpeechletResponse doLaunch(LaunchRequest request,
             Session session)
     {
@@ -63,6 +80,13 @@ public class SubWarAlexaAPI
         }
     }
 
+    /**
+     * Do intent.
+     *
+     * @param request the request
+     * @param session the session
+     * @return the speechlet response
+     */
     public static SpeechletResponse doIntent(IntentRequest request,
             Session session)
     {
@@ -84,6 +108,12 @@ public class SubWarAlexaAPI
         }
     }
 
+    /**
+     * Do session ended.
+     *
+     * @param request the request
+     * @param session the session
+     */
     public static void doSessionEnded(SessionEndedRequest request,
             Session session)
     {
@@ -99,6 +129,12 @@ public class SubWarAlexaAPI
         }
     }
     
+    /**
+     * Intent to verb.
+     *
+     * @param intent the intent
+     * @return the string
+     */
     private static String intentToVerb(Intent intent)
     {
         switch (intent.getName())
@@ -110,6 +146,12 @@ public class SubWarAlexaAPI
         }
     }
     
+    /**
+     * Intent to args.
+     *
+     * @param intent the intent
+     * @return the string[]
+     */
     private static String[] intentToArgs(Intent intent)
     {
         switch (intent.getName())
@@ -137,6 +179,13 @@ public class SubWarAlexaAPI
         }
     }
 
+    /**
+     * Gets the slot value.
+     *
+     * @param intent the intent
+     * @param name the name
+     * @return the slot value
+     */
     private static String getSlotValue(Intent intent, String name)
     {
         Slot slot = intent.getSlot(name);
@@ -146,6 +195,12 @@ public class SubWarAlexaAPI
         return val;
     }
     
+    /**
+     * Invocation to response.
+     *
+     * @param inv the inv
+     * @return the speechlet response
+     */
     private static SpeechletResponse invocationToResponse(SWInvocationBean inv)
     {
         // Create the Simple card content.
@@ -185,6 +240,12 @@ public class SubWarAlexaAPI
         return response;
     }
     
+    /**
+     * To output speech.
+     *
+     * @param txt the txt
+     * @return the output speech
+     */
     private static OutputSpeech toOutputSpeech(String txt)
     {
         if (txt.indexOf('<') < 0)
@@ -202,6 +263,12 @@ public class SubWarAlexaAPI
     }
 
 
+    /**
+     * Exception to response.
+     *
+     * @param e the e
+     * @return the speechlet response
+     */
     private static SpeechletResponse exceptionToResponse(Exception e)
     {
         // Create the Simple card content.
@@ -219,6 +286,13 @@ public class SubWarAlexaAPI
         response.setCard(card);
         return response;
     }
+    
+    /**
+     * To card text.
+     *
+     * @param e the e
+     * @return the string
+     */
     private static String toCardText(Throwable e)
     {
         StringBuffer sb = new StringBuffer();

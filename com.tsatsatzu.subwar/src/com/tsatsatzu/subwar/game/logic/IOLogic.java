@@ -19,14 +19,24 @@ import java.util.List;
 
 import com.tsatsatzu.subwar.game.data.SWUserBean;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class IOLogic.
+ */
 public class IOLogic
 {
     // All I/O traffic comes through this class. In most cases it is
     // handed off to the driver class. This indirection is there so
     // that you can choose, later, to use a different storage mechanism.
+    /** The Driver. */
     // 
     private static IIODriver mDriver = null;
     
+    /**
+     * Gets the driver.
+     *
+     * @return the driver
+     */
     public static IIODriver getDriver()
     {
         if (mDriver == null)
@@ -45,17 +55,34 @@ public class IOLogic
         return mDriver;
     }
 
+    /**
+     * Save user.
+     *
+     * @param user the user
+     */
     public static void saveUser(SWUserBean user)
     {
         getDriver().saveUser(user);
     }
 
+    /**
+     * Gets the user.
+     *
+     * @param userID the user id
+     * @return the user
+     */
     public static SWUserBean getUser(String userID)
     {
         SWUserBean user = getDriver().getUser(userID);
         return user;
     }
 
+    /**
+     * Gets the top users.
+     *
+     * @param total the total
+     * @return the top users
+     */
     public static List<SWUserBean> getTopUsers(int total)
     {
         List<SWUserBean> users = getDriver().getTopUsers(total);

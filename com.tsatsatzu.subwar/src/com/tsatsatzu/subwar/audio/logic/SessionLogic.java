@@ -27,11 +27,23 @@ import com.tsatsatzu.subwar.game.data.SWUserBean;
 import com.tsatsatzu.subwar.game.logic.IOLogic;
 import com.tsatsatzu.utils.obj.StringUtils;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SessionLogic.
+ */
 public class SessionLogic
 {
+    
+    /** The States. */
     // volitile states
     private static Map<String, SWStateBean> mStates = new HashMap<>();
     
+    /**
+     * Load session.
+     *
+     * @param ssn the ssn
+     * @return the SW invocation bean
+     */
     public static SWInvocationBean loadSession(SWSessionBean ssn)
     {
         SWInvocationBean invocation = new SWInvocationBean();
@@ -55,6 +67,11 @@ public class SessionLogic
         return invocation;
     }
     
+    /**
+     * Normalize state.
+     *
+     * @param invocation the invocation
+     */
     private static void normalizeState(SWInvocationBean invocation)
     {
         switch (invocation.getState().getState())
@@ -77,6 +94,11 @@ public class SessionLogic
         }
     }
 
+    /**
+     * Save session.
+     *
+     * @param context the context
+     */
     public static void saveSession(SWInvocationBean context)
     {
         SWUserBean user = context.getUser();
@@ -87,6 +109,12 @@ public class SessionLogic
         SubWarAudioAPI.debug("Saving session, state="+context.getState().getState());
     }
 
+    /**
+     * Launch.
+     *
+     * @param ssn the ssn
+     * @throws SWAudioException the SW audio exception
+     */
     public static void launch(SWInvocationBean ssn) throws SWAudioException
     {
         if (ssn.getUser().getInGame() >= 0)
@@ -155,11 +183,23 @@ public class SessionLogic
         }
     }
 
+    /**
+     * Terminate.
+     *
+     * @param ssn the ssn
+     */
     public static void terminate(SWInvocationBean ssn)
     {
         // NOOP
     }
 
+    /**
+     * Call me.
+     *
+     * @param ssn the ssn
+     * @param name the name
+     * @throws SWAudioException the SW audio exception
+     */
     public static void callMe(SWInvocationBean ssn, String name) throws SWAudioException
     {
         if (StringUtils.trivial(name))
@@ -195,6 +235,13 @@ public class SessionLogic
         }
     }
 
+    /**
+     * Call ship.
+     *
+     * @param ssn the ssn
+     * @param name the name
+     * @throws SWAudioException the SW audio exception
+     */
     public static void callShip(SWInvocationBean ssn, String name) throws SWAudioException
     {
         if (StringUtils.trivial(name))

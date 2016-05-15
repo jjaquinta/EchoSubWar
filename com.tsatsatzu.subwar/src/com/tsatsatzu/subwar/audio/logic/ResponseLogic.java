@@ -17,8 +17,14 @@ package com.tsatsatzu.subwar.audio.logic;
 
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ResponseLogic.
+ */
 public class ResponseLogic
 {
+    
+    /** The Constant ORDINAL. */
     public static final String[] ORDINAL =
     {
         "first",
@@ -62,6 +68,12 @@ public class ResponseLogic
         "thirty ninth",
     };
 
+    /**
+     * And list.
+     *
+     * @param listens the listens
+     * @return the string
+     */
     public static String andList(List<String> listens)
     {
         StringBuffer txt = new StringBuffer();

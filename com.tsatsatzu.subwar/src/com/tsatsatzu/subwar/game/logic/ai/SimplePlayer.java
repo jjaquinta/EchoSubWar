@@ -28,11 +28,22 @@ import com.tsatsatzu.subwar.game.logic.GameConstLogic;
 import com.tsatsatzu.subwar.game.logic.GameLogic;
 import com.tsatsatzu.subwar.game.logic.SWGameException;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SimplePlayer.
+ */
 public class SimplePlayer implements IComputerPlayer
 {
+    
+    /** The RND. */
     private Random mRND = new Random(0);
+    
+    /** The Data. */
     private Map<String, SimpleData> mData = new HashMap<>();
 
+    /* (non-Javadoc)
+     * @see com.tsatsatzu.subwar.game.logic.ai.IComputerPlayer#init(com.tsatsatzu.subwar.game.data.SWGameBean, java.lang.String)
+     */
     @Override
     public void init(SWGameBean game, String id)
     {
@@ -43,6 +54,9 @@ public class SimplePlayer implements IComputerPlayer
         log(data, "enters the game.");
     }
 
+    /* (non-Javadoc)
+     * @see com.tsatsatzu.subwar.game.logic.ai.IComputerPlayer#move(com.tsatsatzu.subwar.game.data.SWGameBean, java.lang.String, long)
+     */
     @Override
     public void move(SWGameBean game, String id, long tick)
     {
@@ -73,6 +87,11 @@ public class SimplePlayer implements IComputerPlayer
         pos.setLastMove(tick);
     }
     
+    /**
+     * Filter soundings.
+     *
+     * @param pos the pos
+     */
     private void filterSoundings(SWPositionBean pos)
     {
         long cutoff = System.currentTimeMillis() - GameConstLogic.AI_MOVE_TICK;
@@ -86,6 +105,14 @@ public class SimplePlayer implements IComputerPlayer
         }
     }
 
+    /**
+     * React to soundings.
+     *
+     * @param game the game
+     * @param pos the pos
+     * @param data the data
+     * @param tick the tick
+     */
     private void reactToSoundings(SWGameBean game, SWPositionBean pos, SimpleData data, long tick)
     {
         SWPingBean target = pos.getSoundings().get(pos.getSoundings().size() - 1);        
@@ -110,6 +137,14 @@ public class SimplePlayer implements IComputerPlayer
         }
     }
 
+    /**
+     * Fire torpedo.
+     *
+     * @param game the game
+     * @param pos the pos
+     * @param data the data
+     * @param tick the tick
+     */
     private void fireTorpedo(SWGameBean game, SWPositionBean pos, SimpleData data, long tick)
     {
         log(data, "Firing "+data.getFireDLon()+", "+data.getFireDLat());
@@ -118,6 +153,14 @@ public class SimplePlayer implements IComputerPlayer
         data.setFireDLat(null);
     }
     
+    /**
+     * Find target.
+     *
+     * @param game the game
+     * @param pos the pos
+     * @param data the data
+     * @param tick the tick
+     */
     private void findTarget(SWGameBean game, SWPositionBean pos, SimpleData data, long tick)
     {
         List<SWPingBean> sounding;
@@ -159,6 +202,14 @@ public class SimplePlayer implements IComputerPlayer
         }
     }
 
+    /**
+     * Sets the course to target.
+     *
+     * @param game the game
+     * @param pos the pos
+     * @param data the data
+     * @param target the target
+     */
     private void setCourseToTarget(SWGameBean game, SWPositionBean pos,
             SimpleData data, SWPingBean target)
     {
@@ -216,6 +267,14 @@ public class SimplePlayer implements IComputerPlayer
         }
     }
 
+    /**
+     * Move to target.
+     *
+     * @param game the game
+     * @param pos the pos
+     * @param data the data
+     * @param tick the tick
+     */
     private void moveToTarget(SWGameBean game, SWPositionBean pos, SimpleData data, long tick)
     {
         int dLon = (int)Math.signum(data.getTargetLon() - pos.getLongitude());
@@ -243,6 +302,9 @@ public class SimplePlayer implements IComputerPlayer
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.tsatsatzu.subwar.game.logic.ai.IComputerPlayer#term(com.tsatsatzu.subwar.game.data.SWGameBean, java.lang.String)
+     */
     @Override
     public void term(SWGameBean game, String id)
     {
@@ -250,80 +312,167 @@ public class SimplePlayer implements IComputerPlayer
         mData.remove(id);
     }
     
+    /**
+     * Log.
+     *
+     * @param data the data
+     * @param msg the msg
+     */
     private void log(SimpleData data, String msg)
     {
         log(data.getID(), msg);
     }
     
+    /**
+     * Log.
+     *
+     * @param id the id
+     * @param msg the msg
+     */
     private void log(String id, String msg)
     {
         //System.out.println(id+": "+msg);
     }
     
+    /**
+     * The Class SimpleData.
+     */
     class SimpleData
     {
+        
+        /** The ID. */
         private String  mID;
+        
+        /** The Target lon. */
         private int     mTargetLon;
+        
+        /** The Target lat. */
         private int     mTargetLat;
+        
+        /** The Target dep. */
         private int     mTargetDep;
+        
+        /** The Fire d lon. */
         private Integer     mFireDLon;
+        
+        /** The Fire d lat. */
         private Integer     mFireDLat;
 
+        /**
+         * Gets the id.
+         *
+         * @return the id
+         */
         public String getID()
         {
             return mID;
         }
 
+        /**
+         * Sets the id.
+         *
+         * @param iD the new id
+         */
         public void setID(String iD)
         {
             mID = iD;
         }
 
+        /**
+         * Gets the target lon.
+         *
+         * @return the target lon
+         */
         public int getTargetLon()
         {
             return mTargetLon;
         }
 
+        /**
+         * Sets the target lon.
+         *
+         * @param targetLon the new target lon
+         */
         public void setTargetLon(int targetLon)
         {
             mTargetLon = targetLon;
         }
 
+        /**
+         * Gets the target lat.
+         *
+         * @return the target lat
+         */
         public int getTargetLat()
         {
             return mTargetLat;
         }
 
+        /**
+         * Sets the target lat.
+         *
+         * @param targetLat the new target lat
+         */
         public void setTargetLat(int targetLat)
         {
             mTargetLat = targetLat;
         }
 
+        /**
+         * Gets the target dep.
+         *
+         * @return the target dep
+         */
         public int getTargetDep()
         {
             return mTargetDep;
         }
 
+        /**
+         * Sets the target dep.
+         *
+         * @param targetDep the new target dep
+         */
         public void setTargetDep(int targetDep)
         {
             mTargetDep = targetDep;
         }
 
+        /**
+         * Gets the fire d lon.
+         *
+         * @return the fire d lon
+         */
         public Integer getFireDLon()
         {
             return mFireDLon;
         }
 
+        /**
+         * Sets the fire d lon.
+         *
+         * @param fireDLon the new fire d lon
+         */
         public void setFireDLon(Integer fireDLon)
         {
             mFireDLon = fireDLon;
         }
 
+        /**
+         * Gets the fire d lat.
+         *
+         * @return the fire d lat
+         */
         public Integer getFireDLat()
         {
             return mFireDLat;
         }
 
+        /**
+         * Sets the fire d lat.
+         *
+         * @param fireDLat the new fire d lat
+         */
         public void setFireDLat(Integer fireDLat)
         {
             mFireDLat = fireDLat;

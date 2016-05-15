@@ -17,9 +17,35 @@ package com.tsatsatzu.subwar.game.logic.ai;
 
 import com.tsatsatzu.subwar.game.data.SWGameBean;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface IComputerPlayer.
+ */
 public interface IComputerPlayer
 {
+    
+    /**
+     * Inits the.
+     *
+     * @param game the game
+     * @param id the id
+     */
     public void init(SWGameBean game, String id);
+    
+    /**
+     * Move.
+     *
+     * @param game the game
+     * @param id the id
+     * @param tick the tick
+     */
     public void move(SWGameBean game, String id, long tick);
+    
+    /**
+     * Term.
+     *
+     * @param game the game
+     * @param id the id
+     */
     public void term(SWGameBean game, String id);
 }

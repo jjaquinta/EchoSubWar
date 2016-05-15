@@ -20,20 +20,68 @@ import com.tsatsatzu.subwar.game.api.SubWarGameAPI;
 import com.tsatsatzu.subwar.game.data.SWContextBean;
 import com.tsatsatzu.subwar.game.data.SWOperationBean;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class InvocationLogic.
+ */
 public class InvocationLogic
 {
+    
+    /**
+     * Game.
+     *
+     * @param ssn the ssn
+     * @param opType the op type
+     * @return the SW context bean
+     * @throws SWAudioException the SW audio exception
+     */
     public static SWContextBean game(SWInvocationBean ssn, String opType) throws SWAudioException
     {
         return game(ssn, opType, (String)null, (String)null, (Integer)null, (Integer)null);
     }
+    
+    /**
+     * Game.
+     *
+     * @param ssn the ssn
+     * @param opType the op type
+     * @param string1 the string1
+     * @param string2 the string2
+     * @return the SW context bean
+     * @throws SWAudioException the SW audio exception
+     */
     public static SWContextBean game(SWInvocationBean ssn, String opType, String string1, String string2) throws SWAudioException
     {
         return game(ssn, opType, string1, string2, null, null);
     }
+    
+    /**
+     * Game.
+     *
+     * @param ssn the ssn
+     * @param opType the op type
+     * @param int1 the int1
+     * @param int2 the int2
+     * @return the SW context bean
+     * @throws SWAudioException the SW audio exception
+     */
     public static SWContextBean game(SWInvocationBean ssn, String opType, Integer int1, Integer int2) throws SWAudioException
     {
         return game(ssn, opType, null, null, int1, int2);
     }
+    
+    /**
+     * Game.
+     *
+     * @param ssn the ssn
+     * @param opType the op type
+     * @param string1 the string1
+     * @param string2 the string2
+     * @param int1 the int1
+     * @param int2 the int2
+     * @return the SW context bean
+     * @throws SWAudioException the SW audio exception
+     */
     public static SWContextBean game(SWInvocationBean ssn, String opType, 
             String string1, String string2,
             Integer int1, Integer int2) throws SWAudioException
@@ -56,6 +104,12 @@ public class InvocationLogic
         return context;
     }
 
+    /**
+     * Record exception.
+     *
+     * @param context the context
+     * @param e the e
+     */
     public static void recordException(SWInvocationBean context,
             SWAudioException e)
     {

@@ -1,3 +1,18 @@
+/*
+ * Copyright 2016 Jo Jaquinta, TsaTsaTzu
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.tsatsatzu.subwar.test.game;
 
 import static org.junit.Assert.assertEquals;
@@ -7,13 +22,28 @@ import org.junit.Test;
 
 import com.tsatsatzu.subwar.game.data.SWPingBean;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AngleTest.
+ */
 public class AngleTest
 {
+    
+    /**
+     * Assert nearly equals.
+     *
+     * @param msg the msg
+     * @param expected the expected
+     * @param actual the actual
+     */
     private void assertNearlyEquals(String msg, double expected, double actual)
     {
         assertTrue(msg+", expected="+expected+", actual="+actual, Math.abs(expected - actual) < 1/180.0*Math.PI);
     }
     
+    /**
+     * Test angles.
+     */
     @Test
     public void testAngles()
     {
@@ -100,6 +130,10 @@ public class AngleTest
         assertEquals("Delta lat", 1, delta[0]);
         assertEquals("Delta lon", -1, delta[1]);
     }
+    
+    /**
+     * Test directions.
+     */
     @Test
     public void testDirections()
     {

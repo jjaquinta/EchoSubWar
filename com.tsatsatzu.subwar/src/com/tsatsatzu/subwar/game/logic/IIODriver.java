@@ -19,11 +19,45 @@ import java.util.List;
 
 import com.tsatsatzu.subwar.game.data.SWUserBean;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface IIODriver.
+ */
 public interface IIODriver
 {
+    
+    /**
+     * Clear caches.
+     */
     public void clearCaches();
+    
+    /**
+     * Gets the user.
+     *
+     * @param id the id
+     * @return the user
+     */
     public SWUserBean getUser(String id);
+    
+    /**
+     * Save user.
+     *
+     * @param user the user
+     */
     public void saveUser(SWUserBean user);
+    
+    /**
+     * Delete user.
+     *
+     * @param id the id
+     */
     public void deleteUser(String id);
+    
+    /**
+     * Gets the top users.
+     *
+     * @param total the total
+     * @return the top users
+     */
     public List<SWUserBean> getTopUsers(int total);
 }

@@ -40,13 +40,17 @@ import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.tsatsatzu.subwar.audio.api.ISubWarAudioLogger;
 import com.tsatsatzu.subwar.audio.api.SubWarAudioAPI;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SubWarServlet.
+ */
 public class SubWarServlet extends SpeechletServlet
 {
-    /**
-     * 
-     */
+    
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 6998188851979224629L;
 
+    /** The Constant ALEXA_CREDENTIALS. */
     protected static final String ALEXA_CREDENTIALS = "nWZMvNicrfOU2fGpPGs1rrrdYEKMRa58xL7GZSuK9/hgd3kCQQDy5s714jiXa1EH";
     
     static
@@ -56,10 +60,18 @@ public class SubWarServlet extends SpeechletServlet
         System.setProperty(Sdk.TIMESTAMP_TOLERANCE_SYSTEM_PROPERTY, "");
     }
     
+    /** The Last exception. */
     private Throwable mLastException = null;
+    
+    /** The Log messages. */
     private static StringBuffer mLogMessages = new StringBuffer();
+    
+    /** The Requests. */
     private static Map<Thread, HttpServletRequest> mRequests = new HashMap<Thread, HttpServletRequest>();
 
+    /**
+     * Instantiates a new sub war servlet.
+     */
     public SubWarServlet()
     {
         // Set I/O driver to the memory model.
@@ -84,6 +96,9 @@ public class SubWarServlet extends SpeechletServlet
         });
     }
     
+    /* (non-Javadoc)
+     * @see javax.servlet.GenericServlet#init(javax.servlet.ServletConfig)
+     */
     @Override
     public void init(ServletConfig config) throws ServletException
     {
@@ -91,6 +106,11 @@ public class SubWarServlet extends SpeechletServlet
         this.setSpeechlet(new SubWarSpeechlet());
     }
     
+    /**
+     * Debug.
+     *
+     * @param t the t
+     */
     public static void debug(Throwable t)
     {
         for (Throwable e = t; e != null; e = e.getCause())
@@ -101,6 +121,11 @@ public class SubWarServlet extends SpeechletServlet
         }
     }
     
+    /**
+     * Debug.
+     *
+     * @param msg the msg
+     */
     public static void debug(String msg)
     {
         mLogMessages.append(msg);
@@ -108,12 +133,18 @@ public class SubWarServlet extends SpeechletServlet
         System.out.println(msg);
     }
 
+    /* (non-Javadoc)
+     * @see com.amazon.speech.speechlet.servlet.SpeechletServlet#setSpeechlet(com.amazon.speech.speechlet.Speechlet)
+     */
     @Override
     public void setSpeechlet(Speechlet speechlet)
     {
         super.setSpeechlet(new SpeechletWrapper(speechlet));
     }
 
+    /* (non-Javadoc)
+     * @see com.amazon.speech.speechlet.servlet.SpeechletServlet#getSpeechlet()
+     */
     @Override
     public Speechlet getSpeechlet()
     {
@@ -123,6 +154,9 @@ public class SubWarServlet extends SpeechletServlet
         return base;
     }
     
+    /* (non-Javadoc)
+     * @see com.amazon.speech.speechlet.servlet.SpeechletServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws IOException
@@ -141,6 +175,9 @@ public class SubWarServlet extends SpeechletServlet
         }
     }
     
+    /* (non-Javadoc)
+     * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException
@@ -202,6 +239,12 @@ public class SubWarServlet extends SpeechletServlet
         }
     }
 
+    /**
+     * Insert entities.
+     *
+     * @param txt the txt
+     * @return the string
+     */
     public static String insertEntities(String txt)
     {
         if (txt == null)
@@ -230,14 +273,27 @@ public class SubWarServlet extends SpeechletServlet
         return ret.toString();
     }
     
+    /**
+     * The Class SpeechletWrapper.
+     */
     class SpeechletWrapper implements Speechlet {
+        
+        /** The Base. */
         private Speechlet mBase;
         
+        /**
+         * Instantiates a new speechlet wrapper.
+         *
+         * @param base the base
+         */
         public SpeechletWrapper(Speechlet base)
         {
             mBase = base;
         }
         
+        /* (non-Javadoc)
+         * @see com.amazon.speech.speechlet.Speechlet#onSessionStarted(com.amazon.speech.speechlet.SessionStartedRequest, com.amazon.speech.speechlet.Session)
+         */
         @Override
         public void onSessionStarted(final SessionStartedRequest request, final Session session)
                 throws SpeechletException {
@@ -245,6 +301,9 @@ public class SubWarServlet extends SpeechletServlet
             mBase.onSessionStarted(request, session);
         }
 
+        /* (non-Javadoc)
+         * @see com.amazon.speech.speechlet.Speechlet#onLaunch(com.amazon.speech.speechlet.LaunchRequest, com.amazon.speech.speechlet.Session)
+         */
         @Override
         public SpeechletResponse onLaunch(final LaunchRequest request, final Session session)
                 throws SpeechletException {
@@ -254,6 +313,9 @@ public class SubWarServlet extends SpeechletServlet
             return response;
         }
 
+        /* (non-Javadoc)
+         * @see com.amazon.speech.speechlet.Speechlet#onIntent(com.amazon.speech.speechlet.IntentRequest, com.amazon.speech.speechlet.Session)
+         */
         @Override
         public SpeechletResponse onIntent(final IntentRequest request, final Session session)
                 throws SpeechletException {
@@ -280,6 +342,9 @@ public class SubWarServlet extends SpeechletServlet
             }
         }
 
+        /* (non-Javadoc)
+         * @see com.amazon.speech.speechlet.Speechlet#onSessionEnded(com.amazon.speech.speechlet.SessionEndedRequest, com.amazon.speech.speechlet.Session)
+         */
         @Override
         public void onSessionEnded(final SessionEndedRequest request, final Session session)
                 throws SpeechletException {
@@ -288,17 +353,32 @@ public class SubWarServlet extends SpeechletServlet
             SubWarServlet.debug("onSessionEnded done");
         }
 
+        /**
+         * Log response.
+         *
+         * @param response the response
+         */
         private void logResponse(SpeechletResponse response)
         {
             if (response.getOutputSpeech() instanceof PlainTextOutputSpeech)
                 SubWarServlet.debug(((PlainTextOutputSpeech)response.getOutputSpeech()).getText());
         }
         
+        /**
+         * Gets the base.
+         *
+         * @return the base
+         */
         public Speechlet getBase()
         {
             return mBase;
         }
 
+        /**
+         * Sets the base.
+         *
+         * @param base the new base
+         */
         public void setBase(Speechlet base)
         {
             mBase = base;
