@@ -15,18 +15,17 @@
  */
 package com.tsatsatzu.subwar.game.data;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SWPingBean.
+ * Represents something heard.
+ * North = -ve Lattitude
+ * South = +ve Lattitude
+ * East = +ve Longitude
+ * West = -ve Longitude
+ * Angle 0 = North, 90 = East, 180 = South, 270 = West
  */
 public class SWPingBean
 {
-    // North = -ve Lattitude
-    // South = +ve Lattitude
-    // East = +ve Longitude
-    // West = -ve Longitude
-    // Angle 0 = North, 90 = East, 180 = South, 270 = West
-    
     /** The Constant LEVEL. */
     public static final int LEVEL          = 0;
     
@@ -324,6 +323,7 @@ public class SWPingBean
 
     /**
      * Normalize angle.
+     * Map angle so that 0 <= angle <= 2pi
      *
      * @param a the a
      * @return the double

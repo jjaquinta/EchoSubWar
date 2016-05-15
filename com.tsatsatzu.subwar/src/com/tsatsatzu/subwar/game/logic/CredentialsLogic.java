@@ -19,8 +19,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-// TODO: Auto-generated Javadoc
-/*
+/**
+ * The Class CredentialsLogic.
  * Application secrets are kept in a AwsCredentials.properties file in the root of the source
  * tree. This is not checked into source control. Several values are contained there.
  * Your AWS Credentials from http://aws.amazon.com/security-credentials:
@@ -28,10 +28,6 @@ import java.util.Properties;
  * accessKey=
  * One or more API keys may be specified here in a comma deliminated list
  * apiKeys=
- */
-
-/**
- * The Class CredentialsLogic.
  */
 public class CredentialsLogic
 {
@@ -43,7 +39,7 @@ public class CredentialsLogic
     private static Properties mCredentials = null;
     
     /**
-     * Gets the property.
+     * Gets a property from the credentials file.
      *
      * @param key the key
      * @return the property
@@ -54,7 +50,7 @@ public class CredentialsLogic
     }
     
     /**
-     * Gets the property.
+     * Gets a property from the credentials file.
      *
      * @param key the key
      * @param defaultValue the default value
@@ -96,7 +92,7 @@ public class CredentialsLogic
     }
 
     /**
-     * Validate api key.
+     * Validate an api key.
      *
      * @param credentials the credentials
      * @return true, if successful

@@ -17,35 +17,42 @@ package com.tsatsatzu.subwar.game.logic.ai;
 
 import com.tsatsatzu.subwar.game.data.SWGameBean;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Interface IComputerPlayer.
+ * This encapsulates the functionality necessary to make the game moves for
+ * computer based players. For each strategy, a new subclass of this can be
+ * created and registered with the system. 
  */
 public interface IComputerPlayer
 {
     
     /**
-     * Inits the.
+     * Initializes the robotic system. 
+     * If there is any setup to do for a new robotic player,
+     * this is the place to do it.
      *
-     * @param game the game
-     * @param id the id
+     * @param game the game object
+     * @param id the robot's id
      */
     public void init(SWGameBean game, String id);
     
     /**
-     * Move.
+     * Move the robot.
+     * Whatever logic is necessary to choose what a robot can do, should be done here.
      *
-     * @param game the game
-     * @param id the id
-     * @param tick the tick
+     * @param game the game object
+     * @param id the robot's id
+     * @param tick the elapsed time
      */
     public void move(SWGameBean game, String id, long tick);
     
     /**
-     * Term.
+     * Terminates the robotic system's connection to this robot player. 
+     * If there is any 
+     * cleanup to do for a new robotic player, this is the place to do it.
      *
-     * @param game the game
-     * @param id the id
+     * @param game the game object
+     * @param id the robot's id
      */
     public void term(SWGameBean game, String id);
 }

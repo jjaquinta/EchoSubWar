@@ -15,9 +15,9 @@
  */
 package com.tsatsatzu.subwar.game.logic;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class GameConstLogic.
+ * Constants that govenr game play
  */
 public class GameConstLogic
 {
@@ -25,11 +25,13 @@ public class GameConstLogic
     /** The Constant MAX_SHIPS_PER_GAME. */
     public static final int MAX_SHIPS_PER_GAME = 20;
     
-    /** The Constant GAME_HEIGHT. */
-    public static final int GAME_HEIGHT = 20; // lattitude/N-S
+    /** The Constant GAME_HEIGHT. 
+     * lattitude/N-S */
+    public static final int GAME_HEIGHT = 20; 
     
-    /** The Constant GAME_WIDTH. */
-    public static final int GAME_WIDTH = 10; // longitude/E-W
+    /** The Constant GAME_WIDTH. 
+     * longitude/E-W */
+    public static final int GAME_WIDTH = 10; 
     
     /** The Constant GAME_DEPTH. */
     public static final int GAME_DEPTH = 3;
@@ -49,8 +51,9 @@ public class GameConstLogic
     /** The Constant MAX_AIS_PER_GAME. */
     public static final int MAX_AIS_PER_GAME = MAX_SHIPS_PER_GAME/6;
     
-    /** The Constant AI_MOVE_TICK. */
-    public static final long AI_MOVE_TICK = 12*1000L; // how often the computer moves
+    /** The Constant AI_MOVE_TICK. 
+     * how often the computer moves */
+    public static final long AI_MOVE_TICK = 12*1000L; 
     
     /** The Constant ERR_YOU_ARE_OUT_OF_TORPEDOS. */
     public static final String ERR_YOU_ARE_OUT_OF_TORPEDOS = "you are out of torpedos";

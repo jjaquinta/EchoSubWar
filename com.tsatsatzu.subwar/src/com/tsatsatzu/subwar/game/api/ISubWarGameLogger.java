@@ -15,9 +15,9 @@
  */
 package com.tsatsatzu.subwar.game.api;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Interface ISubWarGameLogger.
+ * An interface so that higher levels can plug themselves into the logging mechanism.
  */
 public interface ISubWarGameLogger
 {
@@ -25,14 +25,14 @@ public interface ISubWarGameLogger
     /**
      * Debug.
      *
-     * @param msg the msg
+     * @param msg the message
      */
     public void debug(String msg);
     
     /**
      * Debug.
      *
-     * @param t the t
+     * @param t the throwable
      */
     public void debug(Throwable t);
 }

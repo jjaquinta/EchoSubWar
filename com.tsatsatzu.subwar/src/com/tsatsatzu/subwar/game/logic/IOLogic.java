@@ -19,21 +19,20 @@ import java.util.List;
 
 import com.tsatsatzu.subwar.game.data.SWUserBean;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class IOLogic.
+ * All I/O traffic comes through this class. In most cases it is
+ * handed off to the driver class. This indirection is there so
+ * that you can choose, later, to use a different storage mechanism.
  */
 public class IOLogic
 {
-    // All I/O traffic comes through this class. In most cases it is
-    // handed off to the driver class. This indirection is there so
-    // that you can choose, later, to use a different storage mechanism.
     /** The Driver. */
-    // 
     private static IIODriver mDriver = null;
     
     /**
      * Gets the driver.
+     * By default, this uses the dynamo driver. But this can be overridden by setting a value in the credentials.
      *
      * @return the driver
      */
@@ -57,6 +56,7 @@ public class IOLogic
 
     /**
      * Save user.
+     * Saves the user to the backing store
      *
      * @param user the user
      */
@@ -67,6 +67,7 @@ public class IOLogic
 
     /**
      * Gets the user.
+     * Gets the user from the backing store.
      *
      * @param userID the user id
      * @return the user
@@ -79,6 +80,7 @@ public class IOLogic
 
     /**
      * Gets the top users.
+     * Gets the top #total users from the backing store.
      *
      * @param total the total
      * @return the top users

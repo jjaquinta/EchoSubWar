@@ -28,26 +28,27 @@ import com.tsatsatzu.subwar.game.data.SWUserBean;
 import com.tsatsatzu.subwar.game.logic.ai.IComputerPlayer;
 import com.tsatsatzu.subwar.game.logic.ai.SimplePlayer;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class GameLogic.
+ * Core business logic for running the game.
  */
 public class GameLogic
 {
-    
     /** The Constant SUCCESS. */
     public static final int SUCCESS = 0;
     
-    /** The RND. */
+    /** The random number source. */
     private static Random mRND = new Random();
     
-    /** The Games. */
+    /** The Games.
+     * There is a maximum number of users allowed per game. So when that is exceeded we have to
+     * create a new shard. */
     private static List<SWGameBean> mGames = new ArrayList<>();
 
     /**
      * Gets the game details.
      *
-     * @param inGame the in game
+     * @param inGame the index of the game
      * @param userID the user id
      * @return the game details
      */
@@ -68,10 +69,11 @@ public class GameLogic
 
     /**
      * Join game.
+     * Adds a human user to a game.
      *
      * @param user the user
-     * @return the int
-     * @throws SWGameException the SW game exception
+     * @return success/fail code
+     * @throws SWGameException the game exception
      */
     public static int joinGame(SWUserBean user) throws SWGameException
     {
@@ -96,10 +98,11 @@ public class GameLogic
 
     /**
      * Leave game.
+     * A human user is leaving the game
      *
      * @param user the user
-     * @return the int
-     * @throws SWGameException the SW game exception
+     * @return success/fail code
+     * @throws SWGameException the game exception
      */
     public static int leaveGame(SWUserBean user) throws SWGameException
     {
@@ -114,13 +117,14 @@ public class GameLogic
 
     /**
      * Move.
+     * A human user is making a move
      *
      * @param user the user
-     * @param dLon the d lon
-     * @param dLat the d lat
-     * @param dDep the d dep
-     * @return the int
-     * @throws SWGameException the SW game exception
+     * @param dLon the delta longitude
+     * @param dLat the delta lattitude
+     * @param dDep the delta depth
+     * @return success/fail code
+     * @throws SWGameException the game exception
      */
     public static int move(SWUserBean user, int dLon, int dLat, int dDep) throws SWGameException
     {
@@ -133,10 +137,11 @@ public class GameLogic
 
     /**
      * Listen.
+     * A human is using the underwater microphone.
      *
      * @param user the user
-     * @return the int
-     * @throws SWGameException the SW game exception
+     * @return success/fail code
+     * @throws SWGameException the game exception
      */
     public static int listen(SWUserBean user) throws SWGameException
     {
@@ -154,10 +159,11 @@ public class GameLogic
 
     /**
      * Ping.
+     * A human is using the sonar
      *
      * @param user the user
-     * @return the int
-     * @throws SWGameException the SW game exception
+     * @return success/fail code
+     * @throws SWGameException the game exception
      */
     public static int ping(SWUserBean user) throws SWGameException
     {
@@ -175,12 +181,13 @@ public class GameLogic
 
     /**
      * Fire.
+     * A human is firing the torpedo.
      *
      * @param user the user
-     * @param fireDLon the fire d lon
-     * @param fireDLat the fire d lat
-     * @return the int
-     * @throws SWGameException the SW game exception
+     * @param fireDLon the fire delta longitude
+     * @param fireDLat the fire delta lattitude
+     * @return success/fail code
+     * @throws SWGameException the game exception
      */
     public static int fire(SWUserBean user, int fireDLon, int fireDLat) throws SWGameException
     {
@@ -202,6 +209,7 @@ public class GameLogic
     
     /**
      * New game.
+     * All shards are full. Make another one.
      *
      * @return the SW game bean
      */
@@ -219,6 +227,7 @@ public class GameLogic
 
     /**
      * Do join game.
+     * Add a player to a game.
      *
      * @param game the game
      * @param id the id
@@ -239,6 +248,7 @@ public class GameLogic
 
     /**
      * Do leave game.
+     * Remove a player from a game.
      *
      * @param game the game
      * @param id the id
@@ -256,13 +266,14 @@ public class GameLogic
 
     /**
      * Do torpedo.
+     * A player fires a torpedo.
      *
      * @param id the id
      * @param game the game
-     * @param fireDLon the fire d lon
-     * @param fireDLat the fire d lat
+     * @param fireDLon the fire delta longitude
+     * @param fireDLat the fire delta lattitude
      * @param now the now
-     * @return the int
+     * @return success/fail code
      */
     public static int doTorpedo(String id, SWGameBean game, Integer fireDLon,
             Integer fireDLat, long now)
@@ -293,11 +304,12 @@ public class GameLogic
     }
 
     /**
-     * Find ships at.
+     * Find ships at given location.
+     * Calculate if a torpedo hits something.
      *
      * @param game the game
-     * @param tLon the t lon
-     * @param tLat the t lat
+     * @param tLon the torpedo longitude
+     * @param tLat the torpedo lattitude
      * @param depth the depth
      * @return the list
      */
@@ -315,6 +327,7 @@ public class GameLogic
 
     /**
      * Do die.
+     * A player dies.
      *
      * @param game the game
      * @param id the id
@@ -326,11 +339,13 @@ public class GameLogic
 
     /**
      * Do boom.
+     * Torpedo explosions get recorded by the microphones of nearby ships.
+     * Even if they aren't in listen mode.
      *
      * @param game the game
-     * @param lon the lon
-     * @param lat the lat
-     * @param dep the dep
+     * @param lon the longitude
+     * @param lat the lattitude
+     * @param dep the depth
      * @param now the now
      */
     public static void doBoom(SWGameBean game, int lon, int lat, int dep, long now)
@@ -346,6 +361,7 @@ public class GameLogic
 
     /**
      * Do ping.
+     * A player is pinging their sonar.
      *
      * @param id the id
      * @param game the game
@@ -376,6 +392,7 @@ public class GameLogic
 
     /**
      * Do listen.
+     * A player is using their microphones.
      *
      * @param id the id
      * @param game the game
@@ -402,6 +419,7 @@ public class GameLogic
 
     /**
      * Make ping.
+     * Construct a ping object.
      *
      * @param pinger the pinger
      * @param pingee the pingee
@@ -417,11 +435,12 @@ public class GameLogic
     
     /**
      * Make ping.
+     * Construct a ping object.
      *
      * @param pinger the pinger
-     * @param pingeeLon the pingee lon
-     * @param pingeeLat the pingee lat
-     * @param pingeeDep the pingee dep
+     * @param pingeeLon the pingee longitude
+     * @param pingeeLat the pingee lattitude
+     * @param pingeeDep the pingee depth
      * @param type the type
      * @param time the time
      * @return the SW ping bean
@@ -455,14 +474,15 @@ public class GameLogic
 
     /**
      * Do move ship.
+     * Move a player's ship.
      *
      * @param id the id
-     * @param dLon the d lon
-     * @param dLat the d lat
-     * @param dDep the d dep
+     * @param dLon the delta longitude
+     * @param dLat the delta lattitude
+     * @param dDep the delta depth
      * @param game the game
-     * @return the int
-     * @throws SWGameException the SW game exception
+     * @return success/fail code
+     * @throws SWGameException the game exception
      */
     public static int doMoveShip(String id, int dLon, int dLat, int dDep,
             SWGameBean game) throws SWGameException
@@ -490,11 +510,12 @@ public class GameLogic
     /** The AI count. */
     private static int mAICount = 0;
     
-    /** The Constant PREFIX_AI. */
+    /** The prefix to identify robots. */
     private static final String PREFIX_AI = "ai://";
     
     /**
      * Update game.
+     * Move all the computer players.
      *
      * @param game the game
      */
@@ -554,7 +575,7 @@ public class GameLogic
     // testing stuff
 
     /**
-     * Test reset to seed.
+     * Reset the random seed.
      *
      * @param seed the seed
      */
@@ -564,7 +585,7 @@ public class GameLogic
     }
 
     /**
-     * Test ai move.
+     * Move the AI player.
      */
     public static void testAIMove()
     {
@@ -582,7 +603,7 @@ public class GameLogic
     }
     
     /**
-     * Log.
+     * Log a message.
      *
      * @param msg the msg
      */

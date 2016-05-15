@@ -25,7 +25,6 @@ import java.util.Map;
 import com.tsatsatzu.subwar.game.data.SWUserBean;
 import com.tsatsatzu.subwar.game.logic.IIODriver;
 
-// TODO: Auto-generated Javadoc
 /*
  * This I/O driver is used for unit testing purposes. It stores the User base only
  * in memory.
@@ -83,7 +82,12 @@ public class MemIODriver implements IIODriver
     public List<SWUserBean> getTopUsers(int total)
     {
         List<SWUserBean> users = new ArrayList<>();
+        // get all the users
         users.addAll(mUserStore.values());
+        // sort them
+        // (Since we ony want the top #total, there are more efficient sorts that could
+        //  be used. But this is in-memory, and for testing purposes. Simplicity of code
+        //  was the better choice. So built in sort used.
         Collections.sort(users, new Comparator<SWUserBean>() {
             @Override
             public int compare(SWUserBean o1, SWUserBean o2)
@@ -99,6 +103,7 @@ public class MemIODriver implements IIODriver
                 return (int)Math.signum(s1 - s2);
             }
         });
+        // trim to just the top ten
         while (users.size() > total)
             users.remove(total);
         return users;

@@ -19,20 +19,21 @@ import java.util.List;
 
 import com.tsatsatzu.subwar.game.data.SWUserBean;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Interface IIODriver.
+ * Any storage mechanism needs to implement a drive to access it.
  */
 public interface IIODriver
 {
     
     /**
      * Clear caches.
+     * If any caches are maintained, this clears them out.
      */
     public void clearCaches();
     
     /**
-     * Gets the user.
+     * Gets the user from the store.
      *
      * @param id the id
      * @return the user
@@ -40,21 +41,21 @@ public interface IIODriver
     public SWUserBean getUser(String id);
     
     /**
-     * Save user.
+     * Save user to store.
      *
      * @param user the user
      */
     public void saveUser(SWUserBean user);
     
     /**
-     * Delete user.
+     * Delete user from store.
      *
      * @param id the id
      */
     public void deleteUser(String id);
     
     /**
-     * Gets the top users.
+     * Gets the top users from the store.
      *
      * @param total the total
      * @return the top users

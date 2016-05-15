@@ -15,18 +15,17 @@
  */
 package com.tsatsatzu.subwar.game.logic;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SWGameException.
+ * Used for game logic throws
  */
 public class SWGameException extends Exception
-{
-    
+{    
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 8269692846238071844L;
 
     /**
-     * Instantiates a new SW game exception.
+     * Instantiates a new game exception.
      */
     public SWGameException()
     {
@@ -34,11 +33,11 @@ public class SWGameException extends Exception
     }
 
     /**
-     * Instantiates a new SW game exception.
+     * Instantiates a new game exception.
      *
      * @param message the message
      * @param cause the cause
-     * @param enableSuppression the enable suppression
+     * @param enableSuppression enables suppression
      * @param writableStackTrace the writable stack trace
      */
     public SWGameException(String message, Throwable cause,
@@ -48,7 +47,7 @@ public class SWGameException extends Exception
     }
 
     /**
-     * Instantiates a new SW game exception.
+     * Instantiates a new game exception.
      *
      * @param message the message
      * @param cause the cause
@@ -59,7 +58,7 @@ public class SWGameException extends Exception
     }
 
     /**
-     * Instantiates a new SW game exception.
+     * Instantiates a new game exception.
      *
      * @param message the message
      */
@@ -69,7 +68,7 @@ public class SWGameException extends Exception
     }
 
     /**
-     * Instantiates a new SW game exception.
+     * Instantiates a new game exception.
      *
      * @param cause the cause
      */

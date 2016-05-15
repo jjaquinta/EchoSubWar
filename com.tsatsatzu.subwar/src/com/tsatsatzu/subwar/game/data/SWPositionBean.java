@@ -18,9 +18,9 @@ package com.tsatsatzu.subwar.game.data;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SWPositionBean.
+ * Notes the use's position and the tracked game details.
  */
 public class SWPositionBean
 {

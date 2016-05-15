@@ -15,23 +15,23 @@
  */
 package com.tsatsatzu.subwar.game.data;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SWGameDetailsBean.
+ * These are the details the user knows about a running game.
  */
 public class SWGameDetailsBean
 {
     
-    /** The East. */
+    /** The Eastern boundary. */
     private int mEast;
     
-    /** The West. */
+    /** The Western boundary. */
     private int mWest;
     
-    /** The North. */
+    /** The Northern boundary. */
     private int mNorth;
     
-    /** The South. */
+    /** The Southern boundary. */
     private int mSouth;
     
     /** The Max depth. */
@@ -41,9 +41,9 @@ public class SWGameDetailsBean
     private SWPositionBean  mUserPosition;
     
     /**
-     * Gets the east.
+     * Gets the eastern boundary.
      *
-     * @return the east
+     * @return the eastern boundary
      */
     public int getEast()
     {
@@ -51,9 +51,9 @@ public class SWGameDetailsBean
     }
     
     /**
-     * Sets the east.
+     * Sets the eastern boundary.
      *
-     * @param east the new east
+     * @param east the new eastern boundary
      */
     public void setEast(int east)
     {
@@ -61,9 +61,9 @@ public class SWGameDetailsBean
     }
     
     /**
-     * Gets the west.
+     * Gets the western boundary.
      *
-     * @return the west
+     * @return the western boundary
      */
     public int getWest()
     {
@@ -71,9 +71,9 @@ public class SWGameDetailsBean
     }
     
     /**
-     * Sets the west.
+     * Sets the western boundary.
      *
-     * @param west the new west
+     * @param west the new western boundary
      */
     public void setWest(int west)
     {
@@ -81,9 +81,9 @@ public class SWGameDetailsBean
     }
     
     /**
-     * Gets the north.
+     * Gets the northern boundary.
      *
-     * @return the north
+     * @return the northern boundary
      */
     public int getNorth()
     {
@@ -91,9 +91,9 @@ public class SWGameDetailsBean
     }
     
     /**
-     * Sets the north.
+     * Sets the northern boundary.
      *
-     * @param north the new north
+     * @param north the new northern boundary
      */
     public void setNorth(int north)
     {
@@ -101,9 +101,9 @@ public class SWGameDetailsBean
     }
     
     /**
-     * Gets the south.
+     * Gets the southern boundary.
      *
-     * @return the south
+     * @return the southern boundary
      */
     public int getSouth()
     {
@@ -111,9 +111,9 @@ public class SWGameDetailsBean
     }
     
     /**
-     * Sets the south.
+     * Sets the southern boundary.
      *
-     * @param south the new south
+     * @param south the new southern boundary
      */
     public void setSouth(int south)
     {

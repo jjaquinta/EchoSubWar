@@ -20,23 +20,23 @@ import java.util.Map;
 
 import com.tsatsatzu.subwar.game.logic.ai.IComputerPlayer;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SWGameBean.
+ * Details of a running shard.
  */
 public class SWGameBean
 {
     
-    /** The East. */
+    /** The Eastern boundary. */
     private int mEast;
     
-    /** The West. */
+    /** The Western boundary. */
     private int mWest;
     
-    /** The North. */
+    /** The Northern boundary. */
     private int mNorth;
     
-    /** The South. */
+    /** The Southern boundary. */
     private int mSouth;
     
     /** The Max depth. */
@@ -45,13 +45,13 @@ public class SWGameBean
     /** The Ships. */
     private Map<String,SWPositionBean> mShips = new HashMap<>();
     
-    /** The AI. */
+    /** The AIs. */
     private Map<String,IComputerPlayer> mAI = new HashMap<>();
     
     /**
-     * Gets the east.
+     * Gets the eastern boundary.
      *
-     * @return the east
+     * @return the eastern boundary
      */
     public int getEast()
     {
@@ -59,9 +59,9 @@ public class SWGameBean
     }
     
     /**
-     * Sets the east.
+     * Sets the eastern boundary.
      *
-     * @param east the new east
+     * @param east the new eastern boundary
      */
     public void setEast(int east)
     {
@@ -69,9 +69,9 @@ public class SWGameBean
     }
     
     /**
-     * Gets the west.
+     * Gets the western boundary.
      *
-     * @return the west
+     * @return the western boundary
      */
     public int getWest()
     {
@@ -79,9 +79,9 @@ public class SWGameBean
     }
     
     /**
-     * Sets the west.
+     * Sets the western boundary.
      *
-     * @param west the new west
+     * @param west the new western boundary
      */
     public void setWest(int west)
     {
@@ -89,9 +89,9 @@ public class SWGameBean
     }
     
     /**
-     * Gets the north.
+     * Gets the northern boundary.
      *
-     * @return the north
+     * @return the northern boundary
      */
     public int getNorth()
     {
@@ -99,9 +99,9 @@ public class SWGameBean
     }
     
     /**
-     * Sets the north.
+     * Sets the northern boundary.
      *
-     * @param north the new north
+     * @param north the new northern boundary
      */
     public void setNorth(int north)
     {
@@ -109,9 +109,9 @@ public class SWGameBean
     }
     
     /**
-     * Gets the south.
+     * Gets the southern boundary.
      *
-     * @return the south
+     * @return the southern boundary
      */
     public int getSouth()
     {
@@ -119,9 +119,9 @@ public class SWGameBean
     }
     
     /**
-     * Sets the south.
+     * Sets the southern boundary.
      *
-     * @param south the new south
+     * @param south the new southern boundary
      */
     public void setSouth(int south)
     {
@@ -169,9 +169,9 @@ public class SWGameBean
     }
     
     /**
-     * Gets the ai.
+     * Gets the ais.
      *
-     * @return the ai
+     * @return the ais
      */
     public Map<String, IComputerPlayer> getAI()
     {
@@ -179,9 +179,9 @@ public class SWGameBean
     }
     
     /**
-     * Sets the ai.
+     * Sets the ais.
      *
-     * @param aI the a i
+     * @param aI the ais
      */
     public void setAI(Map<String, IComputerPlayer> aI)
     {

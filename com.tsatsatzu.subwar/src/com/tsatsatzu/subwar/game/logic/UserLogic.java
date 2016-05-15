@@ -17,18 +17,18 @@ package com.tsatsatzu.subwar.game.logic;
 
 import com.tsatsatzu.subwar.game.data.SWUserBean;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class UserLogic.
+ * Business Logic for operating on a user.
  */
 public class UserLogic
 {
     
     /**
      * Validate.
+     * Fetch user from data store. If not there, create a new entry.
      *
      * @param userID the user id
-     * @return the SW user bean
+     * @return the user data object
      */
     public static SWUserBean validate(String userID)
     {
@@ -40,9 +40,10 @@ public class UserLogic
     
     /**
      * New instance.
+     * Create a new user. Initialize it with basic values.
      *
      * @param userID the user id
-     * @return the SW user bean
+     * @return the user data object
      */
     public static SWUserBean newInstance(String userID)
     {
@@ -58,6 +59,7 @@ public class UserLogic
 
     /**
      * Sets the user name.
+     * Indicates the user's preference for how to be addressed.
      *
      * @param user the user
      * @param name the name
@@ -73,6 +75,7 @@ public class UserLogic
 
     /**
      * Sets the ship name.
+     * Indicates the user's preference for how the ship is to be named.
      *
      * @param user the user
      * @param name the name

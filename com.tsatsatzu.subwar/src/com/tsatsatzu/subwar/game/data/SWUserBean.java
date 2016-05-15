@@ -22,9 +22,9 @@ import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.tsatsatzu.subwar.game.logic.dynamo.DynamoUtils;
 import com.tsatsatzu.utils.obj.StringUtils;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SWUserBean.
+ * Persistent details about a human user.
  */
 public class SWUserBean
 {
@@ -40,8 +40,9 @@ public class SWUserBean
     /** The Title. */
     private String  mTitle;
     
-    /** The Last interaction. */
     // book keeping
+
+    /** The Last interaction. */
     private long    mLastInteraction;
     
     /** The Number of interactions. */
@@ -59,23 +60,27 @@ public class SWUserBean
     /** The Number of shots. */
     private int     mNumberOfShots;
     
-    /** The Sub name. */
     // ship statistics
+
+    /** The Sub name. */
     private String  mSubName;
     
     /** The Max torpedoes. */
     private int     mMaxTorpedoes;
     
-    /** The In game. */
     // game statistics
+
+    /** The game shard. */
     private int     mInGame;
 
+    // utility functions
+    
     /**
      * From map.
+     * Used to instantiate object from Dynamo store
      *
      * @param data the data
      */
-    // utility functions
     public void fromMap(Map<String, AttributeValue> data)
     {
         setUserID(DynamoUtils.getString(data, "UserID"));
@@ -94,6 +99,7 @@ public class SWUserBean
 
     /**
      * To map.
+     * Used to serialize object to dynamo store
      *
      * @return the map
      */
@@ -117,6 +123,7 @@ public class SWUserBean
     
     /**
      * Put string.
+     * Dynamo doesn't like empty or null strings. Just wrap that logic here.
      *
      * @param u the u
      * @param key the key
@@ -291,9 +298,9 @@ public class SWUserBean
     }
     
     /**
-     * Gets the in game.
+     * Gets the game shard.
      *
-     * @return the in game
+     * @return the game shard
      */
     public int getInGame()
     {
@@ -301,9 +308,9 @@ public class SWUserBean
     }
     
     /**
-     * Sets the in game.
+     * Sets the game shard.
      *
-     * @param inGame the new in game
+     * @param inGame the new game shard
      */
     public void setInGame(int inGame)
     {

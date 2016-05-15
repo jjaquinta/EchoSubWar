@@ -28,17 +28,20 @@ import com.tsatsatzu.subwar.game.logic.GameConstLogic;
 import com.tsatsatzu.subwar.game.logic.GameLogic;
 import com.tsatsatzu.subwar.game.logic.SWGameException;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SimplePlayer.
+ * This is a basic AI for running the robotic players.
+ * If it has no target, it listens or pings. If it still has no target, it just wanders.
+ * If it does have a target, it moves towards it. When it is within a straight line
+ * of it, it fires. If it happens to be on top of it, it moves to the side first.
  */
 public class SimplePlayer implements IComputerPlayer
 {
     
-    /** The RND. */
+    /** The random number source. We use a fixed seed here so that the behavior is predictable for testing. */
     private Random mRND = new Random(0);
     
-    /** The Data. */
+    /** The persistent data to stor each robot's state. */
     private Map<String, SimpleData> mData = new HashMap<>();
 
     /* (non-Javadoc)
@@ -89,8 +92,9 @@ public class SimplePlayer implements IComputerPlayer
     
     /**
      * Filter soundings.
+     * Work out which are relevant, and which are not.
      *
-     * @param pos the pos
+     * @param pos the position object with the soundings in it
      */
     private void filterSoundings(SWPositionBean pos)
     {
@@ -107,11 +111,12 @@ public class SimplePlayer implements IComputerPlayer
 
     /**
      * React to soundings.
+     * Now that we have the relevant soundings, pick one and act on it.
      *
-     * @param game the game
-     * @param pos the pos
-     * @param data the data
-     * @param tick the tick
+     * @param game the game object
+     * @param pos the position
+     * @param data the robot data
+     * @param tick the pint in time
      */
     private void reactToSoundings(SWGameBean game, SWPositionBean pos, SimpleData data, long tick)
     {
@@ -139,11 +144,12 @@ public class SimplePlayer implements IComputerPlayer
 
     /**
      * Fire torpedo.
+     * We hvae a target, shoot it!
      *
      * @param game the game
-     * @param pos the pos
-     * @param data the data
-     * @param tick the tick
+     * @param pos the position
+     * @param data the robot data
+     * @param tick the current time
      */
     private void fireTorpedo(SWGameBean game, SWPositionBean pos, SimpleData data, long tick)
     {
@@ -155,11 +161,12 @@ public class SimplePlayer implements IComputerPlayer
     
     /**
      * Find target.
+     * We dont' have a target. Let's use our detectors to find one.
      *
      * @param game the game
-     * @param pos the pos
-     * @param data the data
-     * @param tick the tick
+     * @param pos the position
+     * @param data the robot data
+     * @param tick the current time
      */
     private void findTarget(SWGameBean game, SWPositionBean pos, SimpleData data, long tick)
     {
@@ -204,10 +211,11 @@ public class SimplePlayer implements IComputerPlayer
 
     /**
      * Sets the course to target.
+     * Convert a sounding (direction and distance) into an lon,lat of where we want to go.
      *
      * @param game the game
-     * @param pos the pos
-     * @param data the data
+     * @param pos the position
+     * @param data the robot data
      * @param target the target
      */
     private void setCourseToTarget(SWGameBean game, SWPositionBean pos,
@@ -269,11 +277,12 @@ public class SimplePlayer implements IComputerPlayer
 
     /**
      * Move to target.
+     * Convert a lon,lat into an actual game move to get there.
      *
      * @param game the game
-     * @param pos the pos
-     * @param data the data
-     * @param tick the tick
+     * @param pos the position
+     * @param data the robot data
+     * @param tick the current time
      */
     private void moveToTarget(SWGameBean game, SWPositionBean pos, SimpleData data, long tick)
     {
@@ -313,7 +322,7 @@ public class SimplePlayer implements IComputerPlayer
     }
     
     /**
-     * Log.
+     * Log a message.
      *
      * @param data the data
      * @param msg the msg
@@ -324,7 +333,7 @@ public class SimplePlayer implements IComputerPlayer
     }
     
     /**
-     * Log.
+     * Log a message.
      *
      * @param id the id
      * @param msg the msg
@@ -336,6 +345,7 @@ public class SimplePlayer implements IComputerPlayer
     
     /**
      * The Class SimpleData.
+     * Stores the stuff we need to track a robot's state.
      */
     class SimpleData
     {
@@ -343,19 +353,19 @@ public class SimplePlayer implements IComputerPlayer
         /** The ID. */
         private String  mID;
         
-        /** The Target lon. */
+        /** The Target longitude. */
         private int     mTargetLon;
         
-        /** The Target lat. */
+        /** The Target lattitude. */
         private int     mTargetLat;
         
-        /** The Target dep. */
+        /** The Target depth. */
         private int     mTargetDep;
         
-        /** The Fire d lon. */
+        /** The Fire delta longitude. */
         private Integer     mFireDLon;
         
-        /** The Fire d lat. */
+        /** The Fire delta lattitude. */
         private Integer     mFireDLat;
 
         /**
@@ -379,9 +389,9 @@ public class SimplePlayer implements IComputerPlayer
         }
 
         /**
-         * Gets the target lon.
+         * Gets the target longitude.
          *
-         * @return the target lon
+         * @return the target longitude
          */
         public int getTargetLon()
         {
@@ -389,9 +399,9 @@ public class SimplePlayer implements IComputerPlayer
         }
 
         /**
-         * Sets the target lon.
+         * Sets the target longitude.
          *
-         * @param targetLon the new target lon
+         * @param targetLon the new target longitude
          */
         public void setTargetLon(int targetLon)
         {
@@ -399,9 +409,9 @@ public class SimplePlayer implements IComputerPlayer
         }
 
         /**
-         * Gets the target lat.
+         * Gets the target lattitude.
          *
-         * @return the target lat
+         * @return the target lattitude
          */
         public int getTargetLat()
         {
@@ -409,9 +419,9 @@ public class SimplePlayer implements IComputerPlayer
         }
 
         /**
-         * Sets the target lat.
+         * Sets the target lattitude.
          *
-         * @param targetLat the new target lat
+         * @param targetLat the new target lattitude
          */
         public void setTargetLat(int targetLat)
         {
@@ -419,9 +429,9 @@ public class SimplePlayer implements IComputerPlayer
         }
 
         /**
-         * Gets the target dep.
+         * Gets the target depth.
          *
-         * @return the target dep
+         * @return the target depth
          */
         public int getTargetDep()
         {
@@ -429,9 +439,9 @@ public class SimplePlayer implements IComputerPlayer
         }
 
         /**
-         * Sets the target dep.
+         * Sets the target depth.
          *
-         * @param targetDep the new target dep
+         * @param targetDep the new target depth
          */
         public void setTargetDep(int targetDep)
         {
@@ -439,9 +449,9 @@ public class SimplePlayer implements IComputerPlayer
         }
 
         /**
-         * Gets the fire d lon.
+         * Gets the fire delta longitude.
          *
-         * @return the fire d lon
+         * @return the fire delta longitude
          */
         public Integer getFireDLon()
         {
@@ -449,9 +459,9 @@ public class SimplePlayer implements IComputerPlayer
         }
 
         /**
-         * Sets the fire d lon.
+         * Sets the fire delta longitude.
          *
-         * @param fireDLon the new fire d lon
+         * @param fireDLon the new fire delta longitude
          */
         public void setFireDLon(Integer fireDLon)
         {
@@ -459,9 +469,9 @@ public class SimplePlayer implements IComputerPlayer
         }
 
         /**
-         * Gets the fire d lat.
+         * Gets the fire delta lattitude.
          *
-         * @return the fire d lat
+         * @return the fire delta lattitude
          */
         public Integer getFireDLat()
         {
@@ -469,9 +479,9 @@ public class SimplePlayer implements IComputerPlayer
         }
 
         /**
-         * Sets the fire d lat.
+         * Sets the fire delta lattitude.
          *
-         * @param fireDLat the new fire d lat
+         * @param fireDLat the new fire delta lattitude
          */
         public void setFireDLat(Integer fireDLat)
         {

@@ -15,9 +15,9 @@
  */
 package com.tsatsatzu.subwar.game.data;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SWOperationBean.
+ * This is the input to a request to the game layer
  */
 public class SWOperationBean
 {
@@ -61,6 +61,7 @@ public class SWOperationBean
     /** The Constant TEST_AI_MOVE. */
     public static final int TEST_AI_MOVE = 2;
     
+    
     /** The Constant NORTH. */
     public static final int NORTH = SWPingBean.NORTH;
     
@@ -90,6 +91,7 @@ public class SWOperationBean
     
     /** The Constant LOWER. */
     public static final int LOWER = 102;
+    
     
     /** The Operation. */
     private String  mOperation;
@@ -173,9 +175,9 @@ public class SWOperationBean
     }
     
     /**
-     * Gets the string1.
+     * Gets the optional string1.
      *
-     * @return the string1
+     * @return the optional string1
      */
     public String getString1()
     {
@@ -183,9 +185,9 @@ public class SWOperationBean
     }
     
     /**
-     * Sets the string1.
+     * Sets the optional string1.
      *
-     * @param string1 the new string1
+     * @param string1 the new optional string1
      */
     public void setString1(String string1)
     {
@@ -193,9 +195,9 @@ public class SWOperationBean
     }
     
     /**
-     * Gets the string2.
+     * Gets the optional string2.
      *
-     * @return the string2
+     * @return the optional string2
      */
     public String getString2()
     {
@@ -203,9 +205,9 @@ public class SWOperationBean
     }
     
     /**
-     * Sets the string2.
+     * Sets the optional string2.
      *
-     * @param string2 the new string2
+     * @param string2 the new optional string2
      */
     public void setString2(String string2)
     {
@@ -213,9 +215,9 @@ public class SWOperationBean
     }
     
     /**
-     * Gets the int1.
+     * Gets the optional integer 1.
      *
-     * @return the int1
+     * @return the optional integer 1
      */
     public int getInt1()
     {
@@ -223,9 +225,9 @@ public class SWOperationBean
     }
     
     /**
-     * Sets the int1.
+     * Sets the optional integer 1.
      *
-     * @param int1 the new int1
+     * @param int1 the new optional integer 1
      */
     public void setInt1(int int1)
     {
@@ -233,9 +235,9 @@ public class SWOperationBean
     }
     
     /**
-     * Gets the int2.
+     * Gets the optional integer 2.
      *
-     * @return the int2
+     * @return the optional integer 2
      */
     public int getInt2()
     {
@@ -243,9 +245,9 @@ public class SWOperationBean
     }
     
     /**
-     * Sets the int2.
+     * Sets the optional integer 2.
      *
-     * @param int2 the new int2
+     * @param int2 the new optional integer 2
      */
     public void setInt2(int int2)
     {
