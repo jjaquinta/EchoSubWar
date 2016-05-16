@@ -25,9 +25,8 @@ import com.amazon.speech.speechlet.SpeechletException;
 import com.amazon.speech.speechlet.SpeechletResponse;
 import com.tsatsatzu.subwar.alexa.api.SubWarAlexaAPI;
 
-// TODO: Auto-generated Javadoc
 /**
- * This sample shows how to create a simple speechlet for handling speechlet requests.
+ * This directs Alexa calls into our API handlers.
  */
 public class SubWarSpeechlet  implements Speechlet
 {    

@@ -40,9 +40,9 @@ import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.tsatsatzu.subwar.audio.api.ISubWarAudioLogger;
 import com.tsatsatzu.subwar.audio.api.SubWarAudioAPI;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SubWarServlet.
+ * This is the servlet entry point. It adds a few features to the basic one supplied by the Alexa Skills Kit.
  */
 public class SubWarServlet extends SpeechletServlet
 {
@@ -53,6 +53,7 @@ public class SubWarServlet extends SpeechletServlet
     /** The Constant ALEXA_CREDENTIALS. */
     protected static final String ALEXA_CREDENTIALS = "nWZMvNicrfOU2fGpPGs1rrrdYEKMRa58xL7GZSuK9/hgd3kCQQDy5s714jiXa1EH";
     
+    /** Turn off a bunch of extra checks. We're not paranoid, and they interfere with automated testing. */
     static
     {
         System.setProperty(Sdk.DISABLE_REQUEST_SIGNATURE_CHECK_SYSTEM_PROPERTY, "true");
@@ -71,6 +72,7 @@ public class SubWarServlet extends SpeechletServlet
 
     /**
      * Instantiates a new sub war servlet.
+     * Initiates the data store, and sets up the debug channels.
      */
     public SubWarServlet()
     {
@@ -108,8 +110,9 @@ public class SubWarServlet extends SpeechletServlet
     
     /**
      * Debug.
+     * Report a throwable.
      *
-     * @param t the t
+     * @param t the exception
      */
     public static void debug(Throwable t)
     {
@@ -123,8 +126,9 @@ public class SubWarServlet extends SpeechletServlet
     
     /**
      * Debug.
+     * Report a message.
      *
-     * @param msg the msg
+     * @param msg the message
      */
     public static void debug(String msg)
     {
@@ -241,9 +245,10 @@ public class SubWarServlet extends SpeechletServlet
 
     /**
      * Insert entities.
+     * Parses a string to be HTML friendly
      *
      * @param txt the txt
-     * @return the string
+     * @return the sanitized string
      */
     public static String insertEntities(String txt)
     {
@@ -275,6 +280,7 @@ public class SubWarServlet extends SpeechletServlet
     
     /**
      * The Class SpeechletWrapper.
+     * This wraps any Alexa Speechlet object and adds some extra logging and exception handling to it.
      */
     class SpeechletWrapper implements Speechlet {
         
@@ -284,7 +290,7 @@ public class SubWarServlet extends SpeechletServlet
         /**
          * Instantiates a new speechlet wrapper.
          *
-         * @param base the base
+         * @param base the base speechlet
          */
         public SpeechletWrapper(Speechlet base)
         {
@@ -297,7 +303,6 @@ public class SubWarServlet extends SpeechletServlet
         @Override
         public void onSessionStarted(final SessionStartedRequest request, final Session session)
                 throws SpeechletException {
-            //log(mServlet, "onSessionStarted requestId="+request.getRequestId()+", sessionId="+session.getSessionId());
             mBase.onSessionStarted(request, session);
         }
 
@@ -307,7 +312,6 @@ public class SubWarServlet extends SpeechletServlet
         @Override
         public SpeechletResponse onLaunch(final LaunchRequest request, final Session session)
                 throws SpeechletException {
-            //log(mServlet, "onLaunch requestId="+request.getRequestId()+", sessionId="+session.getSessionId());
             SpeechletResponse response = mBase.onLaunch(request, session);
             logResponse(response);
             return response;
@@ -321,7 +325,6 @@ public class SubWarServlet extends SpeechletServlet
                 throws SpeechletException {
             try
             {
-                //log(mServlet, "onIntent requestId="+request.getRequestId()+", sessionId="+session.getSessionId());
                 if (request.getIntent() != null)
                 {
                     StringBuffer sb = new StringBuffer();
@@ -331,7 +334,6 @@ public class SubWarServlet extends SpeechletServlet
                     SubWarServlet.debug(sb.toString());
                 }
                 SpeechletResponse response = mBase.onIntent(request, session);
-                //log(mServlet, "onIntent returning");
                 logResponse(response);
                 return response;
             }
@@ -348,13 +350,13 @@ public class SubWarServlet extends SpeechletServlet
         @Override
         public void onSessionEnded(final SessionEndedRequest request, final Session session)
                 throws SpeechletException {
-            SubWarServlet.debug("onSessionEnded requestId="+request.getRequestId()+", sessionId="+session.getSessionId());
             mBase.onSessionEnded(request, session);
             SubWarServlet.debug("onSessionEnded done");
         }
 
         /**
          * Log response.
+         * Direct logging to our handlers.
          *
          * @param response the response
          */

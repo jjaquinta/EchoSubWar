@@ -36,15 +36,18 @@ import com.tsatsatzu.subwar.audio.data.SWInvocationBean;
 import com.tsatsatzu.subwar.audio.data.SWSessionBean;
 import com.tsatsatzu.utils.obj.StringUtils;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SubWarAlexaAPI.
+ * This is the primary entry point for the Alexa layer.
+ * Alexa based objects are passed in, converted to SubWar objects, and passed down to the
+ * audio layer. SubWar objects coming back are then translated into Alexa objects.
  */
 public class SubWarAlexaAPI
 {
 
     /**
      * Do session started.
+     * Handler for the Alexa SessionStartedRequest.
      *
      * @param request the request
      * @param session the session
@@ -56,6 +59,7 @@ public class SubWarAlexaAPI
 
     /**
      * Do launch.
+     * Handler for the Alexa LaunchRequest.
      *
      * @param request the request
      * @param session the session
@@ -82,6 +86,7 @@ public class SubWarAlexaAPI
 
     /**
      * Do intent.
+     * Handler for the Alexa IntentRequest.
      *
      * @param request the request
      * @param session the session
@@ -110,6 +115,7 @@ public class SubWarAlexaAPI
 
     /**
      * Do session ended.
+     * Handler for the Alexa SessionEndedRequest.
      *
      * @param request the request
      * @param session the session
@@ -131,6 +137,7 @@ public class SubWarAlexaAPI
     
     /**
      * Intent to verb.
+     * Convert from an Alexa intent, to an Audio Layer verb.
      *
      * @param intent the intent
      * @return the string
@@ -148,6 +155,7 @@ public class SubWarAlexaAPI
     
     /**
      * Intent to args.
+     * Extracts the direct objects from the intent.
      *
      * @param intent the intent
      * @return the string[]
@@ -181,6 +189,7 @@ public class SubWarAlexaAPI
 
     /**
      * Gets the slot value.
+     * Save method for getting a slot value.
      *
      * @param intent the intent
      * @param name the name
@@ -197,6 +206,7 @@ public class SubWarAlexaAPI
     
     /**
      * Invocation to response.
+     * Consturct the Alexa SpeechletResponse object from the audio layer Invocation response object.
      *
      * @param inv the inv
      * @return the speechlet response
@@ -242,6 +252,7 @@ public class SubWarAlexaAPI
     
     /**
      * To output speech.
+     * Create an OutputSpeech object, based on if the content contains any SSML or not.
      *
      * @param txt the txt
      * @return the output speech
@@ -265,8 +276,10 @@ public class SubWarAlexaAPI
 
     /**
      * Exception to response.
+     * Create an Alexa SpeechletResponse, based on an exception.
+     * This is so things can gracefully degrade if there is a problem.
      *
-     * @param e the e
+     * @param e the exception
      * @return the speechlet response
      */
     private static SpeechletResponse exceptionToResponse(Exception e)
@@ -289,6 +302,7 @@ public class SubWarAlexaAPI
     
     /**
      * To card text.
+     * Create an card text based on an exception.
      *
      * @param e the e
      * @return the string
