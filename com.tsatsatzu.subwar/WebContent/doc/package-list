@@ -1,0 +1,12 @@
+com.tsatsatzu.subwar.alexa.api
+com.tsatsatzu.subwar.alexa.service
+com.tsatsatzu.subwar.audio.api
+com.tsatsatzu.subwar.audio.data
+com.tsatsatzu.subwar.audio.logic
+com.tsatsatzu.subwar.game.api
+com.tsatsatzu.subwar.game.data
+com.tsatsatzu.subwar.game.logic
+com.tsatsatzu.subwar.game.logic.ai
+com.tsatsatzu.subwar.game.logic.dynamo
+com.tsatsatzu.subwar.game.logic.mem
+com.tsatsatzu.utils.obj
