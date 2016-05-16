@@ -21,18 +21,19 @@ import com.tsatsatzu.subwar.game.data.SWOperationBean;
 import com.tsatsatzu.subwar.game.data.SWPositionBean;
 import com.tsatsatzu.subwar.game.logic.GameConstLogic;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class MoveLogic.
+ * Handlers for moving the ship.
  */
 public class MoveLogic
 {
     
     /**
      * North.
+     * The handler for moving North.
      *
-     * @param ssn the ssn
-     * @throws SWAudioException the SW audio exception
+     * @param ssn the session
+     * @throws SWAudioException the audio exception
      */
     public static void north(SWInvocationBean ssn) throws SWAudioException
     {
@@ -41,9 +42,10 @@ public class MoveLogic
 
     /**
      * South.
+     * The handler for moving South.
      *
-     * @param ssn the ssn
-     * @throws SWAudioException the SW audio exception
+     * @param ssn the session
+     * @throws SWAudioException the audio exception
      */
     public static void south(SWInvocationBean ssn) throws SWAudioException
     {
@@ -52,9 +54,10 @@ public class MoveLogic
 
     /**
      * East.
+     * The handler for moving East.
      *
-     * @param ssn the ssn
-     * @throws SWAudioException the SW audio exception
+     * @param ssn the session
+     * @throws SWAudioException the audio exception
      */
     public static void east(SWInvocationBean ssn) throws SWAudioException
     {
@@ -63,9 +66,10 @@ public class MoveLogic
 
     /**
      * West.
+     * The handler for moving West.
      *
-     * @param ssn the ssn
-     * @throws SWAudioException the SW audio exception
+     * @param ssn the session
+     * @throws SWAudioException the audio exception
      */
     public static void west(SWInvocationBean ssn) throws SWAudioException
     {
@@ -74,9 +78,10 @@ public class MoveLogic
 
     /**
      * Northwest.
+     * The handler for moving Northwest.
      *
-     * @param ssn the ssn
-     * @throws SWAudioException the SW audio exception
+     * @param ssn the session
+     * @throws SWAudioException the audio exception
      */
     public static void northwest(SWInvocationBean ssn) throws SWAudioException
     {
@@ -85,9 +90,10 @@ public class MoveLogic
 
     /**
      * Northeast.
+     * The handler for moving Northeast.
      *
-     * @param ssn the ssn
-     * @throws SWAudioException the SW audio exception
+     * @param ssn the session
+     * @throws SWAudioException the audio exception
      */
     public static void northeast(SWInvocationBean ssn) throws SWAudioException
     {
@@ -96,9 +102,10 @@ public class MoveLogic
 
     /**
      * Southwest.
+     * The handler for moving Southwest.
      *
-     * @param ssn the ssn
-     * @throws SWAudioException the SW audio exception
+     * @param ssn the session
+     * @throws SWAudioException the audio exception
      */
     public static void southwest(SWInvocationBean ssn) throws SWAudioException
     {
@@ -107,9 +114,10 @@ public class MoveLogic
 
     /**
      * Southeast.
+     * The handler for moving Southeast.
      *
-     * @param ssn the ssn
-     * @throws SWAudioException the SW audio exception
+     * @param ssn the session
+     * @throws SWAudioException the audio exception
      */
     public static void southeast(SWInvocationBean ssn) throws SWAudioException
     {
@@ -118,9 +126,10 @@ public class MoveLogic
 
     /**
      * Dive.
+     * The handler for diving.
      *
-     * @param ssn the ssn
-     * @throws SWAudioException the SW audio exception
+     * @param ssn the session
+     * @throws SWAudioException the audio exception
      */
     public static void dive(SWInvocationBean ssn) throws SWAudioException
     {
@@ -129,9 +138,10 @@ public class MoveLogic
 
     /**
      * Rise.
+     * The handler for rising.
      *
-     * @param ssn the ssn
-     * @throws SWAudioException the SW audio exception
+     * @param ssn the session
+     * @throws SWAudioException the audio exception
      */
     public static void rise(SWInvocationBean ssn) throws SWAudioException
     {
@@ -140,13 +150,14 @@ public class MoveLogic
 
     /**
      * Do move.
+     * Handle the actual move
      *
-     * @param ssn the ssn
-     * @param dLon the d lon
-     * @param dLat the d lat
-     * @param dDep the d dep
-     * @param dir the dir
-     * @throws SWAudioException the SW audio exception
+     * @param ssn the session
+     * @param dLon the delta longitude
+     * @param dLat the delta lattitude
+     * @param dDep the delta depth
+     * @param dir the direction
+     * @throws SWAudioException the audio exception
      */
     private static void doMove(SWInvocationBean ssn, int dLon, int dLat, int dDep, int dir) throws SWAudioException
     {
@@ -236,9 +247,10 @@ public class MoveLogic
 
     /**
      * Dock.
+     * Handler for the dock verb.
      *
-     * @param ssn the ssn
-     * @throws SWAudioException the SW audio exception
+     * @param ssn the session
+     * @throws SWAudioException the audio exception
      */
     public static void dock(SWInvocationBean ssn) throws SWAudioException
     {

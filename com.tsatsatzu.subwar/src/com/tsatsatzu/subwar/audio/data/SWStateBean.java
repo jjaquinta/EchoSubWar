@@ -18,9 +18,10 @@ package com.tsatsatzu.subwar.audio.data;
 import com.tsatsatzu.subwar.audio.api.SubWarAudioAPI;
 import com.tsatsatzu.subwar.audio.logic.AudioConstLogic;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SWStateBean.
+ * Volitile values are tracked here. These are not persisted to the data store and are lost between restarts.
+ * They will last, however, between invocation sessions.
  */
 public class SWStateBean
 {

@@ -17,13 +17,12 @@ package com.tsatsatzu.subwar.audio.logic;
 
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ResponseLogic.
+ * General utilities convienent for composing responses.
  */
 public class ResponseLogic
 {
-    
     /** The Constant ORDINAL. */
     public static final String[] ORDINAL =
     {
@@ -69,9 +68,10 @@ public class ResponseLogic
     };
 
     /**
-     * And list.
+     * This, that, and the other.
+     * Linquistically combine a list of elements.
      *
-     * @param listens the listens
+     * @param listens the items
      * @return the string
      */
     public static String andList(List<String> listens)
@@ -89,5 +89,4 @@ public class ResponseLogic
         }
         return txt.toString();
     }
-
 }

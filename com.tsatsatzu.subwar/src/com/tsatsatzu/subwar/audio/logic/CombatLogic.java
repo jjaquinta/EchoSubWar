@@ -31,9 +31,9 @@ import com.tsatsatzu.subwar.game.data.SWUserBean;
 import com.tsatsatzu.subwar.game.logic.GameConstLogic;
 import com.tsatsatzu.utils.obj.StringUtils;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class CombatLogic.
+ * Audio logic for the combat commands
  */
 public class CombatLogic
 {
@@ -46,10 +46,11 @@ public class CombatLogic
 
     /**
      * Fire.
+     * Handler for the fire torpedos verb
      *
-     * @param ssn the ssn
+     * @param ssn the session
      * @param direction the direction
-     * @throws SWAudioException the SW audio exception
+     * @throws SWAudioException audio exception
      */
     public static void fire(SWInvocationBean ssn, String direction) throws SWAudioException
     {
@@ -112,10 +113,11 @@ public class CombatLogic
 
     /**
      * Parses the direction.
+     * Take a linguistic direction, and return a constant to represent it.
      *
      * @param direction the direction
      * @param lastMove the last move
-     * @return the int
+     * @return the directional constant
      */
     private static int parseDirection(String direction, int lastMove)
     {
@@ -133,9 +135,10 @@ public class CombatLogic
 
     /**
      * Parses the exact match.
+     * Looks for an exact match between what was spoken and the direction name.
      *
      * @param direction the direction
-     * @return the int
+     * @return the directional constant
      */
     private static int parseExactMatch(String direction)
     {
@@ -144,9 +147,10 @@ public class CombatLogic
 
     /**
      * Parses the double metaphone.
+     * Looks for a fuzzy match between what was spoken and the direction name using the double metaphone method.
      *
      * @param direction the direction
-     * @return the int
+     * @return the directional constant
      */
     private static int parseDoubleMetaphone(String direction)
     {
@@ -156,9 +160,10 @@ public class CombatLogic
 
     /**
      * Parses the caverphone.
+     * Looks for a fuzzy match between what was spoken and the direction name using the caverphone method.
      *
      * @param direction the direction
-     * @return the int
+     * @return the directional constant
      */
     private static int parseCaverphone(String direction)
     {
@@ -175,10 +180,11 @@ public class CombatLogic
 
     /**
      * Parses the match.
+     * Looks for a case-insensitive match.
      *
      * @param direction the direction
      * @param directions the directions
-     * @return the int
+     * @return the directional constant
      */
     private static int parseMatch(String direction, String[] directions)
     {
@@ -190,9 +196,10 @@ public class CombatLogic
 
     /**
      * Leaders.
+     * Handler for the leaderboard verb.
      *
-     * @param ssn the ssn
-     * @throws SWAudioException the SW audio exception
+     * @param ssn the session
+     * @throws SWAudioException audio exception
      */
     public static void leaders(SWInvocationBean ssn) throws SWAudioException
     {

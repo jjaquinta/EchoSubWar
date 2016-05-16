@@ -15,9 +15,9 @@
  */
 package com.tsatsatzu.subwar.audio.api;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Interface ISubWarAudioLogger.
+ * This allows for the debug messages of the audio layer to be trapped by a higher layer.
  */
 public interface ISubWarAudioLogger
 {

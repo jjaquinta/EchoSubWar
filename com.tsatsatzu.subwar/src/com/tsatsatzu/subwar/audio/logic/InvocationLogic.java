@@ -20,20 +20,21 @@ import com.tsatsatzu.subwar.game.api.SubWarGameAPI;
 import com.tsatsatzu.subwar.game.data.SWContextBean;
 import com.tsatsatzu.subwar.game.data.SWOperationBean;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class InvocationLogic.
+ * Logic for invoking the game layer from the audio layer
  */
 public class InvocationLogic
 {
     
     /**
      * Game.
+     * Call the game layer.
      *
-     * @param ssn the ssn
-     * @param opType the op type
-     * @return the SW context bean
-     * @throws SWAudioException the SW audio exception
+     * @param ssn the session
+     * @param opType the type of operation
+     * @return the context
+     * @throws SWAudioException the audio exception
      */
     public static SWContextBean game(SWInvocationBean ssn, String opType) throws SWAudioException
     {
@@ -42,13 +43,14 @@ public class InvocationLogic
     
     /**
      * Game.
+     * Call the game layer.
      *
-     * @param ssn the ssn
-     * @param opType the op type
+     * @param ssn the session
+     * @param opType the type of operation
      * @param string1 the string1
      * @param string2 the string2
-     * @return the SW context bean
-     * @throws SWAudioException the SW audio exception
+     * @return the context
+     * @throws SWAudioException the audio exception
      */
     public static SWContextBean game(SWInvocationBean ssn, String opType, String string1, String string2) throws SWAudioException
     {
@@ -57,13 +59,14 @@ public class InvocationLogic
     
     /**
      * Game.
+     * Call the game layer.
      *
-     * @param ssn the ssn
-     * @param opType the op type
+     * @param ssn the session
+     * @param opType the type of operation
      * @param int1 the int1
      * @param int2 the int2
-     * @return the SW context bean
-     * @throws SWAudioException the SW audio exception
+     * @return the context
+     * @throws SWAudioException the audio exception
      */
     public static SWContextBean game(SWInvocationBean ssn, String opType, Integer int1, Integer int2) throws SWAudioException
     {
@@ -72,15 +75,16 @@ public class InvocationLogic
     
     /**
      * Game.
+     * Call the game layer.
      *
-     * @param ssn the ssn
-     * @param opType the op type
+     * @param ssn the session
+     * @param opType the type of operation
      * @param string1 the string1
      * @param string2 the string2
      * @param int1 the int1
      * @param int2 the int2
-     * @return the SW context bean
-     * @throws SWAudioException the SW audio exception
+     * @return the context
+     * @throws SWAudioException the audio exception
      */
     public static SWContextBean game(SWInvocationBean ssn, String opType, 
             String string1, String string2,
@@ -106,9 +110,10 @@ public class InvocationLogic
 
     /**
      * Record exception.
+     * Write to the response a description of an exception
      *
      * @param context the context
-     * @param e the e
+     * @param e the exception
      */
     public static void recordException(SWInvocationBean context,
             SWAudioException e)

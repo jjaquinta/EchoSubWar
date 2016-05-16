@@ -27,22 +27,24 @@ import com.tsatsatzu.subwar.game.data.SWUserBean;
 import com.tsatsatzu.subwar.game.logic.IOLogic;
 import com.tsatsatzu.utils.obj.StringUtils;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SessionLogic.
+ * Audio logic around basic session state events
  */
 public class SessionLogic
 {
     
-    /** The States. */
-    // volitile states
+    /** The States. 
+     * The store for the volatile states. Only needs to live within a session.
+     * Does not need to persist. */
     private static Map<String, SWStateBean> mStates = new HashMap<>();
     
     /**
      * Load session.
+     * Pull information to populate the invocation object so the request can be executed.
      *
-     * @param ssn the ssn
-     * @return the SW invocation bean
+     * @param ssn the session
+     * @return the invocation bean
      */
     public static SWInvocationBean loadSession(SWSessionBean ssn)
     {
@@ -69,8 +71,10 @@ public class SessionLogic
     
     /**
      * Normalize state.
+     * Due to random exits and so forth, the state may get out of sync.
+     * This performs heuristics to see if that is the case and to correct it.
      *
-     * @param invocation the invocation
+     * @param invocation the invocation context
      */
     private static void normalizeState(SWInvocationBean invocation)
     {
@@ -96,6 +100,7 @@ public class SessionLogic
 
     /**
      * Save session.
+     * This does basic end-of-call maintenence.
      *
      * @param context the context
      */
@@ -111,9 +116,10 @@ public class SessionLogic
 
     /**
      * Launch.
+     * Audio logic for launch of interaction.
      *
-     * @param ssn the ssn
-     * @throws SWAudioException the SW audio exception
+     * @param ssn the session
+     * @throws SWAudioException the audio exception
      */
     public static void launch(SWInvocationBean ssn) throws SWAudioException
     {
@@ -185,8 +191,9 @@ public class SessionLogic
 
     /**
      * Terminate.
+     * Audio logic for termination of interaction.
      *
-     * @param ssn the ssn
+     * @param ssn the session
      */
     public static void terminate(SWInvocationBean ssn)
     {
@@ -195,10 +202,11 @@ public class SessionLogic
 
     /**
      * Call me.
+     * Handles the user making a request to name themselves.
      *
-     * @param ssn the ssn
+     * @param ssn the session
      * @param name the name
-     * @throws SWAudioException the SW audio exception
+     * @throws SWAudioException the audio exception
      */
     public static void callMe(SWInvocationBean ssn, String name) throws SWAudioException
     {
@@ -237,10 +245,11 @@ public class SessionLogic
 
     /**
      * Call ship.
+     * Handler for the request to name the ship.
      *
-     * @param ssn the ssn
+     * @param ssn the session
      * @param name the name
-     * @throws SWAudioException the SW audio exception
+     * @throws SWAudioException the audio exception
      */
     public static void callShip(SWInvocationBean ssn, String name) throws SWAudioException
     {

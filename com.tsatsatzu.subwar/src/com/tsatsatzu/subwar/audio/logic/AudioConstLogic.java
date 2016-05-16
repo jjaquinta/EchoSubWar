@@ -17,9 +17,9 @@ package com.tsatsatzu.subwar.audio.logic;
 
 import com.tsatsatzu.subwar.game.logic.CredentialsLogic;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class AudioConstLogic.
+ * Constants controlling how the logic of the audio layer works.
  */
 public class AudioConstLogic
 {

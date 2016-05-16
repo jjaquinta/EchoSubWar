@@ -31,9 +31,9 @@ import com.tsatsatzu.subwar.game.data.SWOperationBean;
 import com.tsatsatzu.subwar.game.logic.GameConstLogic;
 import com.tsatsatzu.utils.obj.StringUtils;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SubWarAudioAPI.
+ * This is the primary input point for the audio layer.
  */
 public class SubWarAudioAPI
 {
@@ -125,7 +125,8 @@ public class SubWarAudioAPI
     /** The Constant CMD_LEADERS. */
     public static final String CMD_LEADERS = "LEADERS";
     
-    /** The Logger. */
+    /** The Logger. 
+     * The default logger reports debug statements to standard error. */
     private static ISubWarAudioLogger mLogger = new ISubWarAudioLogger() {        
         @Override
         public void debug(Throwable t)
@@ -157,11 +158,14 @@ public class SubWarAudioAPI
 
     /**
      * Invoke.
+     * This is the primary entry point for the audio layer.
+     * A session object, plus the verb and direct objects are passed in. An invocation result object
+     * is passed back with all the text in it.
      *
-     * @param ssn the ssn
+     * @param ssn the session
      * @param verb the verb
-     * @param args the args
-     * @return the SW invocation bean
+     * @param args the direct objects for the verb
+     * @return the invocation context
      */
     public static SWInvocationBean invoke(SWSessionBean ssn, String verb, String... args)
     {
@@ -186,11 +190,12 @@ public class SubWarAudioAPI
 
     /**
      * Invoke verb.
+     * Once the framing logic is done, do the actual verb processing.
      *
      * @param context the context
      * @param verb the verb
-     * @param args the args
-     * @throws SWAudioException the SW audio exception
+     * @param args the direct objects
+     * @throws SWAudioException the audio exception
      */
     private static void invokeVerb(SWInvocationBean context, String verb,
             String... args) throws SWAudioException
@@ -303,10 +308,13 @@ public class SubWarAudioAPI
 
     /**
      * Handle exception.
+     * Exceptions from the lower game layer are not always fatal.
+     * Specifically your ship may have been blow up between commands.
+     * This is handled at this point.
      *
-     * @param ssn the ssn
-     * @param e the e
-     * @throws SWAudioException the SW audio exception
+     * @param ssn the session
+     * @param e the exception
+     * @throws SWAudioException the audio exception
      */
     private static void handleException(SWInvocationBean ssn,
             SWAudioException e) throws SWAudioException
@@ -328,6 +336,7 @@ public class SubWarAudioAPI
 
     /**
      * Sets the generic reprompt.
+     * If the reprompt text has not already been supplied, it is added here.
      *
      * @param context the new generic reprompt
      */
@@ -358,6 +367,7 @@ public class SubWarAudioAPI
     
     /**
      * Sets the logger.
+     * Lets the default debug message handling be overridden.
      *
      * @param logger the new logger
      */
@@ -369,7 +379,7 @@ public class SubWarAudioAPI
     /**
      * Debug.
      *
-     * @param msg the msg
+     * @param msg the message
      */
     public static void debug(String msg)
     {
@@ -383,7 +393,7 @@ public class SubWarAudioAPI
     /**
      * Debug.
      *
-     * @param e the e
+     * @param e the exception
      */
     public static void debug(Throwable e)
     {

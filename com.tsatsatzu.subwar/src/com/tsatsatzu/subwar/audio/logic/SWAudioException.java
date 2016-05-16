@@ -15,18 +15,17 @@
  */
 package com.tsatsatzu.subwar.audio.logic;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SWAudioException.
+ * For thowing exceptions from the audio layer
  */
 public class SWAudioException extends Exception
-{
-    
+{    
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 8269692846238071844L;
 
     /**
-     * Instantiates a new SW audio exception.
+     * Instantiates a new audio exception.
      */
     public SWAudioException()
     {
@@ -34,11 +33,11 @@ public class SWAudioException extends Exception
     }
 
     /**
-     * Instantiates a new SW audio exception.
+     * Instantiates a new audio exception.
      *
      * @param message the message
      * @param cause the cause
-     * @param enableSuppression the enable suppression
+     * @param enableSuppression enables suppression
      * @param writableStackTrace the writable stack trace
      */
     public SWAudioException(String message, Throwable cause,
@@ -48,7 +47,7 @@ public class SWAudioException extends Exception
     }
 
     /**
-     * Instantiates a new SW audio exception.
+     * Instantiates a new audio exception.
      *
      * @param message the message
      * @param cause the cause
@@ -59,7 +58,7 @@ public class SWAudioException extends Exception
     }
 
     /**
-     * Instantiates a new SW audio exception.
+     * Instantiates a new audio exception.
      *
      * @param message the message
      */
@@ -69,7 +68,7 @@ public class SWAudioException extends Exception
     }
 
     /**
-     * Instantiates a new SW audio exception.
+     * Instantiates a new audio exception.
      *
      * @param cause the cause
      */

@@ -15,9 +15,11 @@
  */
 package com.tsatsatzu.subwar.audio.data;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SWSessionBean.
+ * This contains the raw data from the invoking context.
+ * Right now this is just a user ID. It is assumed to be maintianed by the invoking context.
+ * All that is required by this layer is that it is unique and unchanging per user.
  */
 public class SWSessionBean
 {

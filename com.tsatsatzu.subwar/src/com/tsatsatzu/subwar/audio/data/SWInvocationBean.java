@@ -20,9 +20,11 @@ import com.tsatsatzu.subwar.game.data.SWGameDetailsBean;
 import com.tsatsatzu.subwar.game.data.SWUserBean;
 import com.tsatsatzu.utils.obj.StringUtils;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SWInvocationBean.
+ * This class is passed around the audio logic as the request is processed.
+ * It is returned and contains the results of the operation conducted by
+ * the audio logic.
  */
 public class SWInvocationBean
 {
@@ -61,8 +63,9 @@ public class SWInvocationBean
 
     /**
      * Adds the sound.
+     * Wraps a URL to a MP3 in SSML.
      *
-     * @param mp3 the mp3
+     * @param mp3 the mp3 url
      */
     public void addSound(String mp3)
     {
@@ -71,6 +74,7 @@ public class SWInvocationBean
     
     /**
      * Adds the pause.
+     * Adds a SSML pause directive to the output.
      */
     public void addPause()
     {
@@ -80,6 +84,8 @@ public class SWInvocationBean
     
     /**
      * Adds the text.
+     * Adds some text to the written and spoken output.
+     * {ship} and {captain} substitutions are supported to make it easier to write the text.
      *
      * @param txt the txt
      */
@@ -107,6 +113,7 @@ public class SWInvocationBean
     
     /**
      * Adds the spoken.
+     * Adds to the spoken text only.
      *
      * @param txt the txt
      */
@@ -117,6 +124,7 @@ public class SWInvocationBean
     
     /**
      * Adds the written.
+     * Adds to the written text only.
      *
      * @param txt the txt
      */
@@ -127,6 +135,7 @@ public class SWInvocationBean
     
     /**
      * Adds the written line.
+     * Adds to the written text, followed by a new line.
      *
      * @param txt the txt
      */
@@ -138,6 +147,7 @@ public class SWInvocationBean
     
     /**
      * Adds the reprompt.
+     * Adds to the reprompt text. Supports substitutions.
      *
      * @param txt the txt
      */

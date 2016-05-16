@@ -19,18 +19,19 @@ import com.tsatsatzu.subwar.audio.data.SWInvocationBean;
 import com.tsatsatzu.subwar.game.data.SWOperationBean;
 import com.tsatsatzu.subwar.game.logic.GameConstLogic;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class FrameworkLogic.
+ * Audio logic around the standard verbs
  */
 public class FrameworkLogic
 {
 
     /**
      * Yes.
+     * Handler for the yes verb.
      *
-     * @param ssn the ssn
-     * @throws SWAudioException the SW audio exception
+     * @param ssn the session
+     * @throws SWAudioException the audio exception
      */
     public static void yes(SWInvocationBean ssn) throws SWAudioException
     {
@@ -80,9 +81,10 @@ public class FrameworkLogic
 
     /**
      * No.
+     * Handler for the no verb.
      *
-     * @param ssn the ssn
-     * @throws SWAudioException the SW audio exception
+     * @param ssn the session
+     * @throws SWAudioException the audio exception
      */
     public static void no(SWInvocationBean ssn) throws SWAudioException
     {
@@ -124,8 +126,9 @@ public class FrameworkLogic
 
     /**
      * Combat info.
+     * Handler for the combat info verb
      *
-     * @param ssn the ssn
+     * @param ssn the session
      */
     private static void combatInfo(SWInvocationBean ssn)
     {
@@ -138,8 +141,10 @@ public class FrameworkLogic
 
     /**
      * Adds the pregame prompt.
+     * This appends to the response the mandatory text the cert team stupidly requires in order not to be failed
+     * when in the pre-game mode.
      *
-     * @param ssn the ssn
+     * @param ssn the session
      */
     public static void addPregamePrompt(SWInvocationBean ssn)
     {
@@ -150,8 +155,10 @@ public class FrameworkLogic
 
     /**
      * Adds the game prompt.
+     * This appends to the response the mandatory text the cert team stupidly requires in order not to be failed
+     * when in the game mode.
      *
-     * @param ssn the ssn
+     * @param ssn the session
      */
     public static void addGamePrompt(SWInvocationBean ssn)
     {
@@ -161,8 +168,9 @@ public class FrameworkLogic
 
     /**
      * Ship info.
+     * Handler for the ship information verb.
      *
-     * @param ssn the ssn
+     * @param ssn the session
      */
     private static void shipInfo(SWInvocationBean ssn)
     {
@@ -175,9 +183,10 @@ public class FrameworkLogic
 
     /**
      * Cancel.
+     * Handler for the cancel verb. Actually the same as "start over" which we just deferr to.
      *
-     * @param ssn the ssn
-     * @throws SWAudioException the SW audio exception
+     * @param ssn the session
+     * @throws SWAudioException the audio exception
      */
     public static void cancel(SWInvocationBean ssn) throws SWAudioException
     {
@@ -186,9 +195,10 @@ public class FrameworkLogic
 
     /**
      * Help.
+     * Handler for the help verb.
      *
-     * @param ssn the ssn
-     * @throws SWAudioException the SW audio exception
+     * @param ssn the session
+     * @throws SWAudioException the audio exception
      */
     public static void help(SWInvocationBean ssn) throws SWAudioException
     {
@@ -224,9 +234,10 @@ public class FrameworkLogic
 
     /**
      * Repeat.
+     * Handler for the repeat verb.
      *
-     * @param ssn the ssn
-     * @throws SWAudioException the SW audio exception
+     * @param ssn the session
+     * @throws SWAudioException the audio exception
      */
     public static void repeat(SWInvocationBean ssn) throws SWAudioException
     {
@@ -263,9 +274,10 @@ public class FrameworkLogic
 
     /**
      * Start over.
+     * Handler for the start-over verb.
      *
-     * @param ssn the ssn
-     * @throws SWAudioException the SW audio exception
+     * @param ssn the session
+     * @throws SWAudioException the audio exception
      */
     public static void startOver(SWInvocationBean ssn) throws SWAudioException
     {
@@ -305,9 +317,10 @@ public class FrameworkLogic
 
     /**
      * Return to dock.
+     * Handler for the return-to-dock verb.
      *
-     * @param ssn the ssn
-     * @throws SWAudioException the SW audio exception
+     * @param ssn the session
+     * @throws SWAudioException the audio exception
      */
     private static void returnToDock(SWInvocationBean ssn) throws SWAudioException
     {
@@ -323,9 +336,10 @@ public class FrameworkLogic
 
     /**
      * Stop.
+     * Handler for the stop verb.
      *
-     * @param ssn the ssn
-     * @throws SWAudioException the SW audio exception
+     * @param ssn the session
+     * @throws SWAudioException the audio exception
      */
     public static void stop(SWInvocationBean ssn) throws SWAudioException
     {
@@ -356,9 +370,10 @@ public class FrameworkLogic
 
     /**
      * Start game.
+     * Handler for the launch verb.
      *
-     * @param ssn the ssn
-     * @throws SWAudioException the SW audio exception
+     * @param ssn the session
+     * @throws SWAudioException the audio exception
      */
     public static void startGame(SWInvocationBean ssn) throws SWAudioException
     {
@@ -386,9 +401,10 @@ public class FrameworkLogic
 
     /**
      * Ship.
+     * Handler for the ship info verb.
      *
-     * @param ssn the ssn
-     * @throws SWAudioException the SW audio exception
+     * @param ssn the session
+     * @throws SWAudioException the audio exception
      */
     public static void ship(SWInvocationBean ssn) throws SWAudioException
     {
@@ -420,9 +436,10 @@ public class FrameworkLogic
 
     /**
      * Combat.
+     * Handler for the combat-info verb.
      *
-     * @param ssn the ssn
-     * @throws SWAudioException the SW audio exception
+     * @param ssn the session
+     * @throws SWAudioException the audio exception
      */
     public static void combat(SWInvocationBean ssn) throws SWAudioException
     {

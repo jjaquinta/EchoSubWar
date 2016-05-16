@@ -25,18 +25,19 @@ import com.tsatsatzu.subwar.game.data.SWPingBean;
 import com.tsatsatzu.subwar.game.data.SWPositionBean;
 import com.tsatsatzu.subwar.game.logic.GameConstLogic;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class PlayLogic.
+ * Audio logic for the verbs for playing the game
  */
 public class PlayLogic
 {
     
     /**
      * Do start game.
+     * Handler for the launch verb.
      *
-     * @param ssn the ssn
-     * @throws SWAudioException the SW audio exception
+     * @param ssn the session
+     * @throws SWAudioException the audio exception
      */
     static void doStartGame(SWInvocationBean ssn)
             throws SWAudioException
@@ -51,8 +52,9 @@ public class PlayLogic
 
     /**
      * Describe game.
+     * Add to the response a reading of the current game position.
      *
-     * @param ssn the ssn
+     * @param ssn the session
      */
     static void describeGame(SWInvocationBean ssn)
     {
@@ -74,10 +76,11 @@ public class PlayLogic
 
     /**
      * Describe location.
+     * Add to the response an audio description of the player's ship's location.
      *
-     * @param ssn the ssn
+     * @param ssn the session
      * @param game the game
-     * @param pos the pos
+     * @param pos player's position
      */
     private static void describeLocation(SWInvocationBean ssn,
             SWGameDetailsBean game, SWPositionBean pos)
@@ -143,9 +146,10 @@ public class PlayLogic
 
     /**
      * Describe torpedos.
+     * Add to the response a description of the complement of torpedoes.
      *
-     * @param ssn the ssn
-     * @param pos the pos
+     * @param ssn the session
+     * @param pos player's position
      */
     private static void describeTorpedos(SWInvocationBean ssn,
             SWPositionBean pos)
@@ -166,8 +170,9 @@ public class PlayLogic
 
     /**
      * Describe soundings.
+     * Add to the response a description of the noises heard.
      *
-     * @param ssn the ssn
+     * @param ssn the session
      */
     public static void describeSoundings(SWInvocationBean ssn)
     {
@@ -214,9 +219,10 @@ public class PlayLogic
     
     /**
      * Describe ping.
+     * Add a description of an individual direction and distance.
      *
      * @param ping the ping
-     * @return the string
+     * @return the description
      */
     private static String describePing(SWPingBean ping)
     {
