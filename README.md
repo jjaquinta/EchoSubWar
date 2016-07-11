@@ -56,3 +56,10 @@ This code was developed with Eclipse Mars and Java 1.8. The AWS plugin was used 
 The code project is to be built into a war file and deployed to a web server.
 In production this will be a Tomcat 8 server running on an Elastic Beanstalk instance.
 
+## Resources
+
+A quick Intro can be found [here](https://www.youtube.com/watch?v=LHFcFzVez2Q).
+
+A demo can be found [here](https://www.youtube.com/watch?v=0WkVEX1UC_g).
+
+A 45 minute deep dive into the design and architecture can be found [here](https://www.youtube.com/watch?v=lboatie5brk).
